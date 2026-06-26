@@ -291,6 +291,66 @@
     .ps-lbl{flex:1;text-align:center;font:600 13px/1.2 'IBM Plex Mono',monospace;color:#E7EEF7;letter-spacing:.04em}
     .ps-lbl small{display:block;margin-top:5px;font:400 9.5px/1 'IBM Plex Sans',sans-serif;color:#7C8FA8;letter-spacing:0}
   }
+
+  /* ===== integración: naves, bitácora, meteo, modal, estiba ===== */
+  @media (max-width:960px){
+    .mtabs{overflow-x:auto;justify-content:flex-start;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .mtabs::-webkit-scrollbar{display:none}
+    .mtab{flex:0 0 auto;min-width:60px}
+  }
+  .empty-note{background:rgba(200,162,75,.08);border:1px solid rgba(200,162,75,.2);border-radius:10px;padding:14px 16px;font:400 14px/1.5 'Spectral',serif;color:#9FB1C8;margin-top:16px}
+  .vessel-banner{margin:14px 0 0;padding:10px 14px;border-radius:10px;background:rgba(200,162,75,.1);border:1px solid rgba(200,162,75,.28);font:500 14px/1.4 'Spectral',serif;color:#E7EEF7}
+  .vessel-banner a{color:#C8A24B;margin-left:8px;font-size:13px}
+  .vessel-grid{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+  .vessel-card{position:relative;background:rgba(10,27,51,.72);border:1.5px solid rgba(200,162,75,.2);border-radius:12px;padding:16px 16px 14px;cursor:pointer;transition:.2s}
+  .vessel-card:hover{border-color:rgba(200,162,75,.5)}
+  .vessel-card.active{border-color:#C8A24B;background:rgba(200,162,75,.12)}
+  .vessel-badge{position:absolute;top:12px;right:12px;background:#C8A24B;color:#0B2240;font:700 10px/1 'IBM Plex Mono',monospace;padding:4px 8px;border-radius:20px}
+  .vessel-name{font:700 17px/1.2 'Spectral',serif;color:#F4ECDD;margin-bottom:5px}
+  .vessel-det{font:400 12.5px/1.5 'Spectral',serif;color:#9FB1C8}
+  .vessel-acts{display:flex;gap:8px;margin-top:12px}
+  .btn-sm{padding:5px 11px;border:1px solid rgba(200,162,75,.35);background:transparent;border-radius:7px;cursor:pointer;font:500 12px/1 'Spectral',serif;color:#C9D6E6}
+  .btn-sm:hover{border-color:#C8A24B;color:#C8A24B}
+  .btn-sm.danger{color:#ff8a8a;border-color:rgba(255,120,120,.4)}
+  .btn-sm.danger:hover{color:#ff5a5a;border-color:#ff5a5a}
+  /* modal */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(2,8,18,.6);z-index:200;align-items:center;justify-content:center;padding:18px}
+  .modal-overlay.open{display:flex}
+  .modal{background:#0B2240;border:1px solid rgba(200,162,75,.3);border-radius:14px;padding:22px;width:520px;max-width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(2,8,18,.7)}
+  .modal h3{font:700 19px/1.2 'DM Serif Display',serif;color:#F4ECDD;margin:0 0 16px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+  .modal .calc-field input,.modal .calc-field select{padding:9px 11px;border:1px solid rgba(200,162,75,.3);border-radius:8px;background:rgba(0,0,0,.25);color:#F4ECDD;font:400 14px/1 'Spectral',serif;outline:none;width:100%}
+  .modal .calc-field label{font:600 10.5px/1.2 'IBM Plex Mono',monospace;letter-spacing:.04em;text-transform:uppercase;color:#C8A24B;margin-bottom:5px;display:block}
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
+  .btn-cancel{padding:11px 18px;border:1px solid rgba(200,162,75,.35);background:transparent;border-radius:8px;cursor:pointer;font:600 14px/1 'Spectral',serif;color:#C9D6E6}
+  @media(max-width:520px){.form-row{grid-template-columns:1fr}}
+  /* bitácora */
+  .log-add{display:flex;gap:10px;margin:20px 0 16px;flex-wrap:wrap}
+  .log-add input{flex:1;min-width:180px;padding:11px 14px;border:1px solid rgba(200,162,75,.28);border-radius:10px;background:rgba(10,27,51,.7);color:#F4ECDD;font:400 14px/1 'Spectral',serif;outline:none}
+  .log-add input:focus{border-color:#C8A24B}
+  .log-entry{position:relative;background:rgba(10,27,51,.66);border:1px solid rgba(200,162,75,.18);border-left:3px solid #C8A24B;border-radius:10px;padding:12px 14px;margin-bottom:10px}
+  .log-time{font:600 11.5px/1 'IBM Plex Mono',monospace;color:#9FB1C8}
+  .log-text{font:400 14.5px/1.5 'Spectral',serif;color:#E7EEF7;margin-top:5px;padding-right:70px}
+  .log-acts{position:absolute;top:10px;right:12px;display:flex;gap:6px}
+  /* meteo */
+  .met-form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:560px){.met-form{grid-template-columns:1fr}}
+  .met-entry{background:rgba(10,27,51,.66);border:1px solid rgba(200,162,75,.18);border-left:3px solid #C8A24B;border-radius:10px;padding:12px 14px;margin-bottom:10px}
+  .met-time{font:600 11.5px/1 'IBM Plex Mono',monospace;color:#9FB1C8}
+  .met-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px 12px;margin-top:7px;font:400 13px/1.4 'Spectral',serif;color:#C9D6E6}
+  .met-grid b{color:#F4ECDD}
+  @media(max-width:560px){.met-grid{grid-template-columns:1fr 1fr}}
+  .met-obs{font:400 12.5px/1.4 'Spectral',serif;color:#9FB1C8;margin-top:6px}
+  /* estiba */
+  .estib-table{width:100%;border-collapse:collapse;font:400 13px/1.4 'Spectral',serif;margin-top:6px}
+  .estib-table th{background:#0B2240;color:#F4ECDD;padding:8px 8px;text-align:left;font-weight:600;font-size:12px}
+  .estib-table td{padding:5px 6px;border-bottom:1px solid rgba(11,34,64,.15)}
+  .estib-table input{width:100%;padding:6px 8px;border:1px solid rgba(11,34,64,.2);border-radius:6px;font:400 13px/1 'IBM Plex Mono',monospace;background:#fff;color:#0B2240}
+  /* reg badge */
+  .reg-badge{background:#0B2240;color:#C8A24B;border:1px solid rgba(200,162,75,.4);border-radius:7px;padding:4px 8px;font:700 11px/1 'IBM Plex Mono',monospace;flex:none}
+  .ref-body p, .ref-body{font-family:'Spectral',serif}
+  .cap-item{padding:9px 4px;border-bottom:1px solid rgba(200,162,75,.12);font:400 14px/1.4 'Spectral',serif;color:#E7EEF7}
+  .cap-item:last-child{border-bottom:none}
 </style>
 </head>
 <body>
@@ -304,9 +364,12 @@
       <span>LISTA DE CHEQUEO</span>
     </div>
     <div class="nav-links">
+      <a href="#naves">Naves</a>
       <a href="#fases">Fases</a>
-      <a href="#referencia">Referencia</a>
       <a href="#calculadoras">Calculadoras</a>
+      <a href="#bitacora">Bitácora</a>
+      <a href="#meteorologia">Meteo</a>
+      <a href="#referencia">Referencia</a>
       <a href="#normativa">Normativa</a>
       <span class="nav-prog" title="Avance de guardia"><span class="np-lbl">Guardia</span><span class="np-bar"><i id="navPctBar"></i></span><span id="navPct">0%</span></span>
       <button id="resetBtn" class="mbtn reset" type="button" title="Reiniciar: borrar todo el progreso"><span class="rst-ic">↺</span><span class="rst-tx">Reiniciar</span></button>
@@ -374,6 +437,15 @@
   <div class="strip-it"><span class="n mono">100%</span><span class="l">Portable y editable</span></div>
 </div></div>
 
+<!-- EMBARCACIONES -->
+<div id="naves" class="sec"><div class="wrap">
+  <div class="kicker">EMBARCACIONES</div>
+  <h2 class="h2">Naves de la guardia</h2>
+  <p style="margin:16px 0 6px;font:400 17px/1.6 'Spectral',serif;color:#9FB1C8;max-width:640px;">Registra tus naves y selecciona la activa. El checklist guarda el progreso por separado para cada embarcación.</p>
+  <div style="margin:18px 0 10px;"><button class="cta" type="button" onclick="openVesselModal(null)">+ Nueva embarcación</button></div>
+  <div id="vesselGrid" class="vessel-grid"></div>
+</div></div>
+
 <!-- FASES -->
 <div id="fases" class="sec"><div class="wrap">
   <div class="kicker">OPERATIVA DE GUARDIA</div>
@@ -391,6 +463,9 @@
   <h2 class="h2">Referencia rápida de a bordo</h2>
   <p style="margin:16px 0 0;font:400 17px/1.6 'Spectral',serif;color:#9FB1C8;max-width:640px;">Balizamiento IALA-B, señales sonoras RIPA, guion VHF de emergencia, frases OMI (SMCP), nudos, banderas, unidades e inglés para timoneles.</p>
   <div id="refContainer" class="ref-grid"></div>
+  <div class="kicker" style="margin-top:34px;">PUBLICACIONES NÁUTICAS</div>
+  <p style="margin:0 0 4px;font:400 15px/1.6 'Spectral',serif;color:#9FB1C8;">Principales publicaciones del SHOA y organismos internacionales.</p>
+  <div id="pubContainer" class="ref-grid"></div>
 </div></div>
 
 <!-- CALCULADORAS -->
@@ -399,27 +474,85 @@
   <h2 class="h2">Calculadoras de navegación</h2>
   <p class="sec-p">Calados y asiento, guinda, conversión de rumbos, velocidad·distancia·tiempo, regla de los doce (mareas), cadena de fondeo y escala de carta. Ingresa los datos y calcula.</p>
   <div id="calcContainer" class="calc-grid-wrap"></div>
+  <div class="calc-card" style="margin-top:20px;">
+    <h4 class="calc-title">Estabilidad y estiba — KG / GM</h4>
+    <p class="calc-desc-t">Cálculo referencial del centro de gravedad. Consulte siempre el Manual de Estabilidad oficial de la nave.</p>
+    <div style="overflow-x:auto;"><table class="estib-table" id="estibTable">
+      <thead><tr><th>Compartimento</th><th>Peso (t)</th><th>Brazo V (m)</th><th>Mom. V</th></tr></thead>
+      <tbody id="estibBody"></tbody>
+    </table></div>
+    <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
+      <button class="calc-btn" type="button" onclick="addEstibRow()" style="background:#143560;">+ Agregar fila</button>
+      <button class="calc-btn" type="button" onclick="calcEstib()">Calcular KG</button>
+    </div>
+    <div class="calc-result" id="estib-result"></div>
+  </div>
+</div></div>
+
+<!-- BITÁCORA -->
+<div id="bitacora" class="sec"><div class="wrap">
+  <div class="kicker">REGISTRO DE GUARDIA</div>
+  <h2 class="h2">Bitácora de navegación</h2>
+  <p style="margin:16px 0 0;font:400 17px/1.6 'Spectral',serif;color:#9FB1C8;max-width:640px;">Registro cronológico de eventos y novedades de la guardia. Editable, guardado en tu dispositivo.</p>
+  <div class="log-add"><input id="logInput" type="text" placeholder="Registrar novedad, evento o anotación…" onkeydown="if(event.key==='Enter')addLog()"><button class="cta" type="button" onclick="addLog()">+ Registrar</button></div>
+  <div id="logEntries"></div>
+</div></div>
+
+<!-- METEOROLOGÍA -->
+<div id="meteorologia" class="sec"><div class="wrap">
+  <div class="kicker">OBSERVACIÓN DEL TIEMPO</div>
+  <h2 class="h2">Registro meteorológico</h2>
+  <div class="calc-card" style="margin-top:24px;">
+    <h4 class="calc-title">Nueva observación</h4>
+    <div class="met-form">
+      <div class="calc-field"><label>Fecha y hora</label><input id="met-time" type="datetime-local"></div>
+      <div class="calc-field"><label>Posición (lat/lon)</label><input id="met-pos" type="text" placeholder="41°30'S / 72°45'W"></div>
+      <div class="calc-field"><label>Viento (dir / nudos)</label><input id="met-wind" type="text" placeholder="NW / 15 kt"></div>
+      <div class="calc-field"><label>Mar (Beaufort 0-12)</label><input id="met-sea" type="number" min="0" max="12" placeholder="0-12"></div>
+      <div class="calc-field"><label>Visibilidad</label><input id="met-vis" type="text" placeholder="Buena / 5 mn"></div>
+      <div class="calc-field"><label>Presión (hPa)</label><input id="met-pres" type="number" placeholder="1013"></div>
+      <div class="calc-field"><label>Temperatura (°C)</label><input id="met-temp" type="number" placeholder="12"></div>
+      <div class="calc-field"><label>Nubosidad (0-8)</label><input id="met-cloud" type="number" min="0" max="8" placeholder="0-8"></div>
+    </div>
+    <div class="calc-field" style="margin-top:12px;"><label>Observaciones</label><input id="met-obs" type="text" placeholder="Cielo nublado, neblina en ensenada…"></div>
+    <button class="calc-btn" type="button" onclick="addMet()">Guardar observación</button>
+  </div>
+  <div id="metEntries"></div>
 </div></div>
 
 <!-- NORMATIVA -->
 <div id="normativa" class="sec"><div class="wrap">
   <div class="kicker">SEGURIDAD Y NORMATIVA</div>
-  <h2 class="h2">Marco de referencia</h2>
-  <div class="norm-grid">
-    <div class="norm-card">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C8A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px;"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
-      <h3>RIPA / COLREG</h3><p>Reglamento Internacional para Prevenir Abordajes: reglas de gobierno, rumbo, luces y señales.</p>
+  <h2 class="h2">Reglamentación marítima</h2>
+  <p style="margin:16px 0 0;font:400 17px/1.6 'Spectral',serif;color:#9FB1C8;max-width:640px;">Principales convenios internacionales y nacionales vigentes. Toca para ver el detalle.</p>
+  <div id="regContainer" class="ref-grid"></div>
+  <div class="kicker" style="margin-top:34px;">AUTORIDAD MARÍTIMA — SUR DE CHILE</div>
+  <p style="margin:0 0 4px;font:400 15px/1.6 'Spectral',serif;color:#9FB1C8;">Capitanías de Puerto de las regiones australes.</p>
+  <div id="capContainer" class="ref-grid"></div>
+</div></div>
+
+<!-- MODAL EMBARCACIÓN -->
+<div class="modal-overlay" id="vesselModal" onclick="if(event.target===this)closeVesselModal()">
+  <div class="modal">
+    <h3 id="vesselModalTitle">Nueva embarcación</h3>
+    <div class="form-row">
+      <div class="calc-field"><label>Nombre de la nave</label><input id="v-name" type="text" placeholder="Ej: M/N Don Juan"></div>
+      <div class="calc-field"><label>Tipo</label><select id="v-type"><option>Nave de carga</option><option>Ferry / Transbordador</option><option>Remolcador</option><option>Pesquero</option><option>Buque tanque</option><option>Pasajeros</option><option>Barcaza</option><option>Otro</option></select></div>
     </div>
-    <div class="norm-card">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C8A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px;"><path d="M12 2v20M2 7l10-5 10 5M5 9v7M19 9v7M2 16l10 5 10-5"/></svg>
-      <h3>SOLAS / STCW</h3><p>Seguridad de la Vida Humana en el Mar y normas de formación, titulación y guardia.</p>
+    <div class="form-row">
+      <div class="calc-field"><label>Eslora (m)</label><input id="v-eslora" type="number" placeholder="85"></div>
+      <div class="calc-field"><label>Manga (m)</label><input id="v-manga" type="number" placeholder="14"></div>
     </div>
-    <div class="norm-card">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C8A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px;"><circle cx="12" cy="8" r="3.2"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6"/></svg>
-      <h3>DIRECTEMAR · SHOA</h3><p>Autoridad Marítima de Chile y Servicio Hidrográfico: derroteros, cartas, faros y avisos.</p>
+    <div class="form-row">
+      <div class="calc-field"><label>Calado (m)</label><input id="v-calado" type="number" placeholder="4.5"></div>
+      <div class="calc-field"><label>TRG (t)</label><input id="v-trg" type="number" placeholder="1200"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" type="button" onclick="closeVesselModal()">Cancelar</button>
+      <button class="cta" type="button" onclick="saveVessel()">Guardar</button>
     </div>
   </div>
-</div></div>
+</div>
 
 <!-- FOOTER -->
 <div class="foot"><div class="wrap">
@@ -438,9 +571,12 @@
 
 <!-- barra inferior de secciones (solo móvil) -->
 <nav class="mtabs" aria-label="Secciones">
+  <a class="mtab" href="#naves" data-sec="naves"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14.5h18l-2 4a2 2 0 0 1-1.8 1.1H6.8A2 2 0 0 1 5 18.5z"/><path d="M6.5 14.5V9H13l3.5 5.5"/></svg><span>Naves</span></a>
   <a class="mtab" href="#fases" data-sec="fases"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.3l1.4 1.4L8 5.2"/><path d="M4 12.3l1.4 1.4L8 11.2"/><path d="M4 18.3l1.4 1.4L8 17.2"/><line x1="11" y1="6.5" x2="20" y2="6.5"/><line x1="11" y1="12.5" x2="20" y2="12.5"/><line x1="11" y1="18.5" x2="20" y2="18.5"/></svg><span>Fases</span></a>
-  <a class="mtab" href="#referencia" data-sec="referencia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.4C10.4 5 7.8 4.5 4 4.7V18c3.8-.2 6.4.3 8 1.7 1.6-1.4 4.2-1.9 8-1.7V4.7c-3.8-.2-6.4.3-8 1.7z"/><line x1="12" y1="6.4" x2="12" y2="19.7"/></svg><span>Referencia</span></a>
-  <a class="mtab" href="#calculadoras" data-sec="calculadoras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.4"/><line x1="8.2" y1="7" x2="15.8" y2="7"/><line x1="8.5" y1="11.5" x2="8.5" y2="11.5"/><line x1="12" y1="11.5" x2="12" y2="11.5"/><line x1="15.5" y1="11.5" x2="15.5" y2="11.5"/><line x1="8.5" y1="15.5" x2="8.5" y2="15.5"/><line x1="12" y1="15.5" x2="12" y2="15.5"/><line x1="15.5" y1="15.5" x2="15.5" y2="15.5"/></svg><span>Calc</span></a>
+  <a class="mtab" href="#calculadoras" data-sec="calculadoras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.4"/><line x1="8.2" y1="7" x2="15.8" y2="7"/><line x1="8.5" y1="11.5" x2="8.5" y2="11.5"/><line x1="12" y1="11.5" x2="12" y2="11.5"/><line x1="15.5" y1="11.5" x2="15.5" y2="11.5"/><line x1="8.5" y1="15.5" x2="8.5" y2="15.5"/></svg><span>Calc</span></a>
+  <a class="mtab" href="#bitacora" data-sec="bitacora"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11l3 3v13H5z"/><line x1="8" y1="9" x2="15" y2="9"/><line x1="8" y1="13" x2="15" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg><span>Bitácora</span></a>
+  <a class="mtab" href="#meteorologia" data-sec="meteorologia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 17h7.5a3.5 3.5 0 0 0 .2-6.99A5 5 0 0 0 6.3 11 3.2 3.2 0 0 0 7 17z"/><path d="M6 20h10"/></svg><span>Meteo</span></a>
+  <a class="mtab" href="#referencia" data-sec="referencia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.4C10.4 5 7.8 4.5 4 4.7V18c3.8-.2 6.4.3 8 1.7 1.6-1.4 4.2-1.9 8-1.7V4.7c-3.8-.2-6.4.3-8 1.7z"/><line x1="12" y1="6.4" x2="12" y2="19.7"/></svg><span>Ref.</span></a>
   <a class="mtab" href="#normativa" data-sec="normativa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="M9 12l2 2 4-4"/></svg><span>Normativa</span></a>
 </nav>
 
@@ -1005,6 +1141,32 @@ const CALCULADORAS = [
     ]
   },
   {
+    id: "eta", icon: "⏱️", titulo: "ETA — Hora estimada de llegada",
+    desc: "Calcula la hora de arribo según zarpe, distancia y velocidad",
+    fields: [
+      { id: "hsalida", label: "Hora de zarpe", placeholder: "ej: 08:00", type: "text" },
+      { id: "dist", label: "Distancia (mn)", placeholder: "ej: 60" },
+      { id: "vel", label: "Velocidad (nudos)", placeholder: "ej: 10" },
+    ]
+  },
+  {
+    id: "comb", icon: "⛽", titulo: "Consumo de combustible",
+    desc: "Litros y m³ estimados para la travesía",
+    fields: [
+      { id: "rate", label: "Consumo (L/h)", placeholder: "ej: 120" },
+      { id: "dist", label: "Distancia (mn)", placeholder: "ej: 60" },
+      { id: "vel", label: "Velocidad (nudos)", placeholder: "ej: 10" },
+    ]
+  },
+  {
+    id: "borneo", icon: "🔄", titulo: "Radio de borneo (fondeo)",
+    desc: "Círculo de giro al fondear según eslora",
+    fields: [
+      { id: "eslora", label: "Eslora de la nave (m)", placeholder: "ej: 80" },
+      { id: "prof", label: "Profundidad (m)", placeholder: "ej: 18 (opcional)" },
+    ]
+  },
+  {
     id: "escala", icon: "🗺️", titulo: "Escala de carta náutica",
     desc: "Convierte distancia en carta a distancia real",
     fields: [
@@ -1022,16 +1184,20 @@ let motion = 'Animado';
 let openRef = {};
 const CK = 'lcn-full-checks-v1';
 const MK = 'lcn-full-motion-v1';
+const VK='lcn-vessels-v1', AVK='lcn-active-vessel-v1', LGK='lcn-logs-v1', MTK='lcn-mets-v1', ESK='lcn-estiba-v1';
+let VESSELS=[], activeVessel='v0', logs=[], mets=[];
 
 function escapeHtml(str){const d=document.createElement('div');d.textContent=(str==null?'':str);return d.innerHTML;}
 
-function initChecks(){ FASES.forEach(f=>f.grupos.forEach((g,gi)=>g.items.forEach((it,ii)=>{const k=f.id+'-'+gi+'-'+ii; if(!(k in checkState)) checkState[k]=false;}))); }
-function loadState(){ try{const r=localStorage.getItem(CK); if(r) checkState=JSON.parse(r)||{};}catch(e){checkState={};} try{motion=localStorage.getItem(MK)||'Animado';}catch(e){} initChecks(); }
+function initChecks(){ FASES.forEach(f=>f.grupos.forEach((g,gi)=>g.items.forEach((it,ii)=>{const k=activeVessel+'-'+f.id+'-'+gi+'-'+ii; if(!(k in checkState)) checkState[k]=false;}))); }
+function loadState(){ try{const r=localStorage.getItem(CK); if(r) checkState=JSON.parse(r)||{};}catch(e){checkState={};} try{motion=localStorage.getItem(MK)||'Animado';}catch(e){}
+  Object.keys(checkState).forEach(function(k){ if(/^\d+-\d+-\d+$/.test(k)){ checkState['v0-'+k]=checkState[k]; delete checkState[k]; } });
+  initChecks(); }
 function saveState(){ try{localStorage.setItem(CK,JSON.stringify(checkState));}catch(e){} }
 
 function totalItems(){let n=0;FASES.forEach(f=>f.grupos.forEach(g=>n+=g.items.length));return n;}
-function doneItems(){return Object.values(checkState).filter(Boolean).length;}
-function phaseStats(f){let t=0,d=0;f.grupos.forEach((g,gi)=>g.items.forEach((it,ii)=>{t++;if(checkState[f.id+'-'+gi+'-'+ii])d++;}));return{t:t,d:d,pct:t?Math.round(d/t*100):0};}
+function doneItems(){return Object.keys(checkState).filter(function(k){return k.indexOf(activeVessel+'-')===0 && checkState[k];}).length;}
+function phaseStats(f){let t=0,d=0;f.grupos.forEach((g,gi)=>g.items.forEach((it,ii)=>{t++;if(checkState[activeVessel+'-'+f.id+'-'+gi+'-'+ii])d++;}));return{t:t,d:d,pct:t?Math.round(d/t*100):0};}
 function setTxt(id,v){const e=document.getElementById(id);if(e)e.textContent=v;}
 
 function renderStats(){
@@ -1068,7 +1234,7 @@ function renderCard(){
   f.grupos.forEach(function(g,gi){
     body+='<div class="grp-title">'+escapeHtml(g.titulo)+'</div>';
     g.items.forEach(function(it,ii){
-      const k=f.id+'-'+gi+'-'+ii, ch=!!checkState[k];
+      const k=activeVessel+'-'+f.id+'-'+gi+'-'+ii, ch=!!checkState[k];
       const tags=(it.tags||[]).map(function(t){return '<span class="tag">'+escapeHtml(t)+'</span>';}).join('');
       body+='<div class="check-row'+(ch?' done':'')+'" data-k="'+k+'">'+
         '<span class="cbox">'+(ch?'✓':'')+'</span>'+
@@ -1149,6 +1315,9 @@ function runCalc(calcId) {
   if (calcId === 'marea') return calcMarea();
   if (calcId === 'cadena') return calcCadena();
   if (calcId === 'escala') return calcEscala();
+  if (calcId === 'eta') return calcETA();
+  if (calcId === 'comb') return calcComb();
+  if (calcId === 'borneo') return calcBorneo();
 }
 
 function calcCalado() {
@@ -1288,7 +1457,7 @@ function applyMotion(){
 // ===== reiniciar todo el proceso desde cero =====
 function resetAll(){
   if(!confirm('¿Reiniciar la lista de chequeo? Se desmarcarán TODOS los ítems de todas las fases y empezarás una guardia nueva.')) return;
-  Object.keys(checkState).forEach(function(k){ checkState[k]=false; });
+  Object.keys(checkState).forEach(function(k){ if(k.indexOf(activeVessel+'-')===0) checkState[k]=false; });
   activePhase = FASES[0].id;
   saveState();
   renderStats(); renderNav(); renderCard();
@@ -1325,11 +1494,203 @@ function goPhase(dir){
   var obs=new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if(e.isIntersecting){ tabs.forEach(function(t){t.classList.remove('active');}); var t=map[e.target.id]; if(t)t.classList.add('active'); } });
   },{rootMargin:'-45% 0px -50% 0px',threshold:0});
-  ['fases','referencia','calculadoras','normativa'].forEach(function(id){ var el=document.getElementById(id); if(el) obs.observe(el); });
+  ['naves','fases','calculadoras','bitacora','meteorologia','referencia','normativa'].forEach(function(id){ var el=document.getElementById(id); if(el) obs.observe(el); });
 })();
 
 // PWA
 if('serviceWorker' in navigator){ window.addEventListener('load',function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); }); }
 </script>
+
+<script>
+/* ============ INTEGRACIÓN: naves, bitácora, meteo, calc extra, publicaciones, reglamentación, capitanías ============ */
+function vSave(){ try{localStorage.setItem(VK,JSON.stringify(VESSELS));localStorage.setItem(AVK,activeVessel);}catch(e){} }
+function ensureVessel(){
+  try{VESSELS=JSON.parse(localStorage.getItem(VK)||'[]')||[];}catch(e){VESSELS=[];}
+  if(!VESSELS.length){ VESSELS=[{id:'v0',name:'General',type:'—',eslora:'',manga:'',calado:'',trg:''}]; }
+  try{activeVessel=localStorage.getItem(AVK)||VESSELS[0].id;}catch(e){activeVessel=VESSELS[0].id;}
+  if(!VESSELS.find(function(v){return v.id===activeVessel;})) activeVessel=VESSELS[0].id;
+  vSave();
+}
+function renderVessels(){
+  var g=document.getElementById('vesselGrid'); if(!g) return;
+  g.innerHTML=VESSELS.map(function(v){
+    var act=v.id===activeVessel;
+    var det=[v.type&&v.type!=='—'?v.type:'', v.eslora?('E '+v.eslora+'m'):'', v.calado?('C '+v.calado+'m'):'', v.trg?('TRG '+v.trg+'t'):''].filter(Boolean).join(' · ');
+    return '<div class="vessel-card'+(act?' active':'')+'" data-id="'+v.id+'" tabindex="0">'+
+      (act?'<span class="vessel-badge">Activa</span>':'')+
+      '<div class="vessel-name">⚓ '+escapeHtml(v.name)+'</div>'+
+      '<div class="vessel-det">'+escapeHtml(det||'Sin datos técnicos')+'</div>'+
+      '<div class="vessel-acts"><button class="btn-sm" type="button" data-edit="'+v.id+'">Editar</button>'+
+      (VESSELS.length>1?'<button class="btn-sm danger" type="button" data-del="'+v.id+'">Eliminar</button>':'')+'</div></div>';
+  }).join('');
+  g.querySelectorAll('.vessel-card').forEach(function(c){ c.addEventListener('click',function(){ setActiveVessel(c.dataset.id); }); });
+  g.querySelectorAll('[data-edit]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); openVesselModal(b.dataset.edit); }); });
+  g.querySelectorAll('[data-del]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); deleteVessel(b.dataset.del); }); });
+}
+function setActiveVessel(id){ activeVessel=id; vSave(); renderVessels(); updateVesselBanner(); initChecks(); renderStats(); renderNav(); renderCard(); }
+function updateVesselBanner(){
+  var b=document.getElementById('vesselBanner'); if(!b) return;
+  var v=VESSELS.find(function(x){return x.id===activeVessel;})||VESSELS[0];
+  b.innerHTML='⚓ Nave activa: <strong>'+escapeHtml(v?v.name:'—')+'</strong><a href="#naves">cambiar</a>';
+}
+var editingVessel=null;
+function openVesselModal(id){
+  editingVessel=(id===undefined?null:id);
+  var v=(editingVessel!=null)?VESSELS.find(function(x){return x.id===editingVessel;}):{};
+  document.getElementById('vesselModalTitle').textContent=editingVessel!=null?'Editar embarcación':'Nueva embarcación';
+  document.getElementById('v-name').value=v&&v.name&&v.name!=='General'?v.name:(v&&v.name?v.name:'');
+  document.getElementById('v-type').value=v&&v.type&&v.type!=='—'?v.type:'Nave de carga';
+  ['eslora','manga','calado','trg'].forEach(function(k){ document.getElementById('v-'+k).value=v&&v[k]?v[k]:''; });
+  document.getElementById('vesselModal').classList.add('open');
+}
+function closeVesselModal(){ document.getElementById('vesselModal').classList.remove('open'); }
+function saveVessel(){
+  var name=document.getElementById('v-name').value.trim();
+  if(!name){ alert('Ingresa el nombre de la nave'); return; }
+  var data={ name:name, type:document.getElementById('v-type').value,
+    eslora:document.getElementById('v-eslora').value, manga:document.getElementById('v-manga').value,
+    calado:document.getElementById('v-calado').value, trg:document.getElementById('v-trg').value };
+  if(editingVessel!=null){ var v=VESSELS.find(function(x){return x.id===editingVessel;}); Object.assign(v,data); }
+  else { data.id='v'+Date.now(); VESSELS.push(data); activeVessel=data.id; }
+  vSave(); closeVesselModal(); renderVessels(); updateVesselBanner(); initChecks(); renderStats(); renderNav(); renderCard();
+}
+function deleteVessel(id){
+  if(VESSELS.length<=1){ alert('Debe quedar al menos una embarcación.'); return; }
+  if(!confirm('¿Eliminar esta embarcación y su progreso?')) return;
+  Object.keys(checkState).forEach(function(k){ if(k.indexOf(id+'-')===0) delete checkState[k]; });
+  VESSELS=VESSELS.filter(function(v){return v.id!==id;});
+  if(activeVessel===id) activeVessel=VESSELS[0].id;
+  vSave(); saveState(); renderVessels(); updateVesselBanner(); initChecks(); renderStats(); renderNav(); renderCard();
+}
+
+/* ===== bitácora ===== */
+function lgSave(){ try{localStorage.setItem(LGK,JSON.stringify(logs));}catch(e){} }
+function renderBitacora(){
+  var c=document.getElementById('logEntries'); if(!c) return;
+  if(!logs.length){ c.innerHTML='<div class="empty-note">No hay registros aún. Agrega la primera anotación.</div>'; return; }
+  c.innerHTML=logs.slice().reverse().map(function(l,ri){ var i=logs.length-1-ri;
+    return '<div class="log-entry"><div class="log-time">🕐 '+escapeHtml(l.time)+'</div><div class="log-text">'+escapeHtml(l.text)+'</div>'+
+      '<div class="log-acts"><button class="btn-sm" type="button" data-elog="'+i+'">✏️</button><button class="btn-sm danger" type="button" data-dlog="'+i+'">🗑️</button></div></div>';
+  }).join('');
+  c.querySelectorAll('[data-dlog]').forEach(function(b){ b.addEventListener('click',function(){ if(confirm('¿Eliminar este registro?')){ logs.splice(+b.dataset.dlog,1); lgSave(); renderBitacora(); } }); });
+  c.querySelectorAll('[data-elog]').forEach(function(b){ b.addEventListener('click',function(){ var i=+b.dataset.elog; var nv=prompt('Editar registro:', logs[i].text); if(nv!=null && nv.trim()){ logs[i].text=nv.trim(); lgSave(); renderBitacora(); } }); });
+}
+function addLog(){ var inp=document.getElementById('logInput'); var t=inp.value.trim(); if(!t)return; logs.push({time:new Date().toLocaleString('es-CL'),text:t}); inp.value=''; lgSave(); renderBitacora(); }
+
+/* ===== meteo ===== */
+function mtSave(){ try{localStorage.setItem(MTK,JSON.stringify(mets));}catch(e){} }
+function renderMeteo(){
+  var c=document.getElementById('metEntries'); if(!c) return;
+  if(!mets.length){ c.innerHTML='<div class="empty-note">No hay observaciones registradas aún.</div>'; return; }
+  c.innerHTML=mets.slice().reverse().map(function(m){
+    return '<div class="met-entry"><div class="met-time">🕐 '+escapeHtml(m.time)+(m.pos?' · 📍 '+escapeHtml(m.pos):'')+'</div>'+
+      '<div class="met-grid"><span>Viento: <b>'+escapeHtml(m.wind||'—')+'</b></span><span>Mar(Bf): <b>'+escapeHtml(m.sea||'—')+'</b></span><span>Visib: <b>'+escapeHtml(m.vis||'—')+'</b></span>'+
+      '<span>Temp: <b>'+escapeHtml(m.temp||'—')+'°C</b></span><span>Pres: <b>'+escapeHtml(m.pres||'—')+'hPa</b></span><span>Nub: <b>'+escapeHtml(m.cloud||'—')+'/8</b></span></div>'+
+      (m.obs?'<div class="met-obs">📝 '+escapeHtml(m.obs)+'</div>':'')+'</div>';
+  }).join('');
+}
+function addMet(){
+  var g=function(id){return document.getElementById(id).value;};
+  mets.push({time:g('met-time')||new Date().toLocaleString('es-CL'),pos:g('met-pos'),wind:g('met-wind'),sea:g('met-sea'),vis:g('met-vis'),pres:g('met-pres'),temp:g('met-temp'),cloud:g('met-cloud'),obs:g('met-obs')});
+  mtSave(); renderMeteo();
+  ['met-pos','met-wind','met-sea','met-vis','met-pres','met-temp','met-cloud','met-obs'].forEach(function(id){document.getElementById(id).value='';});
+  alert('Observación registrada.');
+}
+
+/* ===== calculadoras extra ===== */
+function calcETA(){
+  var hs=getVal('eta','hsalida'), d=parseFloat(getVal('eta','dist')), v=parseFloat(getVal('eta','vel'));
+  if(!hs||isNaN(d)||isNaN(v)||v<=0){ return showCalcResult('eta','Ingresa hora de zarpe, distancia y velocidad.',true); }
+  var pr=hs.split(':'); var h=parseInt(pr[0],10)||0, m=parseInt(pr[1]||'0',10)||0, tot=Math.round(d/v*60);
+  var t=new Date(2000,0,1,h,m+tot), days=Math.floor(tot/1440);
+  showCalcResult('eta','<strong>ETA:</strong> '+String(t.getHours()).padStart(2,'0')+':'+String(t.getMinutes()).padStart(2,'0')+(days>0?' (+'+days+' día/s)':'')+'<br><strong>Travesía:</strong> '+Math.floor(tot/60)+' h '+(tot%60)+' min');
+}
+function calcComb(){
+  var rate=parseFloat(getVal('comb','rate')), d=parseFloat(getVal('comb','dist')), v=parseFloat(getVal('comb','vel'));
+  if(isNaN(rate)||isNaN(d)||isNaN(v)||v<=0){ return showCalcResult('comb','Ingresa consumo, distancia y velocidad.',true); }
+  var t=d/v, total=rate*t;
+  showCalcResult('comb','<strong>Consumo total:</strong> '+total.toFixed(0)+' L ('+(total/1000).toFixed(2)+' m³)<br><strong>Duración:</strong> '+t.toFixed(1)+' horas');
+}
+function calcBorneo(){
+  var e=parseFloat(getVal('borneo','eslora')), p=parseFloat(getVal('borneo','prof'));
+  if(isNaN(e)){ return showCalcResult('borneo','Ingresa la eslora de la nave.',true); }
+  var bt=e*3, bm=e*5, extra=isNaN(p)?'':'<br><small>Prof. '+p+' m → filar cadena ≈ '+(p*4).toFixed(0)+'–'+(p*6).toFixed(0)+' m (4–6× la profundidad).</small>';
+  showCalcResult('borneo','<strong>Radio de borneo:</strong><br>Buen tiempo (×3): '+bt.toFixed(0)+' m ('+(bt/185.2).toFixed(2)+' cables)<br>Mal tiempo (×5): '+bm.toFixed(0)+' m ('+(bm/185.2).toFixed(2)+' cables)'+extra);
+}
+
+/* ===== estiba / GM ===== */
+function addEstibRow(data){
+  var b=document.getElementById('estibBody'); if(!b) return; data=data||{};
+  var tr=document.createElement('tr');
+  tr.innerHTML='<td><input type="text" class="es-c" placeholder="Bodega 1" value="'+escapeHtml(data.comp||'')+'"></td>'+
+    '<td><input type="number" class="es-p" placeholder="0" value="'+(data.peso!=null?data.peso:'')+'"></td>'+
+    '<td><input type="number" class="es-bv" placeholder="0" value="'+(data.bv!=null?data.bv:'')+'"></td>'+
+    '<td class="es-mv" style="color:#C8A24B;font-weight:700;"></td>';
+  b.appendChild(tr);
+}
+function buildEstib(){
+  var b=document.getElementById('estibBody'); if(!b) return; b.innerHTML='';
+  var rows=null; try{rows=JSON.parse(localStorage.getItem(ESK)||'null');}catch(e){}
+  if(rows&&rows.length){ rows.forEach(function(r){ addEstibRow(r); }); } else { for(var i=0;i<4;i++) addEstibRow(); }
+}
+function calcEstib(){
+  var rows=document.querySelectorAll('#estibBody tr'); var tP=0,tMV=0,saved=[];
+  rows.forEach(function(r){
+    var p=parseFloat(r.querySelector('.es-p').value)||0, bv=parseFloat(r.querySelector('.es-bv').value)||0, mv=p*bv;
+    r.querySelector('.es-mv').textContent=mv.toFixed(2);
+    tP+=p; tMV+=mv; saved.push({comp:r.querySelector('.es-c').value,peso:r.querySelector('.es-p').value,bv:r.querySelector('.es-bv').value});
+  });
+  try{localStorage.setItem(ESK,JSON.stringify(saved));}catch(e){}
+  var kg=tP?tMV/tP:0, el=document.getElementById('estib-result');
+  el.classList.add('show'); el.innerHTML='<strong>Desplazamiento:</strong> '+tP.toFixed(1)+' t<br><strong>KG (centro de gravedad vertical):</strong> '+kg.toFixed(2)+' m<br><small>GM = KM − KG. Obtén KM de las curvas hidrostáticas / Manual de Estabilidad de la nave.</small>';
+}
+
+/* ===== publicaciones / reglamentación / capitanías ===== */
+const PUBS=[
+{title:'🗺️ Derrotero de la Costa de Chile',content:`<b>Publicación oficial del SHOA.</b><br>Describe las características náuticas de la costa: puertos, caletas y fondeaderos; instrucciones de entrada/salida; bancos, bajos y peligros; corrientes, mareas y meteorología por zona; señalización.<br><br><b>Volúmenes del Sur:</b> Vol. IV (Chiloé y archipiélagos) · Vol. V (Canales Patagónicos y Magallanes).<br>🔗 www.shoa.cl`},
+{title:'💡 Lista de Faros y Señales',content:`<b>Publicación H-214 del SHOA.</b><br>Listado de ayudas a la navegación: faros y farolas (período, alcance, sector), balizas y boyas (color, forma, marca de tope), radiofaros y señales de niebla.<br><br>Color: B (blanco) · R (rojo) · V (verde). Período en segundos; alcance en millas náuticas.<br>🔗 Corregir con Avisos a los Navegantes.`},
+{title:'🌊 Tablas de Mareas',content:`<b>Predicción anual del SHOA.</b><br>Pleamares y bajamares para puertos patrón (Puerto Montt, Castro, Punta Arenas) y correcciones para puertos secundarios.<br><br>Rangos referenciales: Puerto Montt ~5 m · Castro ~4 m · Punta Arenas ~2 m.<br>Regla de los Duodécimos: 1·2·3·3·2·1 del rango por hora. Usa la calculadora de mareas.`},
+{title:'🔄 Tablas de Corrientes',content:`<b>Corriente de Humboldt</b> hacia el N (0.5–1 kt). Corrientes de marea variables.<br><br><b>Pasos críticos del sur:</b> Canal Chacao hasta 7 kt (maniobrar en slack water) · Paso Dalcahue ~4 kt · Angostura Kirke 2–3 kt.<br>⚠️ Consultar corrientes locales en el derrotero antes de canales estrechos.`},
+{title:'📢 Avisos a los Navegantes',content:`<b>Publicación periódica del SHOA</b> para corregir cartas y publicaciones: nuevos peligros, cambios de señalización, restricciones temporales, ejercicios navales.<br><br>AVURNAV (urgentes por VHF) · NAVTEX (518 kHz) · Boletín semanal SHOA.`},
+{title:'⭐ Almanaque Náutico',content:`<b>SHOA / Greenwich.</b> Coordenadas del Sol, Luna, planetas y estrellas (GHA/Dec), tablas de incremento, crepúsculos y orto/ocaso.<br><br>Uso astronómico: GHA y Dec a la hora del sextante → Hc con tablas HO-229 → comparar con Ho para la línea de posición.`},
+{title:'📋 Catálogo de Cartas',content:`<b>Índice de cartas del SHOA:</b> reconocimiento, aproximación, puerto y canal.<br><br>Sur: H-1050 (Chiloé) · H-1100/1200 (Canales Patagónicos) · H-1300 (Estrecho de Magallanes).<br>⚠️ Verificar que estén corregidas con los últimos Avisos antes de usarlas.`},
+{title:'☁️ Publicaciones Meteorológicas',content:`<b>DMC</b> (meteochile.gob.cl) · Boletín Meteo Marino de la Armada · Partes DIRECTEMAR.<br>METAREA XVI (Chile) y XVII (Sur de Sudamérica) · NAVTEX 518 kHz.<br><br>Beaufort: 0–3 favorable · 4–5 moderado · 6–7 fuerte · 8–9 muy fuerte · 10–12 tempestad.`}
+];
+const REGS=[
+{badge:'RIPA',name:'Reglamento Internacional para Prevenir Abordajes',desc:'Reglas de navegación y maniobra entre buques (COLREG 72)',detail:`Parte A — Generalidades (R.1-3) · Parte B — Rumbo y gobierno (R.4-19): alcance, encuentro, cruce · Parte C — Luces y marcas (R.20-31) · Parte D — Señales (R.32-37) · Anexos.<br><br>⭐ R.5 (vigilancia visual y auditiva) y R.16 (maniobra del que cede el paso) son clave en la guardia.`},
+{badge:'MARPOL',name:'Convenio para Prevenir la Contaminación por Buques',desc:'MARPOL 73/78',detail:`Anexo I Hidrocarburos (Libro ORB) · II NLS · III Bultos · IV Aguas sucias · V Basuras (GRB) · VI Atmósfera (SOx/NOx).<br><br>⭐ El SOPEP (plan de emergencia ante contaminación por hidrocarburos) es obligatorio (Anexo I).`},
+{badge:'SOLAS',name:'Convenio para la Seguridad de la Vida Humana en el Mar',desc:'SOLAS 1974 y enmiendas',detail:`Cap. II-1 construcción/estabilidad · II-2 incendios · III salvamento · IV radio (GMDSS) · V seguridad de la navegación · IX gestión (ISM) · XI medidas especiales.<br><br>⭐ Regla V/34: obligación del plan de viaje.`},
+{badge:'STCW',name:'Formación, Titulación y Guardia',desc:'STCW 78 / Código de Manila 2010',detail:`A-II/1 oficial de guardia de navegación · A-VI/1 seguridad básica · A-VI/2 supervivencia e incendios · A-VI/3 primeros auxilios.<br><br>Descanso: mín. 10 h/24 h y 77 h/7 días; máx. 2 períodos, uno ≥ 6 h.`},
+{badge:'SAR',name:'Búsqueda y Salvamento',desc:'Convenio SAR 1979',detail:`En Chile el MRCC depende de la Armada. Señales: MAYDAY (peligro de vida) · PAN PAN (urgencia) · SECURITÉ (seguridad).<br><br>Al recibir MAYDAY: anotar posición y naturaleza, acusar recibo si nadie lo hace, avisar al Capitán, acudir si se está cerca y mantener escucha en VHF 16.`},
+{badge:'LL 66',name:'Líneas de Carga',desc:'Load Lines — límites de carga por zona',detail:`Marcas: TF · F · T · S (verano, referencia) · W (invierno) · WNA.<br><br>El sur de Chile suele ser zona de invierno (W): mayor francobordo y menor carga permitida. Verificar antes del zarpe que no se supere la línea correspondiente.`},
+{badge:'ISM',name:'Código ISM — Gestión de la Seguridad',desc:'International Safety Management (SOLAS IX)',detail:`Documentos: DOC (compañía) · SMC (buque). El SMS incluye política, procedimientos operacionales y de emergencia, notificación de accidentes, mantenimiento y auditorías.<br><br>⭐ Toda incidencia se reporta según el SMS de la compañía.`},
+{badge:'ISPS',name:'Código ISPS — Protección Marítima',desc:'Ship and Port Facility Security (SOLAS XI-2)',detail:`Niveles 1 (normal) · 2 (elevado) · 3 (excepcional). Documentos: ISSC y SSP (confidencial).<br><br>Oficial de guardia: controlar acceso, verificar identidad, vigilar zonas restringidas y reportar actividades sospechosas al Oficial de Protección.`}
+];
+const CAPS=[
+{region:'🌊 Región de Los Lagos',ports:['Puerto Montt (Capitanía Principal)','Cochamó','Maullín','Calbuco','Hornopirén','Ancud','Quemchi','Castro','Achao','Chonchi','Quellón','Chaitén']},
+{region:'🏔️ Región de Aysén',ports:['Melinka','Puerto Cisnes','Puerto Aguirre','Chile Chico','Puerto Chacabuco (Capitanía Principal)','Caleta Tortel']},
+{region:'❄️ Región de Magallanes',ports:['Punta Arenas (Capitanía Principal)','Puerto Natales','Punta Delgada','Puerto Edén','Porvenir','Puerto Williams']}
+];
+function accCard(head,body){ return '<div class="ref-card"><button class="ref-head acc-head" type="button">'+head+'<span class="ref-chev">▾</span></button><div class="ref-body">'+body+'</div></div>'; }
+function wireAcc(c){ c.querySelectorAll('.acc-head').forEach(function(h){ h.addEventListener('click',function(){ h.nextElementSibling.classList.toggle('open'); h.querySelector('.ref-chev').classList.toggle('open'); }); }); }
+function renderPubs(){ var c=document.getElementById('pubContainer'); if(!c)return; c.innerHTML=PUBS.map(function(p){ return accCard('<h4>'+p.title+'</h4>', '<div style="font:400 13.5px/1.7 \'Spectral\',serif;color:#C9D6E6;">'+p.content+'</div>'); }).join(''); wireAcc(c); }
+function renderRegs(){ var c=document.getElementById('regContainer'); if(!c)return; c.innerHTML=REGS.map(function(r){ return accCard('<span class="reg-badge">'+r.badge+'</span><h4 style="flex:1">'+escapeHtml(r.name)+'</h4>', '<div style="font:600 13px/1.6 \'Spectral\',serif;color:#9FB1C8;margin-bottom:8px;">'+escapeHtml(r.desc)+'</div><div style="font:400 13.5px/1.7 \'Spectral\',serif;color:#C9D6E6;">'+r.detail+'</div>'); }).join(''); wireAcc(c); }
+function renderCaps(){ var c=document.getElementById('capContainer'); if(!c)return; c.innerHTML=CAPS.map(function(r){ var ports=r.ports.map(function(p){return '<div class="cap-item">⚓ '+escapeHtml(p)+'</div>';}).join(''); return accCard('<h4>'+r.region+'</h4>', ports); }).join(''); wireAcc(c); }
+
+/* ===== init integración ===== */
+(function(){
+  try{logs=JSON.parse(localStorage.getItem(LGK)||'[]')||[];}catch(e){logs=[];}
+  try{mets=JSON.parse(localStorage.getItem(MTK)||'[]')||[];}catch(e){mets=[];}
+  ensureVessel();
+  var p=document.querySelector('#fases .wrap > p');
+  if(p && !document.getElementById('vesselBanner')){ var b=document.createElement('div'); b.id='vesselBanner'; b.className='vessel-banner'; p.parentNode.insertBefore(b,p.nextSibling); }
+  initChecks(); renderStats(); renderNav(); renderCard();
+  renderVessels(); updateVesselBanner();
+  renderBitacora(); renderMeteo(); buildEstib();
+  renderPubs(); renderRegs(); renderCaps();
+  var mt=document.getElementById('met-time'); if(mt && !mt.value){ try{mt.value=new Date().toISOString().slice(0,16);}catch(e){} }
+})();
+</script>
+
 </body>
 </html>
