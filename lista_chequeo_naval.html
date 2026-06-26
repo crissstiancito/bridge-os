@@ -31,6 +31,15 @@
   @keyframes spin {from{transform:rotate(0)}to{transform:rotate(360deg)}}
   @keyframes fadeUp {from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
+  /* fondo de mar (profundidad + cáusticas) detrás del contenido */
+  .sea-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;
+    background:linear-gradient(180deg,#0a2238 0%,#0c2c48 42%,#08213a 72%,#061629 100%)}
+  .sea-bg::before,.sea-bg::after{content:'';position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none}
+  .sea-bg::before{width:64vw;height:64vw;left:-12vw;top:-14vw;background:radial-gradient(circle,rgba(60,150,190,.20),transparent 70%);animation:seaA 17s ease-in-out infinite alternate}
+  .sea-bg::after{width:52vw;height:52vw;right:-14vw;top:34vh;background:radial-gradient(circle,rgba(200,162,75,.12),transparent 70%);animation:seaB 22s ease-in-out infinite alternate}
+  @keyframes seaA{to{transform:translate(46px,34px)}}
+  @keyframes seaB{to{transform:translate(-34px,46px)}}
+
   .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
   .kicker{font:500 13px/1 'IBM Plex Mono',monospace;letter-spacing:.24em;color:#C8A24B;margin-bottom:16px}
   .h2{margin:0;font:400 44px/1.1 'DM Serif Display',serif}
@@ -46,6 +55,10 @@
   .nav-links a:hover{color:#C8A24B}
   .mbtn{cursor:pointer;background:transparent;font-family:'Spectral',serif;padding:9px 16px;border:1px solid rgba(200,162,75,.4);border-radius:2px;color:#C9D6E6;font-weight:500;font-size:13px;letter-spacing:.04em}
   .mbtn:hover{color:#C8A24B;border-color:rgba(200,162,75,.7)}
+  .nav-prog{display:flex;align-items:center;gap:9px;font:600 12px/1 'IBM Plex Mono',monospace;color:#C8A24B;letter-spacing:.04em;white-space:nowrap}
+  .nav-prog .np-bar{width:64px;height:5px;border-radius:5px;background:rgba(200,162,75,.18);overflow:hidden}
+  .nav-prog .np-bar>i{display:block;height:5px;border-radius:5px;background:linear-gradient(90deg,#9A7B2E,#C8A24B);width:0;transition:width .45s ease}
+  .nav-prog .np-lbl{color:#9FB1C8;font-weight:500}
 
   /* hero */
   .hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#0B2240 0%,#0E2A4E 55%,#102a4d 100%)}
@@ -75,7 +88,7 @@
   .strip-sep{width:1px;height:26px;background:rgba(200,162,75,.2)}
 
   /* fases */
-  #fases{background:#0A1B33}
+  #fases{background:transparent;position:relative}
   .fases-layout{display:flex;align-items:flex-start;gap:28px;margin-top:40px}
   .phase-nav{width:330px;flex:none;max-height:none}
   .pnav-btn{display:block;width:100%;text-align:left;padding:15px 17px;margin-bottom:9px;border-radius:7px;cursor:pointer;border:1px solid rgba(200,162,75,.14);background:transparent;transition:.2s}
@@ -92,14 +105,17 @@
   .pnav-btn.active .pnav-bar>div{background:#C8A24B}
 
   .phase-card{flex:1;min-width:0}
-  .phase-card-pad{background:#0B2240;border:1px solid rgba(200,162,75,.2);border-radius:12px;padding:30px 32px;box-shadow:0 18px 50px rgba(4,12,28,.35);animation:fadeUp .35s ease both}
+  .phase-card-pad{background:#0B2240;border:1px solid rgba(200,162,75,.2);border-radius:12px;padding:0 32px 30px;box-shadow:0 18px 50px rgba(4,12,28,.35);animation:cardIn .3s ease both}
+  @keyframes cardIn{from{opacity:0}to{opacity:1}}
+  .pc-sticky{position:sticky;top:72px;z-index:6;background:#0B2240;margin:0 -32px 16px;padding:24px 32px 14px;border-radius:12px 12px 0 0;border-bottom:1px solid rgba(200,162,75,.16)}
   .pc-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
   .pc-kicker{font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#C8A24B;margin-bottom:10px}
   .pc-name{margin:0;font:400 30px/1.05 'DM Serif Display',serif;color:#F4ECDD}
   .pc-pct{text-align:right;flex:none}
   .pc-pct-n{font:400 34px/1 'DM Serif Display',serif;color:#C8A24B}
   .pc-pct-l{font:500 11px/1 'IBM Plex Mono',monospace;color:#8FA3BC;margin-top:6px}
-  .pc-bar{margin:18px 0 20px;height:5px;border-radius:4px;background:rgba(200,162,75,.14);overflow:hidden}
+  .pc-bar{margin:14px 0 0;height:5px;border-radius:4px;background:rgba(200,162,75,.14);overflow:hidden}
+  .pc-desc{padding-top:2px}
   .pc-bar>div{height:5px;border-radius:4px;background:linear-gradient(90deg,#9A7B2E,#C8A24B);transition:width .4s ease}
   .pc-desc{margin:0 0 8px;font:400 16px/1.55 'Spectral',serif;color:#9FB1C8}
   .grp-title{margin:22px 0 4px;font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8A24B;display:flex;align-items:center;gap:8px}
@@ -116,7 +132,7 @@
   .tag{font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.04em;color:#C8A24B;padding:4px 9px;border:1px solid rgba(200,162,75,.35);border-radius:99px}
 
   /* referencia */
-  #referencia{background:#0B2240}
+  #referencia{background:transparent;position:relative}
   .ref-grid{margin-top:40px;display:flex;flex-direction:column;gap:12px}
   .ref-card{background:#0A1B33;border:1px solid rgba(200,162,75,.18);border-radius:10px;overflow:hidden}
   .ref-head{width:100%;text-align:left;cursor:pointer;background:transparent;border:none;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px}
@@ -198,11 +214,12 @@
     .wrap,.nav-in,.hero-in,.strip-in{padding-left:22px;padding-right:22px}
     .foot-top{flex-direction:column;gap:24px}
   }
-  @media (max-width:520px){ .hero-title{font-size:37px} .phase-card-pad{padding:22px 18px} .hero-stats{flex-wrap:wrap;gap:20px 32px} }
+  @media (max-width:520px){ .hero-title{font-size:37px} .phase-card-pad{padding:0 18px 22px} .pc-sticky{margin:0 -18px 14px;padding:18px 18px 12px} .hero-stats{flex-wrap:wrap;gap:20px 32px} }
   @media (prefers-reduced-motion:reduce){#compassSpin,#driftShip,#bobShip,#waveBack,#waveMid,#waveFront{animation:none!important}}
 </style>
 </head>
 <body>
+<div class="sea-bg" aria-hidden="true"></div>
 
 <!-- NAV -->
 <div class="nav">
@@ -216,6 +233,7 @@
       <a href="#referencia">Referencia</a>
       <a href="#calculadoras">Calculadoras</a>
       <a href="#normativa">Normativa</a>
+      <span class="nav-prog" title="Avance de guardia"><span class="np-lbl">Guardia</span><span class="np-bar"><i id="navPctBar"></i></span><span id="navPct">0%</span></span>
       <button id="motionBtn" class="mbtn" type="button" title="Animaciones">Animado</button>
     </div>
   </div>
@@ -937,13 +955,15 @@ function renderStats(){
   const ti=totalItems(), di=doneItems(), pct=ti?Math.round(di/ti*100):0;
   setTxt('statFases',FASES.length); setTxt('statItems',ti); setTxt('statCalc',CALCULADORAS.length);
   setTxt('stripFases',FASES.length); setTxt('stripItems',ti); setTxt('stripPct',pct+'%');
+  setTxt('navPct',pct+'%');
+  const nb=document.getElementById('navPctBar'); if(nb) nb.style.width=pct+'%';
 }
 
 function renderNav(){
   document.getElementById('phaseNav').innerHTML = FASES.map(function(f){
     const st=phaseStats(f), isA=f.id===activePhase;
     return '<button class="pnav-btn'+(isA?' active':'')+'" data-id="'+f.id+'" type="button">'+
-      '<div class="pnav-top"><span class="pnav-num">'+f.num+'</span><span class="pnav-name">'+escapeHtml(f.nombre)+'</span><span class="pnav-count">'+st.d+'/'+st.t+'</span></div>'+
+      '<div class="pnav-top"><span class="pnav-num">'+f.num+'</span><span class="pnav-name">'+escapeHtml(f.nombre)+'</span><span class="pnav-count">'+st.pct+'% · '+st.d+'/'+st.t+'</span></div>'+
       '<div class="pnav-bar"><div style="width:'+st.pct+'%"></div></div></button>';
   }).join('');
   document.querySelectorAll('#phaseNav .pnav-btn').forEach(function(b){
@@ -968,10 +988,10 @@ function renderCard(){
     });
   });
   document.getElementById('phaseCard').innerHTML =
-    '<div class="phase-card-pad"><div class="pc-head"><div>'+
+    '<div class="phase-card-pad"><div class="pc-sticky"><div class="pc-head"><div>'+
     '<div class="pc-kicker">FASE OPERATIVA · '+f.num+'</div><h3 class="pc-name">'+escapeHtml(f.nombre)+'</h3></div>'+
     '<div class="pc-pct"><div class="pc-pct-n">'+st.pct+'%</div><div class="pc-pct-l">'+st.d+'/'+st.t+' ítems</div></div></div>'+
-    '<div class="pc-bar"><div style="width:'+st.pct+'%"></div></div>'+
+    '<div class="pc-bar"><div style="width:'+st.pct+'%"></div></div></div>'+
     '<p class="pc-desc">'+escapeHtml(f.desc)+'</p>'+body+'</div>';
   document.querySelectorAll('#phaseCard .check-row').forEach(function(r){
     r.addEventListener('click',function(){ const k=r.dataset.k; checkState[k]=!checkState[k]; saveState(); renderCard(); renderNav(); renderStats(); });
