@@ -245,7 +245,6 @@
       <a href="#normativa">Normativa</a>
       <span class="nav-prog" title="Avance de guardia"><span class="np-lbl">Guardia</span><span class="np-bar"><i id="navPctBar"></i></span><span id="navPct">0%</span></span>
       <button id="resetBtn" class="mbtn reset" type="button" title="Reiniciar: borrar todo el progreso"><span class="rst-ic">↺</span><span class="rst-tx">Reiniciar</span></button>
-      <button id="motionBtn" class="mbtn" type="button" title="Animaciones">Animado</button>
     </div>
   </div>
 </div>
@@ -1195,13 +1194,11 @@ function calcEscala() {
 
 // ===== animaciones =====
 const ANIM={compassSpin:'spin 90s linear infinite',driftShip:'driftFar 30s linear infinite alternate',bobShip:'bob 5.5s ease-in-out infinite',waveBack:'waveBack 19s linear infinite',waveMid:'waveMid 11s linear infinite',waveFront:'waveFront 7s linear infinite'};
+// Animaciones SIEMPRE activas (se respeta solo "prefers-reduced-motion" del sistema por accesibilidad).
 function applyMotion(){
   const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const calmo=motion==='Calmo'||reduce;
-  Object.keys(ANIM).forEach(function(id){const e=document.getElementById(id);if(e)e.style.animation=calmo?'none':ANIM[id];});
-  const b=document.getElementById('motionBtn'); if(b) b.textContent=(motion==='Calmo')?'Calmo':'Animado';
+  Object.keys(ANIM).forEach(function(id){const e=document.getElementById(id);if(e)e.style.animation=reduce?'none':ANIM[id];});
 }
-document.getElementById('motionBtn').addEventListener('click',function(){ motion=(motion==='Calmo')?'Animado':'Calmo'; try{localStorage.setItem(MK,motion);}catch(e){} applyMotion(); });
 
 // ===== reiniciar todo el proceso desde cero =====
 function resetAll(){
