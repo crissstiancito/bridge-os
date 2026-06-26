@@ -1,9 +1,10 @@
 /* BRIDGE OS — Service Worker (offline-first PWA) */
-const CACHE = 'bridge-os-v1';
+const CACHE = 'bridge-os-v2';
 
 /* App shell precached on install. Everything else is cached at runtime. */
 const PRECACHE = [
   './',
+  './lista_chequeo_naval.html',
   './bridge_os.html',
   './manifest.webmanifest',
   './icons/icon.svg',
@@ -45,7 +46,7 @@ self.addEventListener('fetch', (e) => {
           caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
           return res;
         })
-        .catch(() => caches.match(req).then((r) => r || caches.match('./bridge_os.html')))
+        .catch(() => caches.match(req).then((r) => r || caches.match('./lista_chequeo_naval.html')))
     );
     return;
   }
