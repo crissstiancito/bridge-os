@@ -1,24 +1,1223 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Lista de Chequeo Naval — Asistente de Guardia</title>
+<meta name="description" content="Asistente de guardia: checklist por fases, referencia náutica (RIPA, IALA-B, VHF, SMCP) y calculadoras de navegación. Bitácora digital portable.">
 <meta name="theme-color" content="#0B2240">
-<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Lista de Chequeo">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<meta http-equiv="refresh" content="0; url=lista_chequeo_naval.html">
-<link rel="canonical" href="lista_chequeo_naval.html">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Spectral:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  html,body{height:100%;margin:0}
-  body{background:#0B2240;color:#9FB1C8;font-family:'Spectral',Georgia,serif;
-       display:grid;place-items:center;text-align:center}
-  a{color:#C8A24B;text-decoration:none}
+  *{box-sizing:border-box}
+  body{margin:0;background:#0B2240;color:#F4ECDD;font-family:'Spectral',serif}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  a{color:inherit}
+  :focus-visible{outline:2px solid #C8A24B;outline-offset:3px}
+  ::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-thumb{background:rgba(200,162,75,.4);border-radius:9px}
+
+  @keyframes waveBack {from{transform:translateX(0)}to{transform:translateX(-1440px)}}
+  @keyframes waveMid {from{transform:translateX(0)}to{transform:translateX(-1440px)}}
+  @keyframes waveFront {from{transform:translateX(0)}to{transform:translateX(-1440px)}}
+  @keyframes bob {0%,100%{transform:translateY(0) rotate(-1.2deg)}50%{transform:translateY(-9px) rotate(1.2deg)}}
+  @keyframes driftFar {from{transform:translateX(0)}to{transform:translateX(120px)}}
+  @keyframes spin {from{transform:rotate(0)}to{transform:rotate(360deg)}}
+  @keyframes fadeUp {from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* fondo de mar (profundidad + cáusticas) detrás del contenido */
+  .sea-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;
+    background:linear-gradient(180deg,#0a2238 0%,#0c2c48 42%,#08213a 72%,#061629 100%)}
+  .sea-bg::before,.sea-bg::after{content:'';position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none}
+  .sea-bg::before{width:64vw;height:64vw;left:-12vw;top:-14vw;background:radial-gradient(circle,rgba(60,150,190,.20),transparent 70%);animation:seaA 17s ease-in-out infinite alternate}
+  .sea-bg::after{width:52vw;height:52vw;right:-14vw;top:34vh;background:radial-gradient(circle,rgba(200,162,75,.12),transparent 70%);animation:seaB 22s ease-in-out infinite alternate}
+  @keyframes seaA{to{transform:translate(46px,34px)}}
+  @keyframes seaB{to{transform:translate(-34px,46px)}}
+
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+  .kicker{font:500 13px/1 'IBM Plex Mono',monospace;letter-spacing:.24em;color:#C8A24B;margin-bottom:16px}
+  .h2{margin:0;font:400 44px/1.1 'DM Serif Display',serif}
+  .sec{padding:88px 0}
+
+  /* nav */
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(11,34,64,.82);border-bottom:1px solid rgba(200,162,75,.18)}
+  .nav-in{max-width:1200px;margin:0 auto;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 32px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand span{font:600 15px/1 'Spectral',serif;letter-spacing:.2em}
+  .nav-links{display:flex;align-items:center;gap:28px;font:500 14px/1 'Spectral',serif;color:#C9D6E6}
+  .nav-links a{color:inherit;text-decoration:none}
+  .nav-links a:hover{color:#C8A24B}
+  .mbtn{cursor:pointer;background:transparent;font-family:'Spectral',serif;padding:9px 16px;border:1px solid rgba(200,162,75,.4);border-radius:2px;color:#C9D6E6;font-weight:500;font-size:13px;letter-spacing:.04em}
+  .mbtn:hover{color:#C8A24B;border-color:rgba(200,162,75,.7)}
+  .nav-prog{display:flex;align-items:center;gap:9px;font:600 12px/1 'IBM Plex Mono',monospace;color:#C8A24B;letter-spacing:.04em;white-space:nowrap}
+  .nav-prog .np-bar{width:64px;height:5px;border-radius:5px;background:rgba(200,162,75,.18);overflow:hidden}
+  .nav-prog .np-bar>i{display:block;height:5px;border-radius:5px;background:linear-gradient(90deg,#9A7B2E,#C8A24B);width:0;transition:width .45s ease}
+  .nav-prog .np-lbl{color:#9FB1C8;font-weight:500}
+  .mbtn.reset{display:inline-flex;align-items:center;gap:6px;border-color:rgba(255,120,120,.4);color:#E7B7B7}
+  .mbtn.reset:hover{color:#ff8a8a;border-color:rgba(255,120,120,.75);background:rgba(255,90,90,.08)}
+  .mbtn.reset .rst-ic{font-size:14px;line-height:1}
+  @media (max-width:600px){
+    .nav-prog .np-lbl{display:none}
+    .nav-prog .np-bar{width:44px}
+    .nav-links{gap:12px}
+    .mbtn{padding:9px 12px}
+    .mbtn.reset .rst-tx{display:none}
+  }
+
+  /* hero */
+  .hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#0B2240 0%,#0E2A4E 55%,#102a4d 100%)}
+  .hero-in{max-width:1200px;margin:0 auto;padding:90px 32px 330px;position:relative;z-index:5;display:flex;align-items:center;gap:48px}
+  .hero-l{flex:1;max-width:620px}
+  .hero-title{margin:0;font:400 68px/1.03 'DM Serif Display',serif;letter-spacing:-.01em}
+  .hero-p{margin:26px 0 0;font:400 19px/1.6 'Spectral',serif;color:#AFC0D4;max-width:540px}
+  .cta-row{display:flex;gap:16px;margin-top:34px;flex-wrap:wrap}
+  .cta{padding:15px 30px;background:#C8A24B;color:#0B2240;font:600 15px/1 'Spectral',serif;letter-spacing:.04em;border-radius:2px;text-decoration:none}
+  .cta.ghost{background:transparent;border:1px solid rgba(200,162,75,.5);color:#F4ECDD;font-weight:500}
+  .hero-stats{display:flex;gap:44px;margin-top:46px;font:400 14px/1.3 'Spectral',serif;color:#8FA3BC}
+  .hero-stats .n{font:400 32px/1 'DM Serif Display',serif;color:#C8A24B}
+  .hero-stats .l{margin-top:7px}
+  .compass{position:relative;width:380px;height:380px;flex:none}
+
+  /* ocean */
+  .ocean{position:absolute;left:0;right:0;bottom:0;height:300px;overflow:hidden;z-index:3}
+  . wave{position:absolute;left:50%;margin-left:-1440px;width:2880px;height:200px}
+
+  /* strip */
+  .strip{background:#08182E;border-top:1px solid rgba(200,162,75,.15);border-bottom:1px solid rgba(200,162,75,.15)}
+  .strip-in{max-width:1200px;margin:0 auto;padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px}
+  .strip-it{display:flex;align-items:baseline;gap:12px}
+  .strip-it .n{font:400 26px/1 'DM Serif Display',serif;color:#C8A24B}
+  .strip-it .n.mono{font:500 16px/1 'IBM Plex Mono',monospace}
+  .strip-it .l{font:400 14px/1.2 'Spectral',serif;color:#9FB1C8}
+  .strip-sep{width:1px;height:26px;background:rgba(200,162,75,.2)}
+
+  /* fases */
+  #fases{background:transparent;position:relative}
+  .fases-layout{display:flex;align-items:flex-start;gap:28px;margin-top:40px}
+  .phase-nav{width:330px;flex:none;max-height:none}
+  .pnav-btn{display:block;width:100%;text-align:left;padding:15px 17px;margin-bottom:9px;border-radius:7px;cursor:pointer;border:1px solid rgba(200,162,75,.14);background:transparent;transition:.2s}
+  .pnav-btn:hover{border-color:rgba(200,162,75,.4)}
+  .pnav-btn.active{border-color:rgba(200,162,75,.55);background:rgba(200,162,75,.1)}
+  .pnav-top{display:flex;align-items:center;gap:10px}
+  .pnav-num{font:500 11px/1 'IBM Plex Mono',monospace;color:#C8A24B;flex:none}
+  .pnav-name{font:500 16px/1.2 'Spectral',serif;color:#AFC0D4;flex:1}
+  .pnav-btn.active .pnav-name{color:#F4ECDD}
+  .pnav-count{font:500 12px/1 'IBM Plex Mono',monospace;color:#7C8AA0}
+  .pnav-btn.active .pnav-count{color:#C8A24B}
+  .pnav-bar{margin-top:11px;height:3px;border-radius:3px;background:rgba(200,162,75,.14);overflow:hidden}
+  .pnav-bar>div{height:3px;border-radius:3px;background:rgba(200,162,75,.45)}
+  .pnav-btn.active .pnav-bar>div{background:#C8A24B}
+
+  .phase-card{flex:1;min-width:0}
+  .phase-card-pad{background:#0B2240;border:1px solid rgba(200,162,75,.2);border-radius:12px;padding:0 32px 30px;box-shadow:0 18px 50px rgba(4,12,28,.35);animation:cardIn .3s ease both}
+  @keyframes cardIn{from{opacity:0}to{opacity:1}}
+  .pc-sticky{position:sticky;top:72px;z-index:6;background:#0B2240;margin:0 -32px 16px;padding:24px 32px 14px;border-radius:12px 12px 0 0;border-bottom:1px solid rgba(200,162,75,.16)}
+  .pc-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+  .pc-kicker{font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#C8A24B;margin-bottom:10px}
+  .pc-name{margin:0;font:400 30px/1.05 'DM Serif Display',serif;color:#F4ECDD}
+  .pc-pct{text-align:right;flex:none}
+  .pc-pct-n{font:400 34px/1 'DM Serif Display',serif;color:#C8A24B}
+  .pc-pct-l{font:500 11px/1 'IBM Plex Mono',monospace;color:#8FA3BC;margin-top:6px}
+  .pc-bar{margin:14px 0 0;height:5px;border-radius:4px;background:rgba(200,162,75,.14);overflow:hidden}
+  .pc-desc{padding-top:2px}
+  .pc-bar>div{height:5px;border-radius:4px;background:linear-gradient(90deg,#9A7B2E,#C8A24B);transition:width .4s ease}
+  .pc-desc{margin:0 0 8px;font:400 16px/1.55 'Spectral',serif;color:#9FB1C8}
+  .grp-title{margin:22px 0 4px;font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8A24B;display:flex;align-items:center;gap:8px}
+  .grp-title::before{content:'';width:14px;height:1px;background:rgba(200,162,75,.6)}
+  .check-row{display:flex;align-items:flex-start;gap:14px;padding:13px 2px;cursor:pointer;border-bottom:1px solid rgba(200,162,75,.1);opacity:.62;transition:opacity .2s}
+  .check-row:hover{background:rgba(200,162,75,.04)}
+  .check-row.done{opacity:1}
+  .cbox{flex:none;width:23px;height:23px;margin-top:1px;border-radius:6px;border:1.5px solid rgba(200,162,75,.45);background:transparent;display:flex;align-items:center;justify-content:center;font:700 13px/1 sans-serif;color:#0B2240}
+  .check-row.done .cbox{background:#C8A24B;border-color:#C8A24B}
+  .crow-text{font:400 15.5px/1.4 'Spectral',serif;color:#E7EEF7}
+  .tip{margin-top:8px;padding:9px 13px;background:rgba(200,162,75,.09);border-left:2px solid #C8A24B;border-radius:4px;font:400 13.5px/1.5 'Spectral',serif;color:#D9C68F}
+  .tip::before{content:'ƒ  ';font-family:'IBM Plex Mono',monospace;font-weight:500}
+  .tags{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+  .tag{font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.04em;color:#C8A24B;padding:4px 9px;border:1px solid rgba(200,162,75,.35);border-radius:99px}
+
+  /* referencia */
+  #referencia{background:transparent;position:relative}
+  .ref-grid{margin-top:40px;display:flex;flex-direction:column;gap:12px}
+  .ref-card{background:#0A1B33;border:1px solid rgba(200,162,75,.18);border-radius:10px;overflow:hidden}
+  .ref-head{width:100%;text-align:left;cursor:pointer;background:transparent;border:none;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .ref-head h4{margin:0;font:500 19px/1.2 'Spectral',serif;color:#F4ECDD}
+  .ref-chev{color:#C8A24B;font-size:15px;transition:transform .25s}
+  .ref-chev.open{transform:rotate(180deg)}
+  .ref-body{display:none;padding:0 22px 22px}
+  .ref-body.open{display:block;animation:fadeUp .3s ease both}
+  .buoy-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
+  .buoy-box{border:1px solid;border-radius:8px;padding:14px;text-align:center;background:rgba(0,0,0,.15)}
+  .buoy-box .bname{font:500 11px/1.2 'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:#9FB1C8}
+  .buoy-box .bcolor{font:600 17px/1 'Spectral',serif;margin-top:6px}
+  .buoy-box .bshape{font:400 12px/1.3 'Spectral',serif;color:#9FB1C8;margin-top:5px}
+  .sound-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:6px}
+  .sound-box{display:flex;align-items:center;gap:11px;background:rgba(0,0,0,.15);border:1px solid rgba(200,162,75,.14);border-radius:8px;padding:11px 13px}
+  .sound-box .dots{font:600 15px/1 'IBM Plex Mono',monospace;color:#C8A24B;min-width:34px}
+  .sound-box span:last-child{font:400 13px/1.35 'Spectral',serif;color:#E7EEF7}
+  .vhf-box{background:rgba(0,0,0,.15);border:1px solid rgba(200,162,75,.14);border-left:3px solid #C8A24B;border-radius:8px;padding:14px 16px;margin-bottom:10px}
+  .vhf-label{font:600 13.5px/1.3 'Spectral',serif;color:#F4ECDD}
+  .vhf-body{font:400 13.5px/1.55 'Spectral',serif;color:#C9D6E6;margin-top:6px}
+  .vhf-who{font:400 12px/1.4 'Spectral',serif;color:#8FA3BC;margin-top:6px}
+  .simple-list{display:flex;flex-direction:column}
+  .simple-row{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid rgba(200,162,75,.1);font:400 14px/1.4 'Spectral',serif}
+  .simple-row:last-child{border-bottom:none}
+  .simple-row .k{color:#E7EEF7;font-weight:500}
+  .simple-row .v2{color:#C8A24B;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:13px}
+
+  /* calculadoras (carta crema) */
+  #calculadoras{background:#EDE3CE;color:#0B2240;background-image:linear-gradient(rgba(11,34,64,.035) 1px,transparent 1px);background-size:100% 30px}
+  #calculadoras .kicker{color:#8A6A22}
+  #calculadoras .h2{color:#0B2240}
+  #calculadoras .sec-p{margin:16px 0 0;font:400 17px/1.6 'Spectral',serif;color:#41526A;max-width:620px}
+  .calc-grid-wrap{margin-top:40px;display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  .calc-card{background:#F6EFDD;border:1px solid rgba(11,34,64,.12);border-radius:10px;padding:24px}
+  .calc-title{margin:0;font:500 19px/1.25 'Spectral',serif;color:#0B2240}
+  .calc-desc-t{margin:6px 0 16px;font:400 13.5px/1.5 'Spectral',serif;color:#5A6B82}
+  .calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .calc-field{display:flex;flex-direction:column;gap:5px}
+  .calc-field label{font:500 10.5px/1.2 'IBM Plex Mono',monospace;letter-spacing:.04em;text-transform:uppercase;color:#8A6A22}
+  .calc-field input{padding:10px 12px;border:1px solid rgba(11,34,64,.22);border-radius:6px;background:#fff;color:#0B2240;font:500 14px/1 'IBM Plex Mono',monospace;outline:none}
+  .calc-field input:focus{border-color:#C8A24B;box-shadow:0 0 0 3px rgba(200,162,75,.2)}
+  .calc-btn{margin-top:16px;padding:12px 24px;border:none;border-radius:6px;cursor:pointer;background:#0B2240;color:#F4ECDD;font:600 14px/1 'Spectral',serif;letter-spacing:.04em}
+  .calc-btn:hover{background:#102a4d}
+  .calc-result{display:none;margin-top:16px;background:#fff;border:1px solid rgba(11,34,64,.12);border-left:3px solid #C8A24B;border-radius:6px;padding:13px 16px;font:400 14px/1.65 'Spectral',serif;color:#0B2240}
+  .calc-result.show{display:block;animation:fadeUp .25s ease both}
+  .calc-result.err{border-left-color:#b3261e;color:#b3261e}
+
+  /* normativa */
+  #normativa{background:#08182E}
+  .norm-grid{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .norm-card{background:#0A1B33;border:1px solid rgba(200,162,75,.18);border-radius:10px;padding:28px}
+  .norm-card h3{margin:0 0 10px;font:500 20px/1.2 'Spectral',serif;color:#F4ECDD}
+  .norm-card p{margin:0;font:400 15px/1.55 'Spectral',serif;color:#9FB1C8}
+
+  /* footer */
+  .foot{background:#08182E;border-top:1px solid rgba(200,162,75,.18);padding:52px 0 38px}
+  .foot-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:28px}
+  .foot p{margin:0;font:400 14px/1.6 'Spectral',serif;color:#7C8FA8;max-width:440px}
+  .foot-cols{display:flex;gap:46px;font:400 14px/2 'Spectral',serif;color:#9FB1C8}
+  .foot-cols .h{font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#C8A24B;margin-bottom:12px}
+  .foot-cols a{display:block;color:inherit;text-decoration:none}
+  .foot-base{margin-top:34px;padding-top:20px;border-top:1px solid rgba(200,162,75,.12);font:400 13px/1 'IBM Plex Mono',monospace;color:#5E7088}
+
+  /* responsive */
+  @media (max-width:960px){
+    .nav-links a{display:none}
+    .hero-in{flex-direction:column;align-items:flex-start;padding:64px 22px 290px;gap:6px}
+    .hero-title{font-size:44px}
+    .compass{width:240px;height:240px;margin-top:8px}
+    .compass svg{width:240px!important;height:240px!important}
+    .fases-layout{flex-direction:column;gap:18px}
+    .phase-nav{width:100%}
+    .calc-grid-wrap{grid-template-columns:1fr}
+    .norm-grid{grid-template-columns:1fr}
+    .strip-sep{display:none}
+    .strip-in{gap:14px 26px}
+    .sec{padding:60px 0}
+    .h2{font-size:34px}
+    .wrap,.nav-in,.hero-in,.strip-in{padding-left:22px;padding-right:22px}
+    .foot-top{flex-direction:column;gap:24px}
+  }
+  @media (max-width:520px){ .hero-title{font-size:37px} .phase-card-pad{padding:0 18px 22px} .pc-sticky{margin:0 -18px 14px;padding:18px 18px 12px} .hero-stats{flex-wrap:wrap;gap:20px 32px} }
+  @media (prefers-reduced-motion:reduce){#compassSpin,#driftShip,#bobShip,#waveBack,#waveMid,#waveFront{animation:none!important}}
 </style>
 </head>
 <body>
-  <p>Cargando <strong style="color:#F4ECDD">Lista de Chequeo Naval</strong>…<br>
-     <a href="lista_chequeo_naval.html">Entrar →</a></p>
-  <script>location.replace('lista_chequeo_naval.html');</script>
+<div class="sea-bg" aria-hidden="true"></div>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-in">
+    <div class="brand">
+      <svg width="22" height="24" viewBox="0 0 20 22" fill="none" stroke="#C8A24B" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="4" r="2.4"/><line x1="10" y1="6.4" x2="10" y2="20"/><line x1="5" y1="10" x2="15" y2="10"/><path d="M3 14 a7 7 0 0 0 14 0"/></svg>
+      <span>LISTA DE CHEQUEO</span>
+    </div>
+    <div class="nav-links">
+      <a href="#fases">Fases</a>
+      <a href="#referencia">Referencia</a>
+      <a href="#calculadoras">Calculadoras</a>
+      <a href="#normativa">Normativa</a>
+      <span class="nav-prog" title="Avance de guardia"><span class="np-lbl">Guardia</span><span class="np-bar"><i id="navPctBar"></i></span><span id="navPct">0%</span></span>
+      <button id="resetBtn" class="mbtn reset" type="button" title="Reiniciar: borrar todo el progreso"><span class="rst-ic">↺</span><span class="rst-tx">Reiniciar</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-in">
+    <div class="hero-l">
+      <div class="kicker">ASISTENTE DE GUARDIA · BITÁCORA DIGITAL</div>
+      <h1 class="hero-title">Lista de Chequeo<br>Virtual de Guardia</h1>
+      <p class="hero-p">Tu copiloto a bordo: procedimientos por fase, referencia náutica y calculadoras de navegación. Una herramienta clara, portable y alimentada con datos técnicos de la formación.</p>
+      <div class="cta-row">
+        <a href="#fases" class="cta">Iniciar chequeo</a>
+        <a href="#calculadoras" class="cta ghost">Ver calculadoras →</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="n" id="statFases">11</div><div class="l">Fases operativas</div></div>
+        <div><div class="n" id="statItems">0</div><div class="l">Ítems de control</div></div>
+        <div><div class="n" id="statCalc">7</div><div class="l">Calculadoras</div></div>
+      </div>
+    </div>
+    <div class="compass">
+      <svg id="compassSpin" width="380" height="380" viewBox="0 0 200 200" style="position:absolute;inset:0;">
+        <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(200,162,75,.22)" stroke-width="1"/>
+        <circle cx="100" cy="100" r="86" fill="none" stroke="rgba(200,162,75,.5)" stroke-width="6" stroke-dasharray="1 7.4"/>
+        <circle cx="100" cy="100" r="73" fill="none" stroke="rgba(200,162,75,.16)" stroke-width="1"/>
+      </svg>
+      <svg width="380" height="380" viewBox="0 0 200 200" style="position:absolute;inset:0;">
+        <line x1="100" y1="100" x2="143" y2="57" stroke="rgba(200,162,75,.3)" stroke-width="1.4"/>
+        <line x1="100" y1="100" x2="57" y2="57" stroke="rgba(200,162,75,.3)" stroke-width="1.4"/>
+        <line x1="100" y1="100" x2="143" y2="143" stroke="rgba(200,162,75,.3)" stroke-width="1.4"/>
+        <line x1="100" y1="100" x2="57" y2="143" stroke="rgba(200,162,75,.3)" stroke-width="1.4"/>
+        <path d="M100,30 L107,93 L100,100 L93,93 Z" fill="#C8A24B"/>
+        <path d="M100,170 L107,107 L100,100 L93,107 Z" fill="#6E7E96"/>
+        <path d="M170,100 L107,107 L100,100 L107,93 Z" fill="rgba(200,162,75,.6)"/>
+        <path d="M30,100 L93,107 L100,100 L93,93 Z" fill="rgba(200,162,75,.6)"/>
+        <circle cx="100" cy="100" r="4.5" fill="#0B2240" stroke="#C8A24B" stroke-width="1.4"/>
+        <text x="100" y="21" text-anchor="middle" font-family="'DM Serif Display',serif" font-size="14" fill="#C8A24B">N</text>
+        <text x="100" y="188" text-anchor="middle" font-family="'DM Serif Display',serif" font-size="13" fill="#8FA3BC">S</text>
+        <text x="184" y="105" text-anchor="middle" font-family="'DM Serif Display',serif" font-size="13" fill="#C8A24B">E</text>
+        <text x="16" y="105" text-anchor="middle" font-family="'DM Serif Display',serif" font-size="13" fill="#C8A24B">O</text>
+      </svg>
+    </div>
+  </div>
+  <div class="ocean">
+    <svg id="driftShip" width="64" height="34" viewBox="0 0 180 96" style="position:absolute;bottom:188px;left:18%;opacity:.4;"><path d="M10,58 L170,58 L150,82 L30,82 Z" fill="#1a3a63"/><rect x="60" y="30" width="22" height="28" fill="#1a3a63"/><rect x="110" y="36" width="14" height="22" fill="#1a3a63"/></svg>
+    <div id="waveBack" style="position:absolute;bottom:96px;left:50%;margin-left:-1440px;width:2880px;height:200px;"><svg width="2880" height="200" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0,70 C240,30 480,30 720,70 C960,110 1200,110 1440,70 L1440,200 L0,200 Z" fill="rgba(28,58,100,.55)"/><path d="M1440,70 C1680,30 1920,30 2160,70 C2400,110 2640,110 2880,70 L2880,200 L1440,200 Z" fill="rgba(28,58,100,.55)"/></svg></div>
+    <svg id="bobShip" width="190" height="100" viewBox="0 0 180 96" style="position:absolute;bottom:118px;left:54%;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35));"><path d="M10,58 L170,58 L150,82 L30,82 Z" fill="#0a1f3b"/><rect x="48" y="38" width="54" height="20" fill="#102a4d"/><rect x="60" y="24" width="26" height="14" fill="#102a4d"/><rect x="63" y="29" width="20" height="3" fill="#C8A24B"/><rect x="108" y="32" width="16" height="26" fill="#102a4d"/><rect x="108" y="32" width="16" height="6" fill="#C8A24B"/><rect x="38" y="14" width="3" height="24" fill="#102a4d"/><rect x="120" y="10" width="3" height="22" fill="#102a4d"/><path d="M41,14 L52,18 L41,22 Z" fill="#C8A24B"/></svg>
+    <div id="waveMid" style="position:absolute;bottom:44px;left:50%;margin-left:-1440px;width:2880px;height:200px;"><svg width="2880" height="200" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0,70 C240,30 480,30 720,70 C960,110 1200,110 1440,70 L1440,200 L0,200 Z" fill="#102a4d"/><path d="M1440,70 C1680,30 1920,30 2160,70 C2400,110 2640,110 2880,70 L2880,200 L1440,200 Z" fill="#102a4d"/></svg></div>
+    <div id="waveFront" style="position:absolute;bottom:0;left:50%;margin-left:-1440px;width:2880px;height:200px;"><svg width="2880" height="200" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0,70 C240,30 480,30 720,70 C960,110 1200,110 1440,70 L1440,200 L0,200 Z" fill="#0a1f3b"/><path d="M1440,70 C1680,30 1920,30 2160,70 C2400,110 2640,110 2880,70 L2880,200 L1440,200 Z" fill="#0a1f3b"/></svg></div>
+  </div>
+</div>
+
+<!-- STRIP -->
+<div class="strip"><div class="strip-in">
+  <div class="strip-it"><span class="n" id="stripFases">11</span><span class="l">Fases operativas</span></div>
+  <div class="strip-sep"></div>
+  <div class="strip-it"><span class="n" id="stripItems">0</span><span class="l">Ítems de control</span></div>
+  <div class="strip-sep"></div>
+  <div class="strip-it"><span class="n mono" id="stripPct">0%</span><span class="l">Avance de guardia</span></div>
+  <div class="strip-sep"></div>
+  <div class="strip-it"><span class="n mono">100%</span><span class="l">Portable y editable</span></div>
+</div></div>
+
+<!-- FASES -->
+<div id="fases" class="sec"><div class="wrap">
+  <div class="kicker">OPERATIVA DE GUARDIA</div>
+  <h2 class="h2">Chequeo por fase de la guardia</h2>
+  <p class="sec-p" style="margin:16px 0 0;font:400 17px/1.6 'Spectral',serif;color:#9FB1C8;max-width:640px;">Selecciona la fase y verifica cada control. El progreso se guarda en tu dispositivo. Cada ítem incluye, cuando aplica, una nota técnica y sus normas de referencia.</p>
+  <div class="fases-layout">
+    <div id="phaseNav" class="phase-nav"></div>
+    <div id="phaseCard" class="phase-card"></div>
+  </div>
+</div></div>
+
+<!-- REFERENCIA -->
+<div id="referencia" class="sec"><div class="wrap">
+  <div class="kicker">REFERENCIA NÁUTICA</div>
+  <h2 class="h2">Referencia rápida de a bordo</h2>
+  <p style="margin:16px 0 0;font:400 17px/1.6 'Spectral',serif;color:#9FB1C8;max-width:640px;">Balizamiento IALA-B, señales sonoras RIPA, guion VHF de emergencia, frases OMI (SMCP), nudos, banderas, unidades e inglés para timoneles.</p>
+  <div id="refContainer" class="ref-grid"></div>
+</div></div>
+
+<!-- CALCULADORAS -->
+<div id="calculadoras" class="sec"><div class="wrap">
+  <div class="kicker">CARTA DE CÁLCULO</div>
+  <h2 class="h2">Calculadoras de navegación</h2>
+  <p class="sec-p">Calados y asiento, guinda, conversión de rumbos, velocidad·distancia·tiempo, regla de los doce (mareas), cadena de fondeo y escala de carta. Ingresa los datos y calcula.</p>
+  <div id="calcContainer" class="calc-grid-wrap"></div>
+</div></div>
+
+<!-- NORMATIVA -->
+<div id="normativa" class="sec"><div class="wrap">
+  <div class="kicker">SEGURIDAD Y NORMATIVA</div>
+  <h2 class="h2">Marco de referencia</h2>
+  <div class="norm-grid">
+    <div class="norm-card">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C8A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px;"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+      <h3>RIPA / COLREG</h3><p>Reglamento Internacional para Prevenir Abordajes: reglas de gobierno, rumbo, luces y señales.</p>
+    </div>
+    <div class="norm-card">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C8A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px;"><path d="M12 2v20M2 7l10-5 10 5M5 9v7M19 9v7M2 16l10 5 10-5"/></svg>
+      <h3>SOLAS / STCW</h3><p>Seguridad de la Vida Humana en el Mar y normas de formación, titulación y guardia.</p>
+    </div>
+    <div class="norm-card">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C8A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px;"><circle cx="12" cy="8" r="3.2"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6"/></svg>
+      <h3>DIRECTEMAR · SHOA</h3><p>Autoridad Marítima de Chile y Servicio Hidrográfico: derroteros, cartas, faros y avisos.</p>
+    </div>
+  </div>
+</div></div>
+
+<!-- FOOTER -->
+<div class="foot"><div class="wrap">
+  <div class="foot-top">
+    <div>
+      <div class="brand" style="margin-bottom:14px;"><svg width="20" height="22" viewBox="0 0 20 22" fill="none" stroke="#C8A24B" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="4" r="2.4"/><line x1="10" y1="6.4" x2="10" y2="20"/><line x1="5" y1="10" x2="15" y2="10"/><path d="M3 14 a7 7 0 0 0 14 0"/></svg><span style="font:600 14px/1 'Spectral',serif;letter-spacing:.2em;">LISTA DE CHEQUEO</span></div>
+      <p>Asistente de guardia con datos técnicos de la formación TUTMC. Pre-zarpe · Zarpe · Navegación · Maniobra · Puerto · Comunicaciones · Meteorología · Cierre · Emergencias.</p>
+    </div>
+    <div class="foot-cols">
+      <div><div class="h">SECCIONES</div><a href="#fases">Fases</a><a href="#referencia">Referencia</a><a href="#calculadoras">Calculadoras</a><a href="#normativa">Normativa</a></div>
+      <div><div class="h">SOPORTE</div><span>Portátil</span><span>Editable</span><span>Sin conexión</span></div>
+    </div>
+  </div>
+  <div class="foot-base">© Bitácora Digital · Uso académico · Guardia de mar</div>
+</div></div>
+
+<script>
+const FASES = [
+  {
+    id: 0, num: "01", nombre: "PRE-ZARPE", icon: "🗺️",
+    desc: "Planificación antes del zarpe",
+    color: "#0c4a6e", bg: "#dbeafe",
+    grupos: [
+      {
+        titulo: "Publicaciones y cartografía",
+        items: [
+          { t: "Verificar Derroteros SHOA (Vols. 3001–3006) y Lista de Faros (Pub. 3007) para la ruta planificada.", tip: "SHOA publica avisos de corrección; confirmar última edición vigente antes de zarpar.", tags: ["SHOA"] },
+          { t: "Revisar Radioavisos a los Navegantes (SHOA) y Notificaciones a los Navegantes vigentes para la zona.", tags: ["SHOA"] },
+          { t: "Verificar cartas náuticas actualizadas con sondas correctas en metros (SHOA). Confirmar escala apropiada para la navegación.", tip: "Las sondas en carta SHOA se expresan en metros referidos al nivel medio de bajamares de sicigias.", tags: ["SHOA"] },
+        ]
+      },
+      {
+        titulo: "Calados, guinda y estabilidad",
+        items: [
+          { t: "Verificar calados de proa y popa. Calcular asiento (trim) y calado medio. Confirmar que no se excede el máximo asignado para la zona.", tags: ["ESTAB."] },
+          { t: "Calcular y verificar la guinda del buque (altura máxima sobre la línea de flotación) para garantizar paso libre bajo puentes, cables eléctricos y estructuras portuarias en la ruta planificada.", tip: "Guinda = distancia vertical desde flotación hasta el punto más alto de la nave (tope del palo, antenas). Consultar altura libre en carta y derrotero SHOA del tramo.", tags: ["GUINDA"] },
+          { t: "Evaluar distribución de pesos para prevenir arrufo o quebranto.", tip: "Arrufo → extremos fuera del agua (extremos sobre cresta). Quebranto → centro sobre cresta de ola.", tags: ["ESTAB."] },
+          { t: "Comprobar UKC (Under Keel Clearance) para la ruta prevista. Calcular efecto de squat en aguas poco profundas.", tags: ["UKC/SQUAT"] },
+        ]
+      },
+      {
+        titulo: "Mareas y corrientes",
+        items: [
+          { t: "Establecer tablas de marea para el puerto patrón correspondiente. Para zona sur-central de Chile, verificar tablas de Valparaíso como puerto patrón de referencia.", tip: "Ej. zona Lirquén → puerto patrón: Valparaíso. Aplicar diferencia horaria y de altura.", tags: ["MAREA"] },
+          { t: "Registrar estado de marea al zarpe: hora PM/BM y alturas. Verificar corrientes de marea previstas en la ruta.", tags: ["MAREA"] },
+        ]
+      },
+      {
+        titulo: "Amarras y equipo de fondeo",
+        items: [
+          { t: "Inspeccionar cabrestante (capstan): motor, barbotén, freno/compresa, estopor, rodillo y porta-balatas. Verificar lubricación (Mobilux XHP 222).", tip: "Encapillar = conectar eje al piñón. Desencapillar = desconectar. Esfera de fondeo lista a bordo.", tags: ["FONDEO"] },
+          { t: "Revisar ancla tipo Hall: arganeo, caña, cruz, uñas, mapa, pico de loro, brazos. Verificar grilletes Kenter y giratorio. Estado de cadena (eslabones, malletes).", tip: "Ancla lista sobre freno o boza al navegar en canales y pasos estrechos.", tags: ["FONDEO"] },
+          { t: "Verificar espías de amarre: largos (proa/popa), traveses, esprines y coderas. Revisar material y certificados de carga de ruptura.", tip: "Traveses → resistencia transversal. Esprines → resistencia longitudinal. Coderas → sujetan ante mar de fuera.", tags: ["AMARRE"] },
+          { t: "Revisar bitas, roletes (lubricación Mobilux XHP 222), gateras, panameñas y escobenes. Verificar marcación SWL.", tags: ["CUBIERTA"] },
+        ]
+      },
+      {
+        titulo: "Despacho y electrónica",
+        items: [
+          { t: "Verificar autorización de despacho (Zarpe Web / Capitanía de Puerto). Confirmar que la dotación mínima de seguridad y los roles de navegación estén vigentes y a bordo.", tags: ["DIRECTEMAR"] },
+          { t: "Actualizar datos de viaje en el AIS (Automatic Identification System): ingresar calado estático actual, puerto de destino, ETA y estado de navegación correcto.", tags: ["AIS"] },
+          { t: "Identificar en la carta todos los puntos de reporte obligatorio y zonas de practicaje requeridos por la Autoridad Marítima a lo largo de la derrota.", tip: "En la jurisdicción de Puerto Montt y canales interiores, los puntos de reporte ante el VTS son obligatorios y deben coordinarse con Capitanía de Puerto antes del zarpe.", tags: ["VTS", "PILOTAJE"] },
+        ]
+      },
+    ]
+  },
+  {
+    id: 1, num: "02", nombre: "ZARPE", icon: "🚢",
+    desc: "Procedimientos durante el zarpe",
+    color: "#1a7a4c", bg: "#dcfce7",
+    grupos: [
+      {
+        titulo: "Gobierno y timón",
+        items: [
+          { t: "Probar el gobierno bajo supervisión del oficial de guardia antes de cualquier maniobra. Verificar axiómetro y servo-motor.", tip: "Nunca cerrar la caña hasta el tope: puede bloquear el servomotor.", tags: ["GOBIERNO"] },
+          { t: "Verificar efecto de hélice dextrógira: en marcha atrás la popa cae a babor. Planificar maniobra de ciaboga si es necesario.", tip: "Ciaboga con hélice dextrógira: atrás con timón a babor / avante con timón a estribor.", tags: ["MANIOBRA"] },
+        ]
+      },
+      {
+        titulo: "Desatraque",
+        items: [
+          { t: "Evaluar viento y corriente imperante. Usar espías estratégicamente: con viento/corriente de proa → largar spring de popa para abrir proa.", tip: "Con viento fuerte de fuera: colocar codera a boya o muelle opuesto antes de largar amarras.", tags: ["DESATRAQUE"] },
+          { t: 'Mantener "libre a sotavento": confirmar que la banda de sotavento esté libre de obstáculos (boyas, rocas, embarcaciones) antes de maniobrar.', tags: ["MANIOBRA"] },
+        ]
+      },
+      {
+        titulo: "Compases y navegación",
+        items: [
+          { t: "Verificar y anotar error del girocompás. Método: azimut de Sol o estrella. Aplicar Ecuación Universal para corregir rumbos.", tags: ["NAVEGACIÓN"] },
+          { t: "Comunicar al Capitán: condición del buque al zarpar, cantidad de combustible, agua, carga y condición del tiempo. Registrar en Diario de Navegación.", tags: ["STCW"] },
+        ]
+      },
+    ]
+  },
+  {
+    id: 2, num: "03", nombre: "NAVEGACIÓN", icon: "🧭",
+    desc: "Desempeño durante la navegación",
+    color: "#0c4a6e", bg: "#dbeafe",
+    grupos: [
+      {
+        titulo: "Vigilancia y equipos",
+        items: [
+          { t: "RIPA Regla 5: mantener vigilancia visual y auditiva constante usando todos los medios disponibles (visual, auditivo, radar, AIS).", tags: ["RIPA R.5"] },
+          { t: "RIPA Regla 6: navegar a velocidad de seguridad adecuada a visibilidad, tráfico, calado y condiciones de viento/corriente.", tags: ["RIPA R.6"] },
+          { t: "RIPA Regla 7: evaluar riesgo de colisión mediante radar (CPA/TCPA). No basarse en información insuficiente. Si la demora no cambia → riesgo de colisión.", tip: "CPA = Closest Point of Approach. TCPA = tiempo hasta CPA.", tags: ["RIPA R.7"] },
+          { t: "Monitorear ecosonda: registrar profundidad y tipo de fondo. Verificar alarma de sonda activada para aviso de aguas someras.", tags: ["ECOSONDA"] },
+          { t: "Verificar GPS/DGPS: posición actualizada, HDOP aceptable. Comparar posición GPS con radar/visual. Mantener trazado en carta.", tags: ["GPS/DGPS"] },
+          { t: "Verificar AIS: identificar embarcaciones cercanas, rumbo, velocidad y CPA. Cruzar con observación visual. Mantener lista de contactos relevantes.", tags: ["AIS"] },
+        ]
+      },
+      {
+        titulo: "Cinemática y rumbos",
+        items: [
+          { t: "Controlar caídas del buque. Caídas a estribor = (+) se suma al rumbo. Caídas a babor = (−) se resta al rumbo verdadero.", tip: "Anotar cada cambio de rumbo con hora exacta en Diario de Navegación.", tags: ["RUMBOS"] },
+          { t: "Calcular y aplicar abatimiento (deriva). El buque abate a estribor con viento/corriente por babor y viceversa. Corregir rumbo a gobernar.", tip: "Viento aparente = resultante vectorial del viento real y la velocidad del buque.", tags: ["CINEMÁTICA"] },
+          { t: "Calcular ETA: distancia ÷ velocidad. Actualizar ante cambios de velocidad o condiciones.", tags: ["ETA"] },
+        ]
+      },
+      {
+        titulo: "Balizamiento IALA B",
+        items: [
+          { t: "Señales laterales IALA B al entrar a puerto: babor = cilíndrica VERDE (luz verde). Estribor = cónica ROJA (luz roja).", tip: "Sentido en Chile: de Sur a Norte en canales costeros / de Weste a Este en canales transversales.", tags: ["IALA-B"] },
+          { t: "Reconocer señales cardinales (Norte, Sur, Este, Weste): indican que agua segura se ubica al lado cardinal correspondiente al punto de interés.", tags: ["IALA-B"] },
+          { t: "Reconocer señal de Peligro Aislado (negro-rojo, 2 bolas en tope): 2 destellos blancos. Señal Aguas Seguras (rojo/blanco, esfera en tope): Morse A blanco.", tags: ["IALA-B"] },
+        ]
+      },
+    ]
+  },
+  {
+    id: 3, num: "04", nombre: "NAV. ESPECIAL", icon: "🗺️",
+    desc: "Canales, estrechos y aguas someras",
+    color: "#c8830a", bg: "#fbf0d9",
+    grupos: [
+      {
+        titulo: "General",
+        items: [
+          { t: "Reducir velocidad en canales y aguas estrechas. Mantener velocidad mínima que permita gobierno efectivo.", tip: "Velocidad de gobierno = mínima para que la acción del timón sea efectiva según condiciones.", tags: ["RIPA R.9"] },
+          { t: "Ancla lista (sobre freno o boza) al navegar entre canales y pasos estrechos o al entrar/salir de puerto. Tripulación de proa alerta.", tags: ["FONDEO"] },
+          { t: "Aumentar frecuencia de sondeos con ecosonda. En aguas someras considerar efecto de banco (bank effect) y succión entre buques.", tags: ["AGUAS SOMERAS"] },
+          { t: "Aumentar frecuencia de posiciones en carta. Usar múltiples métodos: enfilaciones, marcaciones radar, GPS. Posición cada 5–10 minutos mínimo.", tags: ["POSICIÓN"] },
+        ]
+      },
+      {
+        titulo: "Navegación nocturna",
+        items: [
+          { t: "Período de adaptación visual nocturna: mínimo 20–30 minutos. Evitar luz blanca en el puente. Usar luz roja para consulta de cartas.", tip: "Los bastones (visión nocturna) requieren 20–30 min en oscuridad total.", tags: ["NOCTURNA"] },
+          { t: "Verificar luces de navegación propias: tope (blanco), costados (rojo-Bb / verde-Er), alcance (blanco popa), fondeo (blanco todo-horizonte). Según RIPA Regla 23.", tags: ["RIPA R.23"] },
+        ]
+      },
+      {
+        titulo: "Visibilidad reducida",
+        items: [
+          { t: "RIPA Regla 19: navegar a velocidad segura reducida. Activar señales sonoras neblinosas. Radar a escala apropiada. Guardia auditiva reforzada.", tip: "1 toque largo c/2 min = navegando. 2 toques largos = detenido.", tags: ["RIPA R.19"] },
+        ]
+      },
+      {
+        titulo: "Zona de hielos y emergencias naturales",
+        items: [
+          { t: "Zona de hielos (canales australes): guardia visual reforzada a proa. Reducir velocidad drásticamente. Notificar a MRCC Chile / Armada.", tags: ["HIELOS"] },
+          { t: "Protocolo terremoto/tsunami en navegación: si se percibe sismo, ganar profundidad y alejarse de la costa inmediatamente. Comunicar a SHOA/DIRECTEMAR.", tip: "SHOA emite alertas de tsunami. La mejor defensa en mar abierto es la profundidad (>1000 m).", tags: ["EMERGENCIA"] },
+        ]
+      },
+      {
+        titulo: "Control de tráfico marítimo",
+        items: [
+          { t: "Notificar a centros / estaciones de Control de Tráfico Marítimo al ingresar a áreas de jurisdicción (ej. Canal Chacao, Estrecho de Magallanes). Mantener guardia obligatoria en el canal de trabajo asignado por el centro.", tags: ["VTS"] },
+        ]
+      },
+    ]
+  },
+  {
+    id: 4, num: "05", nombre: "NORMATIVA", icon: "⚠️",
+    desc: "RIPA — prevención de abordajes",
+    color: "#c4342f", bg: "#fbe7e5",
+    grupos: [
+      {
+        titulo: "Reglas de encuentro",
+        items: [
+          { t: "Regla 13 — Alcance: buque que alcanza por popa (sector >22.5° a popa del través) debe ceder el paso. Buque alcanzado mantiene rumbo y velocidad.", tags: ["RIPA R.13"] },
+          { t: "Regla 14 — Proa a proa: ambos buques caen a estribor. Acción temprana, amplia y definitiva. Señal sonora: 1 toque corto.", tags: ["RIPA R.14"] },
+          { t: "Regla 15 — Cruce: buque que tiene al otro a estribor cede el paso. Señal: 1 toque corto si cae a estribor, 2 toques si a babor.", tags: ["RIPA R.15"] },
+          { t: "Reglas 16 y 17: buque que cede debe actuar temprana y efectivamente. Buque privilegiado mantiene rumbo hasta que sea evidente que el cedente no actuó.", tags: ["RIPA R.16-17"] },
+          { t: "Regla 18 — Obligaciones entre categorías: BPM cede a velero, barco de pesca, buque sin gobierno, maniobra restringida, restringido por calado.", tags: ["RIPA R.18"] },
+        ]
+      },
+      {
+        titulo: "Señales de maniobra",
+        items: [
+          { t: "Regla 34 — Señales sonoras: 1 corto = estribor | 2 cortos = babor | 3 cortos = máquina atrás | 5+ cortos = alarma/no entiendo.", tip: "Bocina: 1 segundo = pitido corto. En visibilidad limitada las señales son de navegación, no de maniobra.", tags: ["RIPA R.34"] },
+          { t: "Regla 36 — Señales para atraer atención: cualquier luz o señal que no pueda confundirse con ayuda a la navegación.", tags: ["RIPA R.36"] },
+        ]
+      },
+    ]
+  },
+  {
+    id: 5, num: "06", nombre: "MANIOBRA", icon: "⚓",
+    desc: "Recalar, fondeo y punto de fondeo",
+    color: "#0c4a6e", bg: "#dbeafe",
+    grupos: [
+      {
+        titulo: "Selección del tenedero",
+        items: [
+          { t: "Elegir fondeadero con buen agarre: fango, arena blanda, cascajos. Evitar piedra, algas y arcilla dura. Verificar tipo de fondo en carta (F=fango, A=arena, P=piedra).", tags: ["FONDEO"] },
+          { t: "Verificar zona libre de cables y tuberías submarinas. Espacio suficiente para el borneo (círculo de borneo = longitud cadena + eslora).", tip: "Borneo = giro del buque alrededor del ancla. Puede ser grande; considerar obstáculos cercanos.", tags: ["FONDEO"] },
+        ]
+      },
+      {
+        titulo: "Longitud de cadena y maniobra",
+        items: [
+          { t: "Calcular longitud de cadena: buen tiempo = 3–4× profundidad. Mal tiempo = 5–6× profundidad. Verificar profundidad con ecosonda.", tip: "1 paño de cadena = 27,5 metros. Contar paños por marcas de colores en la cadena.", tags: ["FONDEO"] },
+          { t: "Fondeo a la gira (1 ancla): aproximarse proa al viento, abrir freno del barbotén, filar cadena con máquina atrás. Hacer firme al confirmar paños filados.", tags: ["FONDEO"] },
+          { t: "Fondeo a barbas de gato (2 anclas): ángulo entre cadenas no superior a 120°. Fondear ancla barlovento primero, luego dar atrás para fondear la de sotavento.", tags: ["FONDEO"] },
+          { t: "Fondeo a la entrante y vaciante (estuarios): primera ancla por proa, retroceder y fondear segunda por popa (~180°). Controla el borneo en canales con corriente.", tags: ["FONDEO"] },
+        ]
+      },
+      {
+        titulo: "Vigilancia y señales de fondeo",
+        items: [
+          { t: "RIPA Regla 30 — Señales de fondeo: día → bola negra en proa. Noche → luz blanca todo-horizonte en proa (>50 m también en popa).", tags: ["RIPA R.30"] },
+          { t: "Vigilar garreo: tomar posiciones cada 15–30 min. Activar alarma de sonda y alarma GPS. Señal de garreo: cadena vertical tensa o con sonidos.", tip: "Garreo = ancla arrastrada. Causas: fondo inadecuado, poca cadena, mar de fondo.", tags: ["VIGILANCIA"] },
+          { t: 'Levar ancla: avanzar lentamente cobrando cadena hasta "a pique" (cadena vertical), luego "zarpe" (ancla se separa). Informar al puente en cada etapa.', tip: 'Voces: "ARRANCÓ" → "AFLORANDO LA CAÑA" → "ANCLA ARRIBA CLARA" → "TRAGADA SIN NOVEDAD".', tags: ["LEVAR"] },
+        ]
+      },
+    ]
+  },
+  {
+    id: 6, num: "07", nombre: "PUERTO", icon: "🏗️",
+    desc: "Atraque y seguridad en puerto",
+    color: "#1a7a4c", bg: "#dcfce7",
+    grupos: [
+      {
+        titulo: "General",
+        items: [
+          { t: "Planificar atraque: confirmar muelle, calado mínimo, tipo de fondo, mareas al arribo, viento y corrientes. Coordinar con Capitanía de Puerto.", tags: ["PRE-ATRAQUE"] },
+          { t: "Preparar defensas y espías: largos (proa/popa), traveses y esprines listos en roletes y bitas correspondientes.", tags: ["ATRAQUE"] },
+          { t: "Aproximarse al muelle con ángulo 20°–30° en condiciones normales. En espacio reducido usar ángulo hasta 60°. Que la amura sea lo primero en contactar.", tags: ["ATRAQUE"] },
+          { t: "Atraque por babor (proa hacia adentro): 1) timón a estribor para cerrar ángulo. 2) timón a la vía con poca arrancada. 3) timón a estribor + máquina atrás para parar. 4) dar cabos.", tags: ["ATRAQUE"] },
+          { t: "Verificar escala de prácticos (pilot ladder): cabo manila 18 mm, peldaños de madera, spreader, falcaceada con merlín alquitranado. Certificación vigente.", tags: ["SOLAS"] },
+          { t: "Escala combinada (accommodation ladder): requerida cuando el francobordo supera 9 metros. Instalar con EPP y arnés de seguridad.", tags: ["SOLAS"] },
+        ]
+      },
+      {
+        titulo: "Seguridad en faenas de puerto",
+        items: [
+          { t: "Verificar permiso de trabajo en espacios cerrados antes de cualquier ingreso. Confirmar ventilación adecuada, medición de atmósfera (O₂, gases tóxicos, explosivos) y vigía exterior.", tip: "O₂ seguro: 19.5–23.5%. Presencia de H₂S, CO o vapores inflamables → prohibido ingresar sin equipo respiratorio autónomo SCBA.", tags: ["ESPACIOS CERRADOS"] },
+          { t: "Verificar permiso de trabajo en caliente (hot work permit) antes de soldaduras, esmeriles u operaciones con llama abierta a bordo. Confirmar extintor, manguera y vigía disponibles.", tip: "Áreas calientes requieren medición de gases y aislamiento de sistemas de combustible/gas cercanos antes de iniciar.", tags: ["TRABAJO EN CALIENTE"] },
+          { t: "Antes de faenas en cubierta: verificar EPP completo (casco, zapatos de seguridad, guantes, chaleco reflectante). Verificar estado de barandas y redes de seguridad en zona de trabajo.", tags: ["SOLAS"] },
+        ]
+      },
+      {
+        titulo: "Protocolo post-atraque",
+        items: [
+          { t: "Colocar discos corta-ratas (rat guards) en todas las espías de amarre de forma inmediata al finalizar la maniobra. Cumplimiento de normativa sanitaria portuaria.", tags: ["PUERTO"] },
+          { t: "Izar pabellón nacional en el asta de popa o pico de cangreja. Si proviene de puerto extranjero o requiere inspección sanitaria, izar bandera Q (Quebec) para solicitar libre plática.", tags: ["BANDERAS"] },
+        ]
+      },
+    ]
+  },
+  {
+    id: 7, num: "08", nombre: "COMUNICACIONES", icon: "📻",
+    desc: "Comunicaciones marítimas",
+    color: "#6b4c9a", bg: "#f0eaf8",
+    grupos: [
+      {
+        titulo: "VHF y frecuencias",
+        items: [
+          { t: "VHF Canal 16: canal de escucha y llamada de socorro (obligatorio). Nunca abandonar escucha Canal 16 durante la navegación. RO VHF vigente a bordo.", tip: "Prioridad: MAYDAY (peligro de vida) → PAN-PAN (urgencia) → SECURITÉ (seguridad nav.).", tags: ["DIRECTEMAR"] },
+          { t: "Transmitir novedades de posición y estado según cartilla radiotelefónica vigente. Registrar en Diario de Radio todas las comunicaciones.", tags: ["DIRECTEMAR"] },
+          { t: "Revisar Radioavisos Costeros (NAVTEX/HF): mensajes de DIRECTEMAR sobre peligros, áreas restringidas, ejercicios navales y noticias meteorológicas.", tags: ["DIRECTEMAR"] },
+        ]
+      },
+      {
+        titulo: "Protocolo radioteléfono",
+        items: [
+          { t: "Formato de llamada: nombre del buque llamado (×3) → DE → nombre del buque propio (×3) → CAMBIO. Hablar claro con alfabeto fonético OACI.", tip: "Alpha Bravo Charlie Delta Echo Foxtrot Golf Hotel India Juliet Kilo Lima Mike November Oscar Papa Quebec Romeo Sierra Tango Uniform Victor Whiskey X-ray Yankee Zulu.", tags: ["DIRECTEMAR"] },
+        ]
+      },
+      {
+        titulo: "Señal de socorro digital (GMDSS)",
+        items: [
+          { t: "En caso de emergencia: activar la alerta GMDSS/DSC (Digital Selective Calling) PRIMERO, antes de emitir el MAYDAY por voz en Canal 16. El DSC transmite automáticamente posición, MMSI e indicación de peligro.", tip: "Secuencia de socorro: 1° Activar DSC en Canal 70 → 2° MAYDAY ×3 en Canal 16 → 3° Información de emergencia. El EPIRB transmite en 406 MHz y es independiente del VHF.", tags: ["GMDSS/DSC"] },
+        ]
+      },
+      {
+        titulo: "Protocolo de socorro: MAYDAY · PAN-PAN · SECURITÉ",
+        items: [
+          { t: 'MAYDAY — peligro grave e inminente para la vida. Transmitir en Ch.16: "MAYDAY MAYDAY MAYDAY — aquí [nombre buque] (×3) — posición [lat/lon] — [naturaleza de la emergencia] — [N.º personas a bordo] — necesito asistencia inmediata — CAMBIO".', tip: "Dirigido a: cualquier estación que escuche / MRCC Chile. Repetir cada pocos minutos hasta obtener respuesta.", tags: ["MAYDAY"] },
+          { t: 'PAN-PAN — urgencia, sin peligro inmediato de vida (avería grave, persona enferma sin riesgo vital, buque a la deriva). Transmitir en Ch.16: "PAN-PAN PAN-PAN PAN-PAN — todas las estaciones (×3) — aquí [nombre buque] — posición [lat/lon] — [descripción de la urgencia] — CAMBIO".', tip: "Dirigido a: Capitanía de Puerto / MRCC Chile. Un grado por debajo de MAYDAY en prioridad de tráfico.", tags: ["PAN-PAN"] },
+          { t: 'SECURITÉ — aviso de seguridad náutica o meteorológica (peligro a la navegación, alerta de tiempo). Anunciar en Ch.16 y trasladar a canal de trabajo: "SECURITÉ SECURITÉ SECURITÉ — aquí [nombre buque] — [contenido del aviso] — escuchar en canal [N.º] — CAMBIO".', tip: "Dirigido a: todas las estaciones de la zona. No interrumpe canal 16 más que para el anuncio inicial.", tags: ["SECURITÉ"] },
+        ]
+      },
+    ]
+  },
+  {
+    id: 8, num: "09", nombre: "METEOROLOGÍA", icon: "🌦️",
+    desc: "Meteorología y condiciones del tiempo",
+    color: "#c8830a", bg: "#fbf0d9",
+    grupos: [
+      {
+        titulo: "General",
+        items: [
+          { t: "Consultar pronóstico meteorológico vigente (Armada/DMC): viento previsto (dirección/intensidad en nudos), mar de fondo, precipitaciones y visibilidad.", tags: ["METEO"] },
+          { t: "Registrar presión barométrica (hPa) y su tendencia. Caída rápida (>3 hPa/3 h) → se aproxima mal tiempo. Subida rápida → posible viento fuerte posterior.", tags: ["METEO"] },
+          { t: "Observar indicadores visuales: gaviotas paradas miran al viento (indican dirección real). Nubes cumulonimbus → posible borrasca. Nubes cirrus → frente en 24–48 h.", tags: ["METEO"] },
+          { t: "Calcular viento aparente a bordo: resultante vectorial del viento real y velocidad del buque. El viento aparente siempre viene más de proa que el real cuando se navega avante.", tags: ["METEO"] },
+          { t: "Hora oficial de Chile: Chile continental = UTC−3 (verano UTC−4). Islas oceánicas (Rapa Nui) = UTC−5/6. Verificar zona horaria local para registros.", tip: "Todos los registros del Diario de Navegación en hora local y UTC para trazabilidad legal.", tags: ["HORA OFICIAL"] },
+        ]
+      },
+    ]
+  },
+  {
+    id: 9, num: "10", nombre: "CIERRE", icon: "🔁",
+    desc: "Entrega de guardia",
+    color: "#1a7a4c", bg: "#dcfce7",
+    grupos: [
+      {
+        titulo: "General",
+        items: [
+          { t: "Informar al oficial entrante: posición actual (Lat/Lon), rumbo verdadero (Rv), velocidad (Vp), profundidad, condición del tiempo y visibilidad.", tags: ["STCW"] },
+          { t: "Informar: derrota trazada, próximo punto o cambio de rumbo, carta activa en uso, ETA actualizado, último reporte de posición enviado.", tags: ["STCW"] },
+          { t: "Informar: estado de todos los equipos (GPS, radar, ecosonda, AIS, girocompás, VHF). Señalar fallas o limitaciones operacionales.", tags: ["STCW"] },
+          { t: "Informar: contactos cercanos en radar o visual. Buques en zona de restricción o pesca. Tráfico en canal VHF 16 relacionado con la zona.", tags: ["STCW"] },
+          { t: "Completar Diario de Navegación: posición horaria, rumbo, velocidad, condiciones meteorológicas, novedades y firma del oficial. Guardia formalmente entregada.", tags: ["STCW"] },
+          { t: "No entregar guardia si el relevo llega con dudas o en estado comprometido. El oficial mantiene responsabilidad hasta que el relevo esté plenamente habilitado.", tip: "STCW: el oficial no abandona el puente hasta confirmar que el relevo ha comprendido completamente la situación.", tags: ["STCW"] },
+        ]
+      },
+    ]
+  },
+  {
+    id: 10, num: "11", nombre: "EMERGENCIA", icon: "🚨",
+    desc: "Zafarranchos y emergencias (P1–P7)",
+    color: "#c4342f", bg: "#fbe7e5",
+    grupos: [
+      {
+        titulo: "Prioridad 1 — Hombre al agua (MOB)",
+        items: [
+          { t: '¡Hombre al agua! Activar Alarma General y lanzar aro salvavidas con luz/boya fumígena hacia el costado de la caída. Designar un vigía exclusivo que no pierda contacto visual con la persona.', tags: ["MOB"] },
+          { t: "Meter timón a la banda de la caída e iniciar Maniobra de Williamson: desviar 60° del rumbo original, luego todo el timón a la banda contraria hasta faltar 20° para el rumbo recíproco.", tip: "Presionar botón MOB en GPS apenas se dé la voz de alarma.", tags: ["MOB"] },
+          { t: "Tocar 3 pitadas largas. Comunicar por VHF Ch.16 a naves vecinas y dar aviso a MRCC Chile / Capitanía de Puerto más cercana.", tags: ["MOB"] },
+        ]
+      },
+      {
+        titulo: "Prioridad 2 — Incendio a bordo",
+        items: [
+          { t: "Activar Alarma General de Incendio. Detener ventilación mecánica de la zona y cortar suministro de combustible al área afectada.", tags: ["INCENDIO"] },
+          { t: "Cerrar puertas estancas y cortafuegos para aislar el área. Identificar la clase de fuego antes de aplicar el agente extintor correcto.", tip: "Clase A: sólidos · B: líquidos/combustibles · C: eléctricos · D: metales. Nunca agua sobre fuego eléctrico o de combustible.", tags: ["INCENDIO"] },
+          { t: 'Aplicar "cooling boundaries" (enfriar mamparos adyacentes con agua). Si el fuego no se controla, informar al Capitán y emitir PAN-PAN o MAYDAY por VHF Ch.16 según gravedad.', tags: ["INCENDIO"] },
+        ]
+      },
+      {
+        titulo: "Prioridad 3 — Abandono de buque",
+        items: [
+          { t: "Confirmar que la orden de abandono proviene exclusivamente del Capitán antes de proceder.", tags: ["ABANDONO"] },
+          { t: "Activar DSC en Ch.70 y emitir MAYDAY por VHF Ch.16 con posición, naturaleza de la emergencia y número de personas a bordo.", tags: ["ABANDONO"] },
+          { t: "Vestir trajes de inmersión y chalecos salvavidas. Llevar EPIRB, SART y radios VHF portátiles a las balsas/botes de supervivencia.", tags: ["ABANDONO"] },
+        ]
+      },
+      {
+        titulo: "Prioridad 4 — Colisión / abordaje",
+        items: [
+          { t: "Tocar Alarma General y cerrar puertas estancas de inmediato.", tags: ["COLISIÓN"] },
+          { t: "Sondar sentinas y tanques para verificar vías de agua. Si las naves quedan incrustadas, NO separarlas si existe riesgo de inundación masiva.", tags: ["COLISIÓN"] },
+          { t: "Informar por VHF Ch.16 a la otra nave y a Capitanía de Puerto/MRCC. Preparar botes salvavidas preventivamente.", tags: ["COLISIÓN"] },
+        ]
+      },
+      {
+        titulo: "Prioridad 5 — Varada",
+        items: [
+          { t: "Parar máquinas de inmediato. Sondar alrededor del buque para determinar tipo de fondo y profundidades disponibles.", tags: ["VARADA"] },
+          { t: "Evaluar estado de marea (esperar pleamar si corresponde). Izar señales RIPA de buque varado: 3 bolas negras de día / 2 luces rojas verticales de noche.", tags: ["VARADA"] },
+          { t: "Notificar a Capitanía de Puerto / DIRECTEMAR por VHF Ch.16, informando posición y condición del buque.", tags: ["VARADA"] },
+        ]
+      },
+      {
+        titulo: "Prioridad 6 — Derrame (SOPEP)",
+        items: [
+          { t: "Detener de inmediato cualquier operación de transferencia de combustible o carga. Tapar imbornales en cubierta.", tags: ["DERRAME"] },
+          { t: "Desplegar material absorbente y barreras de contención según el Plan SOPEP del buque.", tags: ["DERRAME"] },
+          { t: "Notificar de inmediato a la Autoridad Marítima local (DIRECTEMAR), detallando tipo y volumen estimado del derrame.", tags: ["DERRAME"] },
+        ]
+      },
+      {
+        titulo: "Prioridad 7 — Emergencia médica",
+        items: [
+          { t: "Aplicar primeros auxilios básicos según gravedad. Mantener al tripulante afectado estable y monitoreado.", tags: ["MÉDICA"] },
+          { t: "Solicitar Radio Médico (telemedicina) por VHF/satelital, indicando síntomas, signos vitales y antecedentes del tripulante.", tags: ["MÉDICA"] },
+          { t: "Evaluar necesidad de MEDEVAC (evacuación vía lancha o helicóptero) en coordinación con MRCC Chile. Preparar historial clínico y datos del tripulante.", tags: ["MÉDICA"] },
+        ]
+      },
+      {
+        titulo: "Contacto de emergencia nacional",
+        items: [
+          { t: "Conocer el número 137 (Emergencias Marítimas, Armada de Chile) como vía adicional para activar Búsqueda y Salvamento (SAR), junto con la alerta DSC/MAYDAY por VHF Canal 16 y el contacto a MRCC Chile.", tip: "El 137 complementa, no reemplaza, la alerta por VHF/DSC: úsalo también si hay testigos en tierra o si se requiere reportar la emergencia desde un teléfono.", tags: ["SAR · 137"] },
+        ]
+      },
+    ]
+  },
+];
+
+// ============ REFERENCIA RÁPIDA ============
+const REFERENCIA = [
+  {
+    id: "iala", icon: "🔴🟢", titulo: "Balizamiento IALA-B Chile",
+    tipo: "buoy",
+    buoys: [
+      { name: "Babor (entrando)", color: "VERDE", colorHex: "#16a34a", bgHex: "#dcfce7", shape: "Cilíndrica · Luz Verde" },
+      { name: "Estribor (entrando)", color: "ROJA", colorHex: "#dc2626", bgHex: "#fee2e2", shape: "Cónica · Luz Roja" },
+    ],
+    extra: [
+      { k: "Cardinales", v: "Norte▲▲ Sur▽▽ Este▲▽ Weste▽▲" },
+      { k: "Peligro aislado", v: "Negro-Rojo · 2 bolas · 2 dest. blancos" },
+      { k: "Aguas seguras", v: "R/B vertical · Esfera · Morse A" },
+      { k: "Especial (Chile)", v: "Amarilla · X en tope · Morse Ñ" },
+    ]
+  },
+  {
+    id: "sonido", icon: "📢", titulo: "Señales sonoras RIPA",
+    tipo: "sound",
+    sounds: [
+      { dots: "•", meaning: "Caigo a Estribor" },
+      { dots: "••", meaning: "Caigo a Babor" },
+      { dots: "•••", meaning: "Máquina Atrás" },
+      { dots: "•••••", meaning: "Alarma / No entiendo" },
+      { dots: "—", meaning: "1 largo/2min: Navegando (niebla)" },
+      { dots: "——", meaning: "2 largos/2min: Detenido (niebla)" },
+    ],
+    extra: [
+      { k: "Canal 16 VHF", v: "GUARDIA PERMANENTE" },
+      { k: "DSC Canal 70", v: "ALERTA DIGITAL PRIMERO" },
+    ]
+  },
+  {
+    id: "vhf", icon: "📻", titulo: "Guion VHF de emergencia",
+    tipo: "vhf",
+    vhf: [
+      { color: "#dc2626", label: "🔴 MAYDAY — peligro de vida", body: 'DSC Ch.70 primero → Ch.16: "MAYDAY ×3 — aquí [buque] ×3 — posición — emergencia — N.º POB — asistencia — CAMBIO".', who: "Dirigido a: cualquier estación / MRCC Chile." },
+      { color: "#c8830a", label: "🟠 PAN-PAN — urgencia", body: 'Ch.16: "PAN-PAN ×3 — todas las estaciones ×3 — aquí [buque] — posición — urgencia — CAMBIO".', who: "Dirigido a: Capitanía de Puerto / MRCC Chile." },
+      { color: "#1a7a4c", label: "🟢 SECURITÉ — seguridad náutica", body: 'Ch.16 → canal de trabajo: "SECURITÉ ×3 — aquí [buque] — contenido del aviso — escuchar canal [N.º] — CAMBIO".', who: "Dirigido a: todas las estaciones de la zona." },
+    ],
+    nota: "Prioridad de tráfico: MAYDAY > PAN-PAN > SECURITÉ > tráfico normal."
+  },
+  {
+    id: "smcp", icon: "🗣️", titulo: "Frases OMI (SMCP) — VHF",
+    tipo: "simple",
+    rows: [
+      { k: "Cambio (espero respuesta)", v: "OVER" },
+      { k: "Terminado (sin respuesta)", v: "OUT" },
+      { k: "Entendido / recibido", v: "ROGER" },
+      { k: "Afirmativo / negativo", v: "YES — NO" },
+      { k: "Espere", v: "STAND BY" },
+      { k: "Repito (para énfasis)", v: "I SAY AGAIN" },
+      { k: "¿Cómo me copia?", v: "HOW DO YOU READ?" },
+      { k: "Fuerte y claro (1–5)", v: "I READ YOU 5" },
+      { k: "Corrección", v: "MISTAKE… CORRECTION…" },
+      { k: "¿Cuál es su rumbo?", v: "WHAT IS YOUR COURSE?" },
+      { k: "Reduzca velocidad", v: "REDUCE SPEED" },
+      { k: "Mantenga rumbo y velocidad", v: "KEEP PRESENT COURSE AND SPEED" },
+    ],
+    nota: "SMCP — IMO Standard Marine Communication Phrases. Lenguaje normalizado para VHF, evita ambigüedad entre tripulaciones de distinto idioma (ref. TUTMC · Frases normalizadas OMI)."
+  },
+  {
+    id: "nudos", icon: "🪢", titulo: "Nudos marineros",
+    tipo: "simple",
+    rows: [
+      { k: "Llano / Rizo", v: "Unir dos cabos igual mena" },
+      { k: "As de Guía", v: "Gaza sin costura · emergencia" },
+      { k: "Ballestrinque", v: "Asegurar defensas" },
+      { k: "Margarita", v: "Acortar cabo desgastado" },
+      { k: "Vuelta Mordida", v: "Hacer firme a percha" },
+      { k: "Entalingar", v: "Unir cadena al arganeo" },
+      { k: "Nudo Pescador", v: "Unir cabos poca mena" },
+      { k: "V. de Escota", v: "Chicote a gaza" },
+    ]
+  },
+  {
+    id: "banderas", icon: "🚩", titulo: "Banderas CIS (esenciales)",
+    tipo: "simple",
+    rows: [
+      { k: "A (Alfa)", v: "Buzo sumergido; manténgase alejado" },
+      { k: "B (Bravo)", v: "Cargando/descargando merc. peligrosa" },
+      { k: "G (Golf)", v: "Necesito práctico a bordo" },
+      { k: "H (Hotel)", v: "Tengo práctico a bordo" },
+      { k: "O (Oscar)", v: "¡Hombre al agua!" },
+      { k: "P (Papa)", v: "En puerto: todos a bordo, zarpe inminente" },
+      { k: "Q (Quebec)", v: "Buque sano; solicito libre plática" },
+    ]
+  },
+  {
+    id: "unidades", icon: "📏", titulo: "Unidades y cartografía",
+    tipo: "simple",
+    rows: [
+      { k: "1 Milla Náutica", v: "1.852 m" },
+      { k: "1 Cable (1/10 MN)", v: "185,2 m" },
+      { k: "1 Braza (Fathom)", v: "1,8288 m" },
+      { k: "1 Yarda", v: "0,9144 m" },
+      { k: "1 Pie", v: "0,3048 m" },
+      { k: "1 Nudo", v: "1 MN/hora" },
+      { k: "1 Paño cadena", v: "27,5 m" },
+      { k: "Sondas en carta", v: "metros (SHOA)" },
+      { k: "Escala práctico", v: "manila 18mm" },
+      { k: "O₂ seguro (espacio cerrado)", v: "19.5–23.5%" },
+    ],
+    nota: "Referencia rápida: 1 MN = 10 cables = 1.012,7 brazas = 2.025,4 yardas = 6.076,1 pies."
+  },
+  {
+    id: "ingles", icon: "🌐", titulo: "Inglés para timoneles",
+    tipo: "simple",
+    rows: [
+      { k: "Estribor", v: "STARBOARD" },
+      { k: "Babor", v: "PORT" },
+      { k: "Todo a estribor", v: "HARD STARBOARD" },
+      { k: "Derecho", v: "STEADY" },
+      { k: "Así como va", v: "STEADY AS SHE GOES" },
+      { k: "Timón al medio", v: "MIDSHIPS" },
+      { k: "¿Qué proa tiene?", v: "WHAT'S YOUR HEADING?" },
+      { k: "Fondeo", v: "ANCHORING" },
+    ]
+  },
+];
+
+// ============ CALCULADORAS ============
+const CALCULADORAS = [
+  {
+    id: "calado", icon: "⚓", titulo: "Calados y asiento",
+    desc: "Calado medio, asiento y esfuerzo longitudinal",
+    fields: [
+      { id: "cpr", label: "Calado proa (m)", placeholder: "ej: 5.20" },
+      { id: "cpp", label: "Calado popa (m)", placeholder: "ej: 5.40" },
+      { id: "cmedio", label: "Calado medio (m)", placeholder: "ej: 5.25" },
+    ]
+  },
+  {
+    id: "guinda", icon: "🌉", titulo: "Guinda disponible",
+    desc: "Altura libre bajo puentes y cables según calado actual",
+    fields: [
+      { id: "alturaTope", label: "Altura tope/antena (m)", placeholder: "ej: 28.0" },
+      { id: "caladoActual", label: "Calado actual (m)", placeholder: "ej: 5.30" },
+      { id: "alturaLibreCarta", label: "Altura libre en carta (m)", placeholder: "ej: 30.0" },
+    ]
+  },
+  {
+    id: "rumbo", icon: "🧭", titulo: "Conversión de rumbos",
+    desc: "Convierte entre rumbo verdadero, magnético y de compás",
+    fields: [
+      { id: "rv", label: "Rumbo verdadero (°)", placeholder: "ej: 045" },
+      { id: "varv", label: "Variación E(+)/W(−) (°)", placeholder: "ej: 3.5" },
+      { id: "desv", label: "Desvío E(+)/W(−) (°)", placeholder: "ej: -2" },
+    ]
+  },
+  {
+    id: "vdt", icon: "🚢", titulo: "Velocidad · distancia · tiempo",
+    desc: "Deja en blanco el campo que quieres calcular",
+    fields: [
+      { id: "v", label: "Velocidad (nudos)", placeholder: "nudos" },
+      { id: "d", label: "Distancia (mn)", placeholder: "millas náuticas" },
+      { id: "t", label: "Tiempo (horas)", placeholder: "horas decimales" },
+    ]
+  },
+  {
+    id: "marea", icon: "🌊", titulo: "Regla de los doce (mareas)",
+    desc: "Altura de la marea en cualquier momento del ciclo",
+    fields: [
+      { id: "bm", label: "Altura bajamar (m)", placeholder: "ej: 0.50" },
+      { id: "pm", label: "Altura pleamar (m)", placeholder: "ej: 4.20" },
+      { id: "hbm", label: "Hora de la BM", placeholder: "ej: 06:30", type: "text" },
+      { id: "hcons", label: "Hora consulta", placeholder: "ej: 08:00", type: "text" },
+    ]
+  },
+  {
+    id: "cadena", icon: "⛓️", titulo: "Longitud de cadena de fondeo",
+    desc: "Paños de cadena recomendados según profundidad y tiempo",
+    fields: [
+      { id: "prof", label: "Profundidad (m)", placeholder: "ej: 18" },
+      { id: "tiempo", label: "Tiempo (1=bueno, 2=malo)", placeholder: "1 o 2" },
+    ]
+  },
+  {
+    id: "escala", icon: "🗺️", titulo: "Escala de carta náutica",
+    desc: "Convierte distancia en carta a distancia real",
+    fields: [
+      { id: "dcm", label: "Distancia en carta (cm)", placeholder: "ej: 2.7" },
+      { id: "escala", label: "Escala (1:X)", placeholder: "ej: 50000" },
+    ]
+  },
+];
+</script>
+<script>
+// ===== estado =====
+let checkState = {};
+let activePhase = 0;
+let motion = 'Animado';
+let openRef = {};
+const CK = 'lcn-full-checks-v1';
+const MK = 'lcn-full-motion-v1';
+
+function escapeHtml(str){const d=document.createElement('div');d.textContent=(str==null?'':str);return d.innerHTML;}
+
+function initChecks(){ FASES.forEach(f=>f.grupos.forEach((g,gi)=>g.items.forEach((it,ii)=>{const k=f.id+'-'+gi+'-'+ii; if(!(k in checkState)) checkState[k]=false;}))); }
+function loadState(){ try{const r=localStorage.getItem(CK); if(r) checkState=JSON.parse(r)||{};}catch(e){checkState={};} try{motion=localStorage.getItem(MK)||'Animado';}catch(e){} initChecks(); }
+function saveState(){ try{localStorage.setItem(CK,JSON.stringify(checkState));}catch(e){} }
+
+function totalItems(){let n=0;FASES.forEach(f=>f.grupos.forEach(g=>n+=g.items.length));return n;}
+function doneItems(){return Object.values(checkState).filter(Boolean).length;}
+function phaseStats(f){let t=0,d=0;f.grupos.forEach((g,gi)=>g.items.forEach((it,ii)=>{t++;if(checkState[f.id+'-'+gi+'-'+ii])d++;}));return{t:t,d:d,pct:t?Math.round(d/t*100):0};}
+function setTxt(id,v){const e=document.getElementById(id);if(e)e.textContent=v;}
+
+function renderStats(){
+  const ti=totalItems(), di=doneItems(), pct=ti?Math.round(di/ti*100):0;
+  setTxt('statFases',FASES.length); setTxt('statItems',ti); setTxt('statCalc',CALCULADORAS.length);
+  setTxt('stripFases',FASES.length); setTxt('stripItems',ti); setTxt('stripPct',pct+'%');
+  setTxt('navPct',pct+'%');
+  const nb=document.getElementById('navPctBar'); if(nb) nb.style.width=pct+'%';
+}
+
+function renderNav(){
+  document.getElementById('phaseNav').innerHTML = FASES.map(function(f){
+    const st=phaseStats(f), isA=f.id===activePhase;
+    return '<button class="pnav-btn'+(isA?' active':'')+'" data-id="'+f.id+'" type="button">'+
+      '<div class="pnav-top"><span class="pnav-num">'+f.num+'</span><span class="pnav-name">'+escapeHtml(f.nombre)+'</span><span class="pnav-count">'+st.pct+'% · '+st.d+'/'+st.t+'</span></div>'+
+      '<div class="pnav-bar"><div style="width:'+st.pct+'%"></div></div></button>';
+  }).join('');
+  document.querySelectorAll('#phaseNav .pnav-btn').forEach(function(b){
+    b.addEventListener('click',function(){ activePhase=parseInt(b.dataset.id,10); renderNav(); renderCard(); });
+  });
+}
+
+function renderCard(){
+  const f=FASES.find(function(x){return x.id===activePhase;})||FASES[0];
+  const st=phaseStats(f);
+  let body='';
+  f.grupos.forEach(function(g,gi){
+    body+='<div class="grp-title">'+escapeHtml(g.titulo)+'</div>';
+    g.items.forEach(function(it,ii){
+      const k=f.id+'-'+gi+'-'+ii, ch=!!checkState[k];
+      const tags=(it.tags||[]).map(function(t){return '<span class="tag">'+escapeHtml(t)+'</span>';}).join('');
+      body+='<div class="check-row'+(ch?' done':'')+'" data-k="'+k+'">'+
+        '<span class="cbox">'+(ch?'✓':'')+'</span>'+
+        '<div class="crow-body"><div class="crow-text">'+escapeHtml(it.t)+'</div>'+
+        (it.tip?'<div class="tip">'+escapeHtml(it.tip)+'</div>':'')+
+        (tags?'<div class="tags">'+tags+'</div>':'')+'</div></div>';
+    });
+  });
+  document.getElementById('phaseCard').innerHTML =
+    '<div class="phase-card-pad"><div class="pc-sticky"><div class="pc-head"><div>'+
+    '<div class="pc-kicker">FASE OPERATIVA · '+f.num+'</div><h3 class="pc-name">'+escapeHtml(f.nombre)+'</h3></div>'+
+    '<div class="pc-pct"><div class="pc-pct-n">'+st.pct+'%</div><div class="pc-pct-l">'+st.d+'/'+st.t+' ítems</div></div></div>'+
+    '<div class="pc-bar"><div style="width:'+st.pct+'%"></div></div></div>'+
+    '<p class="pc-desc">'+escapeHtml(f.desc)+'</p>'+body+'</div>';
+  document.querySelectorAll('#phaseCard .check-row').forEach(function(r){
+    r.addEventListener('click',function(){ const k=r.dataset.k; checkState[k]=!checkState[k]; saveState(); renderCard(); renderNav(); renderStats(); });
+  });
+}
+
+function simpleRows(rows){ return '<div class="simple-list">'+rows.map(function(e){return '<div class="simple-row"><span class="k">'+escapeHtml(e.k)+'</span><span class="v2">'+escapeHtml(e.v)+'</span></div>';}).join('')+'</div>'; }
+function refInner(r){
+  let h='';
+  if(r.tipo==='buoy'){
+    h+='<div class="buoy-grid">'+r.buoys.map(function(b){return '<div class="buoy-box" style="border-color:'+b.colorHex+'"><div class="bname">'+escapeHtml(b.name)+'</div><div class="bcolor" style="color:'+b.colorHex+'">'+escapeHtml(b.color)+'</div><div class="bshape">'+escapeHtml(b.shape)+'</div></div>';}).join('')+'</div>';
+    h+=simpleRows(r.extra);
+  } else if(r.tipo==='sound'){
+    h+='<div class="sound-grid">'+r.sounds.map(function(s){return '<div class="sound-box"><span class="dots">'+escapeHtml(s.dots)+'</span><span>'+escapeHtml(s.meaning)+'</span></div>';}).join('')+'</div>'+simpleRows(r.extra);
+  } else if(r.tipo==='vhf'){
+    h+=r.vhf.map(function(v){return '<div class="vhf-box" style="border-left-color:'+v.color+'"><div class="vhf-label">'+escapeHtml(v.label)+'</div><div class="vhf-body">'+escapeHtml(v.body)+'</div><div class="vhf-who">'+escapeHtml(v.who)+'</div></div>';}).join('');
+    if(r.nota) h+='<div class="tip">'+escapeHtml(r.nota)+'</div>';
+  } else if(r.tipo==='simple'){
+    h+=simpleRows(r.rows); if(r.nota) h+='<div class="tip">'+escapeHtml(r.nota)+'</div>';
+  }
+  return h;
+}
+function renderRef(){
+  document.getElementById('refContainer').innerHTML = REFERENCIA.map(function(r){
+    const open=!!openRef[r.id];
+    return '<div class="ref-card"><button class="ref-head" data-id="'+r.id+'" type="button"><h4>'+escapeHtml(r.titulo)+'</h4><span class="ref-chev'+(open?' open':'')+'">▾</span></button>'+
+      '<div class="ref-body'+(open?' open':'')+'">'+refInner(r)+'</div></div>';
+  }).join('');
+  document.querySelectorAll('#refContainer .ref-head').forEach(function(hd){
+    hd.addEventListener('click',function(){ openRef[hd.dataset.id]=!openRef[hd.dataset.id]; renderRef(); });
+  });
+}
+
+function renderCalc(){
+  document.getElementById('calcContainer').innerHTML = CALCULADORAS.map(function(c){
+    return '<div class="calc-card"><h4 class="calc-title">'+escapeHtml(c.titulo)+'</h4><p class="calc-desc-t">'+escapeHtml(c.desc)+'</p>'+
+      '<div class="calc-grid">'+c.fields.map(function(f){return '<div class="calc-field"><label>'+escapeHtml(f.label)+'</label><input id="calc-'+c.id+'-'+f.id+'" type="'+(f.type==='text'?'text':'number')+'" step="0.01" placeholder="'+escapeHtml(f.placeholder)+'"></div>';}).join('')+'</div>'+
+      '<button class="calc-btn" data-calc="'+c.id+'" type="button">Calcular</button><div class="calc-result" id="calc-result-'+c.id+'"></div></div>';
+  }).join('');
+  document.querySelectorAll('#calcContainer .calc-btn').forEach(function(b){ b.addEventListener('click',function(){ runCalc(b.dataset.calc); }); });
+}
+
+function getVal(calcId, fieldId) {
+  const el = document.getElementById(`calc-${calcId}-${fieldId}`);
+  return el ? el.value : '';
+}
+
+function showCalcResult(calcId, html, isErr) {
+  const res = document.getElementById(`calc-result-${calcId}`);
+  res.innerHTML = html;
+  res.classList.add('show');
+  res.classList.toggle('err', !!isErr);
+}
+
+function runCalc(calcId) {
+  if (calcId === 'calado') return calcCalado();
+  if (calcId === 'guinda') return calcGuinda();
+  if (calcId === 'rumbo') return calcRumbo();
+  if (calcId === 'vdt') return calcVDT();
+  if (calcId === 'marea') return calcMarea();
+  if (calcId === 'cadena') return calcCadena();
+  if (calcId === 'escala') return calcEscala();
+}
+
+function calcCalado() {
+  const cpr = parseFloat(getVal('calado', 'cpr'));
+  const cpp = parseFloat(getVal('calado', 'cpp'));
+  const cm = parseFloat(getVal('calado', 'cmedio'));
+  if (isNaN(cpr) || isNaN(cpp)) {
+    return showCalcResult('calado', 'Ingresa al menos calado de proa y popa.', true);
+  }
+  const CM = (cpr + cpp) / 2;
+  const asiento = cpp - cpr;
+  const aDir = asiento >= 0 ? 'apopante (+)' : 'aproante (−)';
+  let esf = '';
+  if (!isNaN(cm)) {
+    const e = cm - CM;
+    esf = `<br><strong>Esfuerzo long.:</strong> ${e.toFixed(3)} m (${e >= 0 ? 'arrufo ↑' : 'quebranto ↓'})`;
+  }
+  showCalcResult('calado', `<strong>Calado medio:</strong> ${CM.toFixed(3)} m<br><strong>Asiento:</strong> ${Math.abs(asiento).toFixed(3)} m ${aDir}${esf}`);
+}
+
+function calcGuinda() {
+  const alturaTope = parseFloat(getVal('guinda', 'alturaTope'));
+  const caladoActual = parseFloat(getVal('guinda', 'caladoActual'));
+  const alturaLibre = parseFloat(getVal('guinda', 'alturaLibreCarta'));
+  if (isNaN(alturaTope) || isNaN(alturaLibre)) {
+    return showCalcResult('guinda', 'Ingresa al menos la altura del tope y la altura libre en carta.', true);
+  }
+  const margen = alturaLibre - alturaTope;
+  const seguro = margen > 0;
+  let extra = '';
+  if (!isNaN(caladoActual)) {
+    extra = `<br><strong>Calado actual:</strong> ${caladoActual.toFixed(2)} m (verificar con la marea presente, no con datos de carta en bajamar de sicigias)`;
+  }
+  showCalcResult('guinda',
+    `<strong>Margen disponible:</strong> ${margen.toFixed(2)} m<br><strong>Condición:</strong> ${seguro ? '✅ Paso seguro (margen positivo)' : '⚠️ RIESGO — guinda excede altura libre'}${extra}`,
+    !seguro
+  );
+}
+
+function calcRumbo() {
+  const rv = parseFloat(getVal('rumbo', 'rv'));
+  const vari = parseFloat(getVal('rumbo', 'varv')) || 0;
+  const desv = parseFloat(getVal('rumbo', 'desv')) || 0;
+  if (isNaN(rv)) {
+    return showCalcResult('rumbo', 'Ingresa el rumbo verdadero.', true);
+  }
+  const rm = ((rv - vari) + 360) % 360;
+  const rc = ((rm - desv) + 360) % 360;
+  showCalcResult('rumbo', `<strong>RV:</strong> ${rv.toFixed(1)}°  →  <strong>RM:</strong> ${rm.toFixed(1)}°  →  <strong>RC:</strong> ${rc.toFixed(1)}°<br><small>Gobernar rumbo de compás: <strong>${rc.toFixed(1)}°</strong></small>`);
+}
+
+function calcVDT() {
+  const v = parseFloat(getVal('vdt', 'v'));
+  const d = parseFloat(getVal('vdt', 'd'));
+  const t = parseFloat(getVal('vdt', 't'));
+  let result = '';
+  if (isNaN(v) && !isNaN(d) && !isNaN(t)) {
+    result = `Velocidad = ${(d / t).toFixed(2)} nudos`;
+  } else if (isNaN(d) && !isNaN(v) && !isNaN(t)) {
+    result = `Distancia = ${(v * t).toFixed(2)} millas náuticas`;
+  } else if (isNaN(t) && !isNaN(v) && !isNaN(d)) {
+    const tiempo = d / v;
+    const horas = Math.floor(tiempo);
+    const mins = Math.round((tiempo - horas) * 60);
+    result = `Tiempo = ${tiempo.toFixed(2)} horas (${horas}h ${mins}min)`;
+  } else {
+    return showCalcResult('vdt', 'Deja en blanco solo el campo que quieres calcular.', true);
+  }
+  showCalcResult('vdt', `<strong>${result}</strong>`);
+}
+
+function calcMarea() {
+  const bm = parseFloat(getVal('marea', 'bm'));
+  const pm = parseFloat(getVal('marea', 'pm'));
+  const hbmStr = getVal('marea', 'hbm');
+  const hconsStr = getVal('marea', 'hcons');
+  if (isNaN(bm) || isNaN(pm) || !hbmStr || !hconsStr) {
+    return showCalcResult('marea', 'Completa todos los campos.', true);
+  }
+  const parseH = s => { const [h, m] = s.split(':').map(Number); return h + (m || 0) / 60; };
+  const hBM = parseH(hbmStr);
+  const hCons = parseH(hconsStr);
+  const amplitud = pm - bm;
+  let dt = hCons - hBM;
+  if (dt < 0) dt += 24;
+  const ciclo = 6.2;
+  const fracs = [1, 2, 3, 3, 2, 1];
+  let frac12 = 0;
+  const horasPorSexto = ciclo / 6;
+  let hRestante = dt;
+  for (let i = 0; i < 6 && hRestante > 0; i++) {
+    const consume = Math.min(hRestante, horasPorSexto);
+    frac12 += fracs[i] * (consume / horasPorSexto);
+    hRestante -= consume;
+  }
+  const subida = (frac12 / 12) * amplitud;
+  const altura = bm + subida;
+  showCalcResult('marea', `<strong>Amplitud:</strong> ${amplitud.toFixed(2)} m<br><strong>Tiempo desde BM:</strong> ${dt.toFixed(2)} h<br><strong>Altura estimada:</strong> <span style="font-size:18px;font-weight:800">${Math.max(bm, Math.min(pm, altura)).toFixed(2)} m</span><br><small>Método: Regla de los Doce (aproximado)</small>`);
+}
+
+function calcCadena() {
+  const prof = parseFloat(getVal('cadena', 'prof'));
+  const tiempoCode = getVal('cadena', 'tiempo').trim();
+  if (isNaN(prof)) {
+    return showCalcResult('cadena', 'Ingresa la profundidad.', true);
+  }
+  const malTiempo = tiempoCode === '2';
+  const factorMin = malTiempo ? 5 : 3;
+  const factorMax = malTiempo ? 6 : 4;
+  const minM = prof * factorMin;
+  const maxM = prof * factorMax;
+  const minPanos = (minM / 27.5).toFixed(1);
+  const maxPanos = (maxM / 27.5).toFixed(1);
+  showCalcResult('cadena', `<strong>Condición:</strong> ${malTiempo ? 'Mal tiempo (5–6×)' : 'Buen tiempo (3–4×)'}<br><strong>Cadena a largar:</strong> ${minM.toFixed(1)}–${maxM.toFixed(1)} m<br><strong>Paños (27,5 m c/u):</strong> ${minPanos}–${maxPanos} paños`);
+}
+
+function calcEscala() {
+  const dcm = parseFloat(getVal('escala', 'dcm'));
+  const escala = parseFloat(getVal('escala', 'escala'));
+  if (isNaN(dcm) || isNaN(escala)) {
+    return showCalcResult('escala', 'Completa ambos campos.', true);
+  }
+  const metros = (dcm * escala) / 100;
+  const km = metros / 1000;
+  const mn = metros / 1852;
+  showCalcResult('escala', `<strong>Distancia real:</strong><br>${metros.toLocaleString('es-CL')} m = ${km.toFixed(3)} km = ${mn.toFixed(3)} millas náuticas`);
+}
+
+// ===== animaciones =====
+const ANIM={compassSpin:'spin 90s linear infinite',driftShip:'driftFar 30s linear infinite alternate',bobShip:'bob 5.5s ease-in-out infinite',waveBack:'waveBack 19s linear infinite',waveMid:'waveMid 11s linear infinite',waveFront:'waveFront 7s linear infinite'};
+// Animaciones SIEMPRE activas (se respeta solo "prefers-reduced-motion" del sistema por accesibilidad).
+function applyMotion(){
+  const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  Object.keys(ANIM).forEach(function(id){const e=document.getElementById(id);if(e)e.style.animation=reduce?'none':ANIM[id];});
+}
+
+// ===== reiniciar todo el proceso desde cero =====
+function resetAll(){
+  if(!confirm('¿Reiniciar la lista de chequeo? Se desmarcarán TODOS los ítems de todas las fases y empezarás una guardia nueva.')) return;
+  Object.keys(checkState).forEach(function(k){ checkState[k]=false; });
+  activePhase = FASES[0].id;
+  saveState();
+  renderStats(); renderNav(); renderCard();
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+document.getElementById('resetBtn').addEventListener('click', resetAll);
+
+// ===== init =====
+loadState();
+if(REFERENCIA && REFERENCIA[0]) openRef[REFERENCIA[0].id]=true;
+renderStats(); renderNav(); renderCard(); renderRef(); renderCalc(); applyMotion();
+
+// PWA
+if('serviceWorker' in navigator){ window.addEventListener('load',function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); }); }
+</script>
 </body>
 </html>

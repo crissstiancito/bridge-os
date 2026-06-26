@@ -4,7 +4,7 @@
   "description": "Asistente de guardia: checklist por fases, referencia náutica (RIPA, IALA-B, VHF, SMCP) y calculadoras de navegación. Offline.",
   "lang": "es-CL",
   "dir": "ltr",
-  "start_url": "./lista_chequeo_naval.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "fullscreen", "minimal-ui"],
