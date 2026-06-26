@@ -17,8 +17,8 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Spectral:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box}
-  body{margin:0;background:#0B2240;color:#F4ECDD;font-family:'Spectral',serif}
-  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:#0B2240;color:#F4ECDD;font-family:'Spectral',serif;overflow-x:clip;max-width:100%}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
   a{color:inherit}
   :focus-visible{outline:2px solid #C8A24B;outline-offset:3px}
   ::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-thumb{background:rgba(200,162,75,.4);border-radius:9px}
@@ -276,6 +276,20 @@
     .pc-name{font-size:22px}
     .h2{font-size:27px}
     .nav-prog .np-bar{width:38px}
+  }
+
+  /* ===== selector de fase con flechas (móvil) ===== */
+  .phase-step{display:none}
+  @media (max-width:960px){
+    .phase-step{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;
+      background:rgba(200,162,75,.07);border:1px solid rgba(200,162,75,.2);border-radius:10px;padding:8px 10px}
+    .ps-btn{width:44px;height:44px;flex:none;border-radius:10px;border:1px solid rgba(200,162,75,.45);
+      background:rgba(200,162,75,.12);color:#C8A24B;font:600 22px/1 'Spectral',serif;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;padding:0}
+    .ps-btn:active{background:rgba(200,162,75,.28)}
+    .ps-btn[disabled]{opacity:.28;cursor:default}
+    .ps-lbl{flex:1;text-align:center;font:600 13px/1.2 'IBM Plex Mono',monospace;color:#E7EEF7;letter-spacing:.04em}
+    .ps-lbl small{display:block;margin-top:5px;font:400 9.5px/1 'IBM Plex Sans',sans-serif;color:#7C8FA8;letter-spacing:0}
   }
 </style>
 </head>
@@ -1048,6 +1062,7 @@ function renderNav(){
 
 function renderCard(){
   const f=FASES.find(function(x){return x.id===activePhase;})||FASES[0];
+  const idx=FASES.indexOf(f);
   const st=phaseStats(f);
   let body='';
   f.grupos.forEach(function(g,gi){
@@ -1067,11 +1082,15 @@ function renderCard(){
     '<div class="pc-kicker">FASE OPERATIVA · '+f.num+'</div><h3 class="pc-name">'+escapeHtml(f.nombre)+'</h3></div>'+
     '<div class="pc-pct"><div class="pc-pct-n">'+st.pct+'%</div><div class="pc-pct-l">'+st.d+'/'+st.t+' ítems</div></div></div>'+
     '<div class="pc-bar"><div style="width:'+st.pct+'%"></div></div>'+
-    '<div class="swipe-hint">‹ desliza para cambiar de fase ›</div></div>'+
+    '<div class="phase-step"><button class="ps-btn" id="psPrev" type="button" aria-label="Fase anterior"'+(idx<=0?' disabled':'')+'>‹</button>'+
+    '<span class="ps-lbl">Fase '+(idx+1)+' / '+FASES.length+'<small>desliza o toca las flechas</small></span>'+
+    '<button class="ps-btn" id="psNext" type="button" aria-label="Fase siguiente"'+(idx>=FASES.length-1?' disabled':'')+'>›</button></div></div>'+
     '<p class="pc-desc">'+escapeHtml(f.desc)+'</p>'+body+'</div>';
   document.querySelectorAll('#phaseCard .check-row').forEach(function(r){
     r.addEventListener('click',function(){ const k=r.dataset.k; checkState[k]=!checkState[k]; saveState(); renderCard(); renderNav(); renderStats(); });
   });
+  var _pp=document.getElementById('psPrev'); if(_pp) _pp.addEventListener('click',function(){ goPhase(-1); });
+  var _pn=document.getElementById('psNext'); if(_pn) _pn.addEventListener('click',function(){ goPhase(1); });
 }
 
 function simpleRows(rows){ return '<div class="simple-list">'+rows.map(function(e){return '<div class="simple-row"><span class="k">'+escapeHtml(e.k)+'</span><span class="v2">'+escapeHtml(e.v)+'</span></div>';}).join('')+'</div>'; }
@@ -1295,7 +1314,7 @@ function goPhase(dir){
   el.addEventListener('touchstart',function(e){var t=e.changedTouches[0];x0=t.clientX;y0=t.clientY;t0=Date.now();},{passive:true});
   el.addEventListener('touchend',function(e){
     var t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;
-    if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.8 && (Date.now()-t0)<700){ goPhase(dx<0?1:-1); }
+    if(Math.abs(dx)>45 && Math.abs(dx)>Math.abs(dy)*1.4 && (Date.now()-t0)<800){ goPhase(dx<0?1:-1); }
   },{passive:true});
 })();
 
