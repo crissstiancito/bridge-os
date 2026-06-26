@@ -59,6 +59,16 @@
   .nav-prog .np-bar{width:64px;height:5px;border-radius:5px;background:rgba(200,162,75,.18);overflow:hidden}
   .nav-prog .np-bar>i{display:block;height:5px;border-radius:5px;background:linear-gradient(90deg,#9A7B2E,#C8A24B);width:0;transition:width .45s ease}
   .nav-prog .np-lbl{color:#9FB1C8;font-weight:500}
+  .mbtn.reset{display:inline-flex;align-items:center;gap:6px;border-color:rgba(255,120,120,.4);color:#E7B7B7}
+  .mbtn.reset:hover{color:#ff8a8a;border-color:rgba(255,120,120,.75);background:rgba(255,90,90,.08)}
+  .mbtn.reset .rst-ic{font-size:14px;line-height:1}
+  @media (max-width:600px){
+    .nav-prog .np-lbl{display:none}
+    .nav-prog .np-bar{width:44px}
+    .nav-links{gap:12px}
+    .mbtn{padding:9px 12px}
+    .mbtn.reset .rst-tx{display:none}
+  }
 
   /* hero */
   .hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#0B2240 0%,#0E2A4E 55%,#102a4d 100%)}
@@ -234,6 +244,7 @@
       <a href="#calculadoras">Calculadoras</a>
       <a href="#normativa">Normativa</a>
       <span class="nav-prog" title="Avance de guardia"><span class="np-lbl">Guardia</span><span class="np-bar"><i id="navPctBar"></i></span><span id="navPct">0%</span></span>
+      <button id="resetBtn" class="mbtn reset" type="button" title="Reiniciar: borrar todo el progreso"><span class="rst-ic">↺</span><span class="rst-tx">Reiniciar</span></button>
       <button id="motionBtn" class="mbtn" type="button" title="Animaciones">Animado</button>
     </div>
   </div>
@@ -1191,6 +1202,17 @@ function applyMotion(){
   const b=document.getElementById('motionBtn'); if(b) b.textContent=(motion==='Calmo')?'Calmo':'Animado';
 }
 document.getElementById('motionBtn').addEventListener('click',function(){ motion=(motion==='Calmo')?'Animado':'Calmo'; try{localStorage.setItem(MK,motion);}catch(e){} applyMotion(); });
+
+// ===== reiniciar todo el proceso desde cero =====
+function resetAll(){
+  if(!confirm('¿Reiniciar la lista de chequeo? Se desmarcarán TODOS los ítems de todas las fases y empezarás una guardia nueva.')) return;
+  Object.keys(checkState).forEach(function(k){ checkState[k]=false; });
+  activePhase = FASES[0].id;
+  saveState();
+  renderStats(); renderNav(); renderCard();
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+document.getElementById('resetBtn').addEventListener('click', resetAll);
 
 // ===== init =====
 loadState();
