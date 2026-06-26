@@ -229,6 +229,7 @@
   /* ===== MÓVIL: navegación fácil y claridad ===== */
   .sec{scroll-margin-top:84px}
   .mtabs{display:none}
+  .swipe-hint{display:none}
   @media (max-width:960px){
     .nav-in{height:58px}
     .brand span{font-size:13px;letter-spacing:.14em}
@@ -240,12 +241,14 @@
 
     /* Fases: selector horizontal deslizable y fijo bajo la barra */
     .fases-layout{flex-direction:column!important;gap:0;margin-top:20px}
-    .phase-nav{width:auto!important;display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+    .phase-nav{width:auto!important;display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;overflow-y:hidden;
+      -webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scroll-snap-type:x proximity;
       position:sticky;top:57px;z-index:20;padding:10px 18px;margin:0 -18px 18px;
       background:linear-gradient(180deg,rgba(7,20,38,.97),rgba(7,20,38,.84));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
       border-bottom:1px solid rgba(200,162,75,.18);scrollbar-width:none}
     .phase-nav::-webkit-scrollbar{display:none}
-    .pnav-btn{width:auto!important;flex:0 0 auto;margin:0;padding:9px 14px;border-radius:99px}
+    .pnav-btn{width:auto!important;flex:0 0 auto;margin:0;padding:9px 14px;border-radius:99px;scroll-snap-align:start}
+    .swipe-hint{display:block!important;font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.06em;color:#7C8FA8;text-align:center;margin-top:10px}
     .pnav-bar{display:none}
     .pnav-name{font-size:13px}
     .pnav-count{font-size:11px}
@@ -1063,7 +1066,8 @@ function renderCard(){
     '<div class="phase-card-pad"><div class="pc-sticky"><div class="pc-head"><div>'+
     '<div class="pc-kicker">FASE OPERATIVA · '+f.num+'</div><h3 class="pc-name">'+escapeHtml(f.nombre)+'</h3></div>'+
     '<div class="pc-pct"><div class="pc-pct-n">'+st.pct+'%</div><div class="pc-pct-l">'+st.d+'/'+st.t+' ítems</div></div></div>'+
-    '<div class="pc-bar"><div style="width:'+st.pct+'%"></div></div></div>'+
+    '<div class="pc-bar"><div style="width:'+st.pct+'%"></div></div>'+
+    '<div class="swipe-hint">‹ desliza para cambiar de fase ›</div></div>'+
     '<p class="pc-desc">'+escapeHtml(f.desc)+'</p>'+body+'</div>';
   document.querySelectorAll('#phaseCard .check-row').forEach(function(r){
     r.addEventListener('click',function(){ const k=r.dataset.k; checkState[k]=!checkState[k]; saveState(); renderCard(); renderNav(); renderStats(); });
@@ -1277,6 +1281,23 @@ document.getElementById('resetBtn').addEventListener('click', resetAll);
 loadState();
 if(REFERENCIA && REFERENCIA[0]) openRef[REFERENCIA[0].id]=true;
 renderStats(); renderNav(); renderCard(); renderRef(); renderCalc(); applyMotion();
+
+// cambiar de fase: deslizar (swipe) la tarjeta a izquierda/derecha
+function goPhase(dir){
+  var i=FASES.findIndex(function(f){return f.id===activePhase;});
+  var n=i+dir; if(n<0||n>=FASES.length) return;
+  activePhase=FASES[n].id; renderNav(); renderCard();
+  var a=document.querySelector('#phaseNav .pnav-btn.active'); if(a) a.scrollIntoView({inline:'center',block:'nearest'});
+}
+(function(){
+  var el=document.getElementById('phaseCard'); if(!el) return;
+  var x0=0,y0=0,t0=0;
+  el.addEventListener('touchstart',function(e){var t=e.changedTouches[0];x0=t.clientX;y0=t.clientY;t0=Date.now();},{passive:true});
+  el.addEventListener('touchend',function(e){
+    var t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;
+    if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.8 && (Date.now()-t0)<700){ goPhase(dx<0?1:-1); }
+  },{passive:true});
+})();
 
 // resaltar la sección activa en la barra inferior (móvil)
 (function(){
