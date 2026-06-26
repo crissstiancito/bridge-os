@@ -1,0 +1,22 @@
+{
+  "name": "BRIDGE OS — Consola de Guardia",
+  "short_name": "Bridge OS",
+  "description": "Consola de guardia para oficiales de navegación: checklist por fases, referencia rápida (RIPA, IALA-B, VHF, SMCP) y calculadoras náuticas. Offline.",
+  "lang": "es-CL",
+  "dir": "ltr",
+  "start_url": "./bridge_os.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "fullscreen", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#070b14",
+  "theme_color": "#070b14",
+  "categories": ["education", "navigation", "utilities", "productivity"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

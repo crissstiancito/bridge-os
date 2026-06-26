@@ -1,0 +1,10 @@
+# Solo se publica la app web. Todo lo demás queda fuera del repositorio.
+*
+!index.html
+!bridge_os.html
+!manifest.webmanifest
+!sw.js
+!.gitignore
+!README.md
+!icons/
+!icons/**
