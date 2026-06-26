@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Direcciones de diseño — Lista de Chequeo Naval</title>
+<meta name="theme-color" content="#0f1622">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Spectral:wght@400;500;600&family=Saira:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#0f1622;color:#C9D6E6;font-family:'IBM Plex Sans',system-ui,sans-serif}
+  @keyframes waveBack{from{transform:translateX(0)}to{transform:translateX(-1440px)}}
+  @keyframes waveMid{from{transform:translateX(0)}to{transform:translateX(-1440px)}}
+  @keyframes waveFront{from{transform:translateX(0)}to{transform:translateX(-1440px)}}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-1.2deg)}50%{transform:translateY(-9px) rotate(1.2deg)}}
+  @keyframes driftFar{from{transform:translateX(0)}to{transform:translateX(120px)}}
+  @keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  .page{max-width:1200px;margin:0 auto;padding:48px 24px 80px}
+  .intro h1{font:400 40px/1.1 'DM Serif Display',serif;color:#F4ECDD;margin:0 0 12px}
+  .intro p{font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:#93a7bd;margin:0 0 6px;max-width:760px}
+  .dir-block{margin-top:46px}
+  .dir-label{font:600 13px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#8aa0b6;margin-bottom:6px}
+  .dir-cap{font:400 14px/1.5 'IBM Plex Sans',sans-serif;color:#6f8499;margin-bottom:14px}
+  .frame-holder{position:relative;width:100%;overflow:hidden;border-radius:8px;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+  .frame{width:1440px;height:880px;transform-origin:top left;position:relative}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="intro">
+    <h1>Direcciones de diseño</h1>
+    <p>Tres propuestas para la <strong style="color:#C9D6E6">Lista de Chequeo Virtual</strong>. Cada mockup es interactivo: cambia de fase y marca los ítems. Dime cuál prefieres (A, B o C) y la aplico al app completo.</p>
+  </div>
+
+  <!-- A -->
+  <div class="dir-block">
+    <div class="dir-label">DIRECCIÓN A · MARINO CLÁSICO</div>
+    <div class="dir-cap">Azul marino + oro, tipografía serif (DM Serif Display / Spectral). Elegante, institucional. — <em>Es la que está aplicada hoy en el app.</em></div>
+    <div class="frame-holder"><div class="frame">
+      <div style="position:relative;width:1440px;height:880px;overflow:hidden;border-radius:3px;background:linear-gradient(180deg,#0B2240 0%,#0E2A4E 52%,#102a4d 100%);">
+        <div style="position:absolute;top:0;left:0;right:0;height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 60px;z-index:6;">
+          <div style="display:flex;align-items:center;gap:12px;"><svg width="22" height="24" viewBox="0 0 20 22" fill="none" stroke="#C8A24B" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="4" r="2.4"/><line x1="10" y1="6.4" x2="10" y2="20"/><line x1="5" y1="10" x2="15" y2="10"/><path d="M3 14 a7 7 0 0 0 14 0"/></svg><span style="font:600 15px/1 'Spectral',serif;letter-spacing:.2em;color:#F4ECDD;">LISTA DE CHEQUEO</span></div>
+          <div style="display:flex;align-items:center;gap:34px;font:500 14px/1 'Spectral',serif;color:#C9D6E6;"><span>Fases</span><span>Fórmulas</span><span>Seguridad</span><span style="padding:9px 18px;border:1px solid rgba(200,162,75,.55);border-radius:2px;color:#C8A24B;letter-spacing:.06em;">Acceso</span></div>
+        </div>
+        <div style="position:absolute;left:60px;top:170px;width:600px;z-index:5;">
+          <div style="font:500 13px/1 'IBM Plex Mono',monospace;letter-spacing:.26em;color:#C8A24B;margin-bottom:22px;">ASISTENTE DE GUARDIA · BITÁCORA DIGITAL</div>
+          <h1 style="margin:0;font:400 72px/1.02 'DM Serif Display',serif;color:#F4ECDD;letter-spacing:-.01em;">Lista de Chequeo<br>Virtual de Guardia</h1>
+          <p style="margin:26px 0 0;font:400 19px/1.6 'Spectral',serif;color:#AFC0D4;max-width:520px;">Tu copiloto a bordo: procedimientos, fórmulas de navegación y seguridad organizados por fase. Del puerto al fondeo, todo verificado y a mano.</p>
+          <div style="display:flex;gap:16px;margin-top:34px;"><span style="padding:15px 30px;background:#C8A24B;color:#0B2240;font:600 15px/1 'Spectral',serif;letter-spacing:.04em;border-radius:2px;">Iniciar chequeo</span><span style="padding:15px 28px;border:1px solid rgba(200,162,75,.5);color:#F4ECDD;font:500 15px/1 'Spectral',serif;border-radius:2px;">Ver fases →</span></div>
+          <div style="display:flex;gap:42px;margin-top:46px;font:400 14px/1.3 'Spectral',serif;color:#8FA3BC;"><div><div style="font:400 30px/1 'DM Serif Display',serif;color:#C8A24B;">06</div><div style="margin-top:6px;">Fases operativas</div></div><div><div style="font:400 30px/1 'DM Serif Display',serif;color:#C8A24B;">28</div><div style="margin-top:6px;">Ítems de control</div></div><div><div style="font:400 30px/1 'DM Serif Display',serif;color:#C8A24B;">12</div><div style="margin-top:6px;">Fórmulas náuticas</div></div></div>
+        </div>
+        <div style="position:absolute;right:60px;top:150px;width:430px;z-index:7;animation:floatCard 7s ease-in-out infinite;">
+          <div style="background:rgba(8,22,42,.55);backdrop-filter:blur(10px);border:1px solid rgba(200,162,75,.32);border-radius:6px;padding:26px 26px 22px;box-shadow:0 24px 60px rgba(4,12,28,.5);"><div id="cardA-inner"></div></div>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:300px;overflow:hidden;z-index:3;">
+          <svg width="64" height="34" viewBox="0 0 180 96" style="position:absolute;bottom:188px;left:240px;opacity:.4;animation:driftFar 30s linear infinite alternate;"><path d="M10,58 L170,58 L150,82 L30,82 Z" fill="#1a3a63"/><rect x="60" y="30" width="22" height="28" fill="#1a3a63"/><rect x="110" y="36" width="14" height="22" fill="#1a3a63"/></svg>
+          <div style="position:absolute;bottom:96px;left:0;width:2880px;height:200px;animation:waveBack 19s linear infinite;"><svg width="2880" height="200" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0,70 C240,30 480,30 720,70 C960,110 1200,110 1440,70 L1440,200 L0,200 Z" fill="rgba(28,58,100,.55)"/><path d="M1440,70 C1680,30 1920,30 2160,70 C2400,110 2640,110 2880,70 L2880,200 L1440,200 Z" fill="rgba(28,58,100,.55)"/></svg></div>
+          <svg width="180" height="96" viewBox="0 0 180 96" style="position:absolute;bottom:120px;left:760px;animation:bob 5.5s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35));"><path d="M10,58 L170,58 L150,82 L30,82 Z" fill="#0a1f3b"/><rect x="48" y="38" width="54" height="20" fill="#102a4d"/><rect x="60" y="24" width="26" height="14" fill="#102a4d"/><rect x="63" y="29" width="20" height="3" fill="#C8A24B"/><rect x="108" y="32" width="16" height="26" fill="#102a4d"/><rect x="108" y="32" width="16" height="6" fill="#C8A24B"/><rect x="38" y="14" width="3" height="24" fill="#102a4d"/><rect x="120" y="10" width="3" height="22" fill="#102a4d"/><path d="M41,14 L52,18 L41,22 Z" fill="#C8A24B"/></svg>
+          <div style="position:absolute;bottom:44px;left:0;width:2880px;height:200px;animation:waveMid 11s linear infinite;"><svg width="2880" height="200" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0,70 C240,30 480,30 720,70 C960,110 1200,110 1440,70 L1440,200 L0,200 Z" fill="#102a4d"/><path d="M1440,70 C1680,30 1920,30 2160,70 C2400,110 2640,110 2880,70 L2880,200 L1440,200 Z" fill="#102a4d"/></svg></div>
+          <div style="position:absolute;bottom:0;left:0;width:2880px;height:200px;animation:waveFront 7s linear infinite;"><svg width="2880" height="200" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0,70 C240,30 480,30 720,70 C960,110 1200,110 1440,70 L1440,200 L0,200 Z" fill="#0a1f3b"/><path d="M1440,70 C1680,30 1920,30 2160,70 C2400,110 2640,110 2880,70 L2880,200 L1440,200 Z" fill="#0a1f3b"/></svg></div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- B -->
+  <div class="dir-block">
+    <div class="dir-label">DIRECCIÓN B · ACERO NAVAL</div>
+    <div class="dir-cap">Claro y técnico: azul acero + cian, tipografía Saira / IBM Plex. Diurno, alto contraste, fácil de leer en puente.</div>
+    <div class="frame-holder"><div class="frame">
+      <div style="position:relative;width:1440px;height:880px;overflow:hidden;border-radius:3px;background:linear-gradient(180deg,#EAF1F7 0%,#D2E0EC 46%,#A9C2D7 100%);">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(27,58,92,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(27,58,92,.05) 1px,transparent 1px);background-size:44px 44px;z-index:1;"></div>
+        <div style="position:absolute;top:0;left:0;right:0;height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 60px;z-index:6;">
+          <div style="display:flex;align-items:center;gap:12px;"><svg width="22" height="24" viewBox="0 0 20 22" fill="none" stroke="#1C7C9C" stroke-width="1.7" stroke-linecap="round"><circle cx="10" cy="4" r="2.4"/><line x1="10" y1="6.4" x2="10" y2="20"/><line x1="5" y1="10" x2="15" y2="10"/><path d="M3 14 a7 7 0 0 0 14 0"/></svg><span style="font:700 15px/1 'Saira',sans-serif;letter-spacing:.16em;color:#16314F;">LISTA DE CHEQUEO</span></div>
+          <div style="display:flex;align-items:center;gap:32px;font:500 14px/1 'IBM Plex Sans',sans-serif;color:#2A4D6E;"><span>Fases</span><span>Fórmulas</span><span>Seguridad</span><span style="padding:9px 18px;background:#16314F;border-radius:3px;color:#fff;letter-spacing:.04em;">Acceso</span></div>
+        </div>
+        <div style="position:absolute;left:60px;top:168px;width:600px;z-index:5;">
+          <div style="display:inline-block;font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#1C7C9C;margin-bottom:22px;padding:7px 12px;border:1px solid rgba(28,124,156,.4);border-radius:3px;">ASISTENTE DE GUARDIA</div>
+          <h1 style="margin:0;font:700 66px/1.04 'Saira',sans-serif;color:#16314F;letter-spacing:-.01em;">Lista de Chequeo<br>Virtual de Guardia</h1>
+          <p style="margin:24px 0 0;font:400 18px/1.6 'IBM Plex Sans',sans-serif;color:#3B5A78;max-width:520px;">Procedimientos, fórmulas de navegación y seguridad organizados por fase. Una herramienta clara, portable y siempre alimentada con tus datos técnicos.</p>
+          <div style="display:flex;gap:14px;margin-top:32px;"><span style="padding:15px 30px;background:#1C7C9C;color:#fff;font:600 15px/1 'Saira',sans-serif;letter-spacing:.03em;border-radius:3px;">Iniciar chequeo</span><span style="padding:15px 28px;border:1.5px solid #16314F;color:#16314F;font:600 15px/1 'Saira',sans-serif;border-radius:3px;">Ver fases →</span></div>
+          <div style="display:flex;gap:14px;margin-top:44px;"><div style="flex:1;background:#fff;border:1px solid #D7E2EC;border-radius:5px;padding:16px 18px;"><div style="font:700 28px/1 'Saira',sans-serif;color:#16314F;">06</div><div style="margin-top:6px;font:400 13px/1.3 'IBM Plex Sans',sans-serif;color:#6E869C;">Fases operativas</div></div><div style="flex:1;background:#fff;border:1px solid #D7E2EC;border-radius:5px;padding:16px 18px;"><div style="font:700 28px/1 'Saira',sans-serif;color:#16314F;">28</div><div style="margin-top:6px;font:400 13px/1.3 'IBM Plex Sans',sans-serif;color:#6E869C;">Ítems de control</div></div><div style="flex:1;background:#fff;border:1px solid #D7E2EC;border-radius:5px;padding:16px 18px;"><div style="font:700 28px/1 'Saira',sans-serif;color:#16314F;">12</div><div style="margin-top:6px;font:400 13px/1.3 'IBM Plex Sans',sans-serif;color:#6E869C;">Fórmulas náuticas</div></div></div>
+        </div>
+        <div style="position:absolute;right:60px;top:150px;width:430px;z-index:7;animation:floatCard 7.5s ease-in-out infinite;">
+          <div style="background:#ffffff;border:1px solid #D7E2EC;border-radius:8px;padding:26px 26px 22px;box-shadow:0 24px 55px rgba(22,49,79,.16);"><div id="cardB-inner"></div></div>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:300px;overflow:hidden;z-index:3;">
+          <svg width="64" height="34" viewBox="0 0 180 96" style="position:absolute;bottom:188px;left:300px;opacity:.5;animation:driftFar 30s linear infinite alternate;"><path d="M10,58 L170,58 L150,82 L30,82 Z" fill="#6E92B4"/><rect x="60" y="30" width="22" height="28" fill="#6E92B4"/><rect x="110" y="36" width="14" height="22" fill="#6E92B4"/></svg>
+          <div style="position:absolute;bottom:96px;left:0;width:2880px;height:200px;animation:waveBack 19s linear infinite;"><svg width="2880" height="200" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0,70 C240,30 480,30 720,70 C960,110 1200,110 1440,70 L1440,200 L0,200 Z" fill="#7FA8C9"/><path d="M1440,70 C1680,30 1920,30 2160,70 C2400,110 2640,110 2880,70 L2880,200 L1440,200 Z" fill="#7FA8C9"/></svg></div>
+          <svg width="180" height="96" viewBox="0 0 180 96" style="position:absolute;bottom:120px;left:780px;animation:bob 5.5s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(22,49,79,.25));"><path d="M10,58 L170,58 L150,82 L30,82 Z" fill="#16314F"/><rect x="48" y="38" width="54" height="20" fill="#234A6B"/><rect x="60" y="24" width="26" height="14" fill="#234A6B"/><rect x="63" y="29" width="20" height="3" fill="#1C7C9C"/><rect x="108" y="32" width="16" height="26" fill="#234A6B"/><rect x="108" y="32" width="16" height="6" fill="#1C7C9C"/><rect x="38" y="14" width="3" height="24" fill="#234A6B"/><rect x="120" y="10" width="3" height="22" fill="#234A6B"/><path d="M41,14 L52,18 L41,22 Z" fill="#1C7C9C"/></svg>
+          <div style="position:absolute;bottom:44px;left:0;width:2880px;height:200px;animation:waveMid 11s linear infinite;"><svg width="2880" height="200" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0,70 C240,30 480,30 720,70 C960,110 1200,110 1440,70 L1440,200 L0,200 Z" fill="#3F6E97"/><path d="M1440,70 C1680,30 1920,30 2160,70 C2400,110 2640,110 2880,70 L2880,200 L1440,200 Z" fill="#3F6E97"/></svg></div>
+          <div style="position:absolute;bottom:0;left:0;width:2880px;height:200px;animation:waveFront 7s linear infinite;"><svg width="2880" height="200" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0,70 C240,30 480,30 720,70 C960,110 1200,110 1440,70 L1440,200 L0,200 Z" fill="#1B3A5C"/><path d="M1440,70 C1680,30 1920,30 2160,70 C2400,110 2640,110 2880,70 L2880,200 L1440,200 Z" fill="#1B3A5C"/></svg></div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- C -->
+  <div class="dir-block">
+    <div class="dir-label">DIRECCIÓN C · PROFUNDIDAD</div>
+    <div class="dir-cap">Midnight + cian HUD, tipografía Space Grotesk. Moderno, tecnológico, tipo instrumento nocturno.</div>
+    <div class="frame-holder"><div class="frame">
+      <div style="position:relative;width:1440px;height:880px;overflow:hidden;border-radius:3px;background:linear-gradient(180deg,#061625 0%,#08243a 58%,#0a2a44 100%);">
+        <div style="position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:760px;height:760px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.14) 0%,transparent 62%);z-index:1;"></div>
+        <div style="position:absolute;top:0;left:0;right:0;height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 60px;z-index:6;">
+          <div style="display:flex;align-items:center;gap:12px;"><svg width="22" height="24" viewBox="0 0 20 22" fill="none" stroke="#38BDF8" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="4" r="2.4"/><line x1="10" y1="6.4" x2="10" y2="20"/><line x1="5" y1="10" x2="15" y2="10"/><path d="M3 14 a7 7 0 0 0 14 0"/></svg><span style="font:600 15px/1 'Space Grotesk',sans-serif;letter-spacing:.18em;color:#EAF4FB;">LISTA DE CHEQUEO</span></div>
+          <div style="display:flex;align-items:center;gap:30px;font:500 13px/1 'IBM Plex Mono',monospace;letter-spacing:.04em;color:#9FC4DC;"><span>Fases</span><span>Fórmulas</span><span>Seguridad</span><span style="padding:9px 18px;border:1px solid rgba(56,189,248,.5);border-radius:3px;color:#38BDF8;">Acceso</span></div>
+        </div>
+        <div style="position:absolute;left:60px;top:168px;width:600px;z-index:5;">
+          <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.24em;color:#38BDF8;margin-bottom:22px;">// ASISTENTE DE GUARDIA · BITÁCORA DIGITAL</div>
+          <h1 style="margin:0;font:600 64px/1.05 'Space Grotesk',sans-serif;color:#EAF4FB;letter-spacing:-.015em;">Lista de Chequeo<br>Virtual de Guardia</h1>
+          <p style="margin:24px 0 0;font:400 18px/1.65 'IBM Plex Sans',sans-serif;color:#8FB4CF;max-width:520px;">Procedimientos, fórmulas y seguridad organizados por fase. Del puerto al fondeo: cada control verificado, cada dato a un toque de distancia.</p>
+          <div style="display:flex;gap:14px;margin-top:32px;"><span style="padding:15px 30px;background:#38BDF8;color:#061625;font:600 15px/1 'Space Grotesk',sans-serif;letter-spacing:.02em;border-radius:3px;">Iniciar chequeo</span><span style="padding:15px 28px;border:1px solid rgba(56,189,248,.45);color:#EAF4FB;font:500 15px/1 'Space Grotesk',sans-serif;border-radius:3px;">Ver fases →</span></div>
+          <div style="display:flex;gap:36px;margin-top:46px;font:400 13px/1.3 'IBM Plex Mono',monospace;color:#6F90A8;"><div><div style="font:600 30px/1 'Space Grotesk',sans-serif;color:#38BDF8;">06</div><div style="margin-top:7px;">FASES</div></div><div><div style="font:600 30px/1 'Space Grotesk',sans-serif;color:#38BDF8;">28</div><div style="margin-top:7px;">ÍTEMS</div></div><div><div style="font:600 30px/1 'Space Grotesk',sans-serif;color:#38BDF8;">12</div><div style="margin-top:7px;">FÓRMULAS</div></div></div>
+        </div>
+        <div style="position:absolute;right:60px;top:150px;width:430px;z-index:7;animation:floatCard 8s ease-in-out infinite;">
+          <div style="background:rgba(8,28,46,.6);backdrop-filter:blur(12px);border:1px solid rgba(56,189,248,.28);border-radius:8px;padding:26px 26px 22px;box-shadow:0 0 0 1px rgba(56,189,248,.06),0 24px 60px rgba(2,8,18,.6);"><div id="cardC-inner"></div></div>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:300px;overflow:hidden;z-index:3;">
+          <svg width="64" height="34" viewBox="0 0 180 96" style="position:absolute;bottom:190px;left:280px;opacity:.45;animation:driftFar 30s linear infinite alternate;"><path d="M10,58 L170,58 L150,82 L30,82 Z" fill="#173a57"/><rect x="60" y="30" width="22" height="28" fill="#173a57"/><rect x="110" y="36" width="14" height="22" fill="#173a57"/></svg>
+          <div style="position:absolute;bottom:96px;left:0;width:2880px;height:200px;animation:waveBack 19s linear infinite;"><svg width="2880" height="200" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0,70 C240,30 480,30 720,70 C960,110 1200,110 1440,70 L1440,200 L0,200 Z" fill="rgba(23,58,87,.65)"/><path d="M1440,70 C1680,30 1920,30 2160,70 C2400,110 2640,110 2880,70 L2880,200 L1440,200 Z" fill="rgba(23,58,87,.65)"/></svg></div>
+          <svg width="180" height="96" viewBox="0 0 180 96" style="position:absolute;bottom:120px;left:770px;animation:bob 5.5s ease-in-out infinite;filter:drop-shadow(0 6px 12px rgba(0,0,0,.5));"><path d="M10,58 L170,58 L150,82 L30,82 Z" fill="#04101c"/><rect x="48" y="38" width="54" height="20" fill="#0c2a44"/><rect x="60" y="24" width="26" height="14" fill="#0c2a44"/><rect x="63" y="29" width="20" height="3" fill="#38BDF8"/><rect x="108" y="32" width="16" height="26" fill="#0c2a44"/><rect x="108" y="32" width="16" height="6" fill="#38BDF8"/><rect x="38" y="14" width="3" height="24" fill="#0c2a44"/><rect x="120" y="10" width="3" height="22" fill="#0c2a44"/><path d="M41,14 L52,18 L41,22 Z" fill="#38BDF8"/></svg>
+          <div style="position:absolute;bottom:44px;left:0;width:2880px;height:200px;animation:waveMid 11s linear infinite;"><svg width="2880" height="200" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0,70 C240,30 480,30 720,70 C960,110 1200,110 1440,70 L1440,200 L0,200 Z" fill="#0c2a44"/><path d="M1440,70 C1680,30 1920,30 2160,70 C2400,110 2640,110 2880,70 L2880,200 L1440,200 Z" fill="#0c2a44"/></svg></div>
+          <div style="position:absolute;bottom:0;left:0;width:2880px;height:200px;animation:waveFront 7s linear infinite;"><svg width="2880" height="200" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0,70 C240,30 480,30 720,70 C960,110 1200,110 1440,70 L1440,200 L0,200 Z" fill="#06192b"/><path d="M1440,70 C1680,30 1920,30 2160,70 C2400,110 2640,110 2880,70 L2880,200 L1440,200 Z" fill="#06192b"/></svg></div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <p style="margin-top:46px;font:400 14px/1.6 'IBM Plex Sans',sans-serif;color:#6f8499;">Dime <strong style="color:#C9D6E6">A</strong>, <strong style="color:#C9D6E6">B</strong> o <strong style="color:#C9D6E6">C</strong> y aplico esa dirección al app completo (fases, referencia y calculadoras).</p>
+</div>
+
+<script>
+const PHASES = {
+  puerto:    { name:'Puerto',    items:['Amarras y defensas firmes','Planchada y control de accesos','Marea y francobordo','Rondas contra incendios'] },
+  navegando: { name:'Navegando', items:['Rumbo y velocidad ordenados','Situación verificada (GPS)','Vigilancia radar y visual','Luces de navegación'] },
+  fondeo:    { name:'Fondeo',    items:['Tenida del ancla / garreo','Círculo de borneo seguro','Marcaciones a la costa','Luces y marcas de fondeo'] }
+};
+const ORDER = ['puerto','navegando','fondeo'];
+const state = {
+  active: { A:'navegando', B:'fondeo', C:'puerto' },
+  checks: { 'A:navegando:0':true,'A:navegando:1':true,'B:fondeo:0':true,'B:fondeo:2':true,'C:puerto:0':true,'C:puerto:1':true,'C:puerto:3':true }
+};
+const THEMES = {
+  A:{ label:"font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#C8A24B;", count:"font:600 13px/1 'IBM Plex Mono',monospace;color:#F4ECDD;",
+      pillBase:"border:1px solid rgba(200,162,75,.28);border-radius:3px;font:500 12px/1 'Spectral',serif;", pillAbg:"#C8A24B",pillAcol:"#0B2240",pillBg:"rgba(244,236,221,.05)",pillCol:"#C9D6E6",
+      rowBorder:"rgba(200,162,75,.12)", accent:"#C8A24B", muted:"rgba(200,162,75,.5)", ink:"#0B2240", item:"font:400 15px/1.3 'Spectral',serif;color:#E7EEF7;",
+      formula:"padding:12px 14px;background:rgba(200,162,75,.1);border-radius:4px;font:500 13px/1 'IBM Plex Mono',monospace;color:#D9C68F;letter-spacing:.04em;" },
+  B:{ label:"font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#1C7C9C;", count:"font:600 13px/1 'IBM Plex Mono',monospace;color:#16314F;",
+      pillBase:"border:1px solid #D7E2EC;border-radius:4px;font:600 12px/1 'IBM Plex Sans',sans-serif;", pillAbg:"#16314F",pillAcol:"#ffffff",pillBg:"#F1F6FA",pillCol:"#2A4D6E",
+      rowBorder:"#EDF2F6", accent:"#1C7C9C", muted:"#C2D2DF", ink:"#ffffff", item:"font:400 15px/1.3 'IBM Plex Sans',sans-serif;color:#26415C;",
+      formula:"padding:12px 14px;background:#EAF4F8;border-radius:5px;font:500 13px/1 'IBM Plex Mono',monospace;color:#1C7C9C;letter-spacing:.03em;" },
+  C:{ label:"font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#38BDF8;", count:"font:500 13px/1 'IBM Plex Mono',monospace;color:#EAF4FB;",
+      pillBase:"border:1px solid rgba(56,189,248,.22);border-radius:4px;font:500 12px/1 'IBM Plex Sans',sans-serif;", pillAbg:"#38BDF8",pillAcol:"#061625",pillBg:"rgba(56,189,248,.07)",pillCol:"#9FC4DC",
+      rowBorder:"rgba(56,189,248,.1)", accent:"#38BDF8", muted:"rgba(56,189,248,.45)", ink:"#061625", item:"font:400 15px/1.3 'IBM Plex Sans',sans-serif;color:#D6E7F2;",
+      formula:"padding:12px 14px;background:rgba(56,189,248,.09);border-radius:5px;font:500 13px/1 'IBM Plex Mono',monospace;color:#7FD3F4;letter-spacing:.03em;" }
+};
+
+function renderCard(fk){
+  const th=THEMES[fk], act=state.active[fk], ph=PHASES[act];
+  const done=ph.items.filter((_,i)=>state.checks[fk+':'+act+':'+i]).length, total=ph.items.length;
+  const pills=ORDER.map(function(k){
+    const a=k===act;
+    return '<button data-f="'+fk+'" data-k="'+k+'" style="flex:1;padding:9px 4px;cursor:pointer;'+th.pillBase+'background:'+(a?th.pillAbg:th.pillBg)+';color:'+(a?th.pillAcol:th.pillCol)+';">'+PHASES[k].name+'</button>';
+  }).join('');
+  const items=ph.items.map(function(label,i){
+    const ch=!!state.checks[fk+':'+act+':'+i];
+    return '<div data-f="'+fk+'" data-i="'+i+'" style="display:flex;align-items:center;gap:13px;padding:11px 2px;cursor:pointer;border-bottom:1px solid '+th.rowBorder+';opacity:'+(ch?1:0.62)+';">'+
+      '<span style="flex:none;width:22px;height:22px;border-radius:5px;border:1.5px solid '+(ch?th.accent:th.muted)+';background:'+(ch?th.accent:'transparent')+';display:flex;align-items:center;justify-content:center;font:700 12px/1 sans-serif;color:'+th.ink+';">'+(ch?'✓':'')+'</span>'+
+      '<span style="'+th.item+'">'+label+'</span></div>';
+  }).join('');
+  document.getElementById('card'+fk+'-inner').innerHTML =
+    '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><div style="'+th.label+'">LISTA DE CHEQUEO</div><div style="'+th.count+'">'+done+'/'+total+' ✓</div></div>'+
+    '<div style="display:flex;gap:8px;margin-bottom:18px;">'+pills+'</div>'+items+
+    '<div style="margin-top:18px;'+th.formula+'">ƒ  Distancia = Velocidad × Tiempo</div>';
+  const root=document.getElementById('card'+fk+'-inner');
+  root.querySelectorAll('button[data-k]').forEach(function(b){ b.addEventListener('click',function(){ state.active[fk]=b.dataset.k; renderCard(fk); }); });
+  root.querySelectorAll('div[data-i]').forEach(function(r){ r.addEventListener('click',function(){ const key=fk+':'+state.active[fk]+':'+r.dataset.i; state.checks[key]=!state.checks[key]; renderCard(fk); }); });
+}
+['A','B','C'].forEach(renderCard);
+
+function fit(){
+  document.querySelectorAll('.frame-holder').forEach(function(h){
+    const f=h.querySelector('.frame'); const s=h.clientWidth/1440;
+    f.style.transform='scale('+s+')'; h.style.height=(880*s)+'px';
+  });
+}
+fit(); window.addEventListener('resize',fit);
+</script>
+</body>
+</html>
