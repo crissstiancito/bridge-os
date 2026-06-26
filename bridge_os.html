@@ -374,11 +374,187 @@
   .intro .phase:nth-child(6){animation-delay:.28s}
   .intro .phase:nth-child(7){animation-delay:.33s}
   .intro .phase:nth-child(n+8){animation-delay:.37s}
+
+  /* ============================================================
+     OCEAN IMMERSION THEME (v3) — overrides previous skin
+     ============================================================ */
+  :root{
+    --accent:#34e3e8; --accent-2:#159fc0; --accent-ink:#012028;
+    --amber:#ffc24d; --green:#3fe2a4; --red:#ff5d6c; --violet:#9d9bff;
+    --text:#e9f7ff; --text-dim:#92b8d2; --text-faint:#5f86a3;
+    --line:rgba(140,200,228,.14); --line-2:rgba(150,210,235,.28);
+    --inset:rgba(3,16,28,.55);
+    --bg:#03101d;
+    /* sky + sea + glass */
+    --sky-1:#06122b; --sky-2:#1b4d73;
+    --sea-1:#0c3150; --sea-2:#072539; --sea-3:#041726; --sea-4:#020b14;
+    --ship:#020e18;
+    --glass-bg:rgba(9,30,49,.62); --glass-brd:rgba(150,215,240,.18);
+    --glass-blur:blur(15px) saturate(135%);
+    --surface:rgba(10,32,52,.66); --surface-2:rgba(6,22,37,.6); --surface-3:rgba(18,46,70,.66);
+    --shadow:0 22px 48px -26px rgba(0,0,0,.9);
+    --shadow-sm:0 12px 30px -20px rgba(0,0,0,.8);
+    --shadow-up:0 -14px 34px -22px rgba(0,0,0,.7);
+  }
+  :root[data-theme="day"]{
+    --accent:#0a8fb1; --accent-2:#087695; --accent-ink:#ffffff;
+    --amber:#b9740b; --green:#0e9d6b; --red:#d8383d; --violet:#6a53d3;
+    --text:#062a3d; --text-dim:#3d6175; --text-faint:#6f93a6;
+    --line:rgba(20,70,95,.16); --line-2:rgba(20,70,95,.3);
+    --inset:rgba(255,255,255,.5);
+    --bg:#bfe6f1;
+    --sky-1:#7ec9ef; --sky-2:#bfe9f4;
+    --sea-1:#74c6e6; --sea-2:#2f9fca; --sea-3:#10729b; --sea-4:#084e6b;
+    --ship:#0a2f44;
+    --glass-bg:rgba(255,255,255,.72); --glass-brd:rgba(255,255,255,.85);
+    --glass-blur:blur(15px) saturate(120%);
+    --surface:rgba(255,255,255,.74); --surface-2:rgba(255,255,255,.55); --surface-3:rgba(255,255,255,.62);
+    --shadow:0 22px 44px -26px rgba(14,52,80,.5);
+    --shadow-sm:0 12px 26px -20px rgba(14,52,80,.4);
+  }
+
+  body{background:var(--bg)}
+
+  /* ---- fixed ocean backdrop ---- */
+  .ocean{position:fixed;inset:0;z-index:-2;overflow:hidden;
+    background:linear-gradient(180deg,var(--sea-1) 0%,var(--sea-2) 34%,var(--sea-3) 68%,var(--sea-4) 100%)}
+  .rays{position:absolute;inset:-20% -20% auto -20%;height:80%;pointer-events:none;opacity:.5;
+    background:repeating-linear-gradient(102deg,transparent 0 46px,color-mix(in srgb,var(--accent) 16%,transparent) 46px 52px);
+    -webkit-mask-image:linear-gradient(180deg,#000,transparent 75%);mask-image:linear-gradient(180deg,#000,transparent 75%);
+    animation:rayDrift 16s ease-in-out infinite alternate}
+  @keyframes rayDrift{from{transform:translateX(-22px) skewX(-2deg)}to{transform:translateX(26px) skewX(2deg)}}
+  .caustic{position:absolute;border-radius:50%;filter:blur(40px);opacity:.5;pointer-events:none}
+  .caustic.c-a{width:60vw;height:60vw;left:-10vw;top:-12vw;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 30%,transparent),transparent 70%);animation:floaty 14s ease-in-out infinite alternate}
+  .caustic.c-b{width:48vw;height:48vw;right:-12vw;top:24vh;background:radial-gradient(circle,color-mix(in srgb,var(--violet) 26%,transparent),transparent 70%);animation:floaty 18s ease-in-out infinite alternate-reverse}
+  @keyframes floaty{from{transform:translateY(0) translateX(0)}to{transform:translateY(40px) translateX(28px)}}
+  .bubbles{position:absolute;inset:0;pointer-events:none}
+  .bubbles span{position:absolute;bottom:-30px;width:7px;height:7px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.9),color-mix(in srgb,var(--accent) 40%,transparent));
+    opacity:0;animation:rise linear infinite}
+  .bubbles span:nth-child(1){animation-duration:11s;animation-delay:0s;transform:scale(.7)}
+  .bubbles span:nth-child(2){animation-duration:14s;animation-delay:2s;transform:scale(1.1)}
+  .bubbles span:nth-child(3){animation-duration:9s;animation-delay:5s;transform:scale(.5)}
+  .bubbles span:nth-child(4){animation-duration:16s;animation-delay:1s;transform:scale(.9)}
+  .bubbles span:nth-child(5){animation-duration:12s;animation-delay:6s;transform:scale(.6)}
+  .bubbles span:nth-child(6){animation-duration:15s;animation-delay:3s;transform:scale(1)}
+  .bubbles span:nth-child(7){animation-duration:10s;animation-delay:7s;transform:scale(.55)}
+  .bubbles span:nth-child(8){animation-duration:13s;animation-delay:4s;transform:scale(.8)}
+  @keyframes rise{0%{opacity:0;transform:translateY(0) translateX(0)}10%{opacity:.7}90%{opacity:.5}100%{opacity:0;transform:translateY(-104vh) translateX(18px)}}
+  .depth-veil{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .25s linear;
+    background:linear-gradient(180deg,transparent,rgba(1,7,14,.55) 60%,rgba(0,3,8,.92))}
+
+  .depth-chip{position:fixed;right:12px;bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:55;
+    font-family:var(--fm);font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.4px;
+    padding:5px 10px;border-radius:99px;background:var(--glass-bg);border:1px solid var(--glass-brd);
+    backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+    opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none}
+  .depth-chip.show{opacity:.9;transform:none}
+  .depth-chip .dc-ar{opacity:.7}
+
+  /* ---- glassify chrome ---- */
+  .appbar{background:linear-gradient(180deg,color-mix(in srgb,var(--glass-bg) 94%,transparent),color-mix(in srgb,var(--glass-bg) 64%,transparent));
+    backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-bottom:1px solid var(--glass-brd)}
+  .bottomnav{background:linear-gradient(180deg,color-mix(in srgb,var(--glass-bg) 70%,transparent),var(--glass-bg));
+    backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-top:1px solid var(--glass-brd)}
+  .brandmark{border-color:var(--glass-brd)}
+  .search input,.calc-field input{background:var(--inset)}
+
+  .phase,.ref-card,.calc-card{background:var(--glass-bg);border:1px solid var(--glass-brd);
+    box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.06)}
+  .ref-card,.calc-card{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .phase-body{background:color-mix(in srgb,var(--inset) 55%,transparent)}
+  .phase::before{opacity:.85}
+
+  /* ============== HERO: SEA SURFACE ============== */
+  .hero-sea{position:relative;margin:-18px -14px 0;overflow:hidden}
+  .sky{position:relative;height:138px;background:linear-gradient(180deg,var(--sky-1),var(--sky-2));overflow:hidden}
+  .celestial{position:absolute;right:36px;top:24px;width:44px;height:44px;border-radius:50%;
+    background:radial-gradient(circle at 38% 34%,#f2f9ff,#bcd6ec 70%);
+    box-shadow:0 0 34px 6px rgba(180,210,240,.45)}
+  :root[data-theme="day"] .celestial{background:radial-gradient(circle at 40% 36%,#fff7da,#ffd574 72%);
+    box-shadow:0 0 46px 12px rgba(255,206,110,.55)}
+  .hero-stars{position:absolute;inset:0;opacity:.9;
+    background-image:radial-gradient(1.4px 1.4px at 24px 26px,#fff,transparent),
+      radial-gradient(1.2px 1.2px at 120px 50px,#dbeaff,transparent),
+      radial-gradient(1.4px 1.4px at 200px 30px,#fff,transparent),
+      radial-gradient(1px 1px at 280px 70px,#cfe2ff,transparent),
+      radial-gradient(1.3px 1.3px at 70px 80px,#fff,transparent),
+      radial-gradient(1px 1px at 330px 44px,#fff,transparent);
+    animation:twinkle 4s ease-in-out infinite alternate}
+  @keyframes twinkle{from{opacity:.55}to{opacity:1}}
+  :root[data-theme="day"] .hero-stars{display:none}
+  .hero-ship{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);width:210px;height:62px;
+    color:var(--ship);animation:sail 6s ease-in-out infinite alternate}
+  @keyframes sail{from{transform:translateX(-52%) translateY(0) rotate(-.7deg)}to{transform:translateX(-48%) translateY(-2px) rotate(.7deg)}}
+  .hero-ship .ship-body{fill:var(--ship);stroke:none}
+  .hero-ship .ship-mast{stroke:var(--ship);stroke-width:2;stroke-linecap:round}
+  .hero-ship .lt-w{fill:#fff}.hero-ship .lt-g{fill:#46e58a}.hero-ship .lt-r{fill:#ff5a6a}
+  .hero-waves{position:absolute;left:-2%;bottom:-1px;width:104%;height:62px;display:block}
+  .hero-waves .wv{transform-box:fill-box;transform-origin:center}
+  .hero-waves .wv1{fill:color-mix(in srgb,var(--sea-1) 80%,var(--accent));opacity:.55;animation:wave1 7s ease-in-out infinite alternate}
+  .hero-waves .wv2{fill:var(--sea-1);opacity:.95;animation:wave2 5.5s ease-in-out infinite alternate}
+  @keyframes wave1{from{transform:translateX(-14px)}to{transform:translateX(14px)}}
+  @keyframes wave2{from{transform:translateX(12px)}to{transform:translateX(-12px)}}
+
+  /* ============== DECK STATUS PANEL ============== */
+  .deck-panel{display:flex;align-items:center;gap:16px;padding:16px;margin-bottom:18px;
+    background:var(--glass-bg);border:1px solid var(--glass-brd);border-radius:var(--radius);
+    box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.08);
+    backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);position:relative;overflow:hidden}
+  .porthole{position:relative;width:104px;height:104px;flex-shrink:0;border-radius:50%;
+    background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--accent) 14%,transparent),var(--inset) 78%);
+    border:3px solid color-mix(in srgb,var(--glass-brd) 90%,transparent);
+    box-shadow:inset 0 0 16px -4px color-mix(in srgb,var(--accent) 80%,transparent),0 6px 16px -8px rgba(0,0,0,.7)}
+  .porthole svg{position:absolute;inset:4px;width:calc(100% - 8px);height:calc(100% - 8px);transform:rotate(-90deg)}
+  .porthole .g-track{fill:none;stroke:var(--inset);stroke-width:8}
+  .porthole .g-fill{fill:none;stroke:var(--accent);stroke-width:8;stroke-linecap:round;
+    filter:drop-shadow(0 0 5px color-mix(in srgb,var(--accent) 70%,transparent));
+    transition:stroke-dashoffset .8s cubic-bezier(.34,1.2,.4,1)}
+  .porthole-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .porthole-c .gauge-pct{font-size:21px;font-weight:600;color:var(--text);line-height:1}
+  .porthole-c .gauge-l{font-size:7.5px;text-transform:uppercase;letter-spacing:1.4px;color:var(--text-dim);margin-top:3px}
+  .porthole-bolts{position:absolute;inset:-3px;border-radius:50%;pointer-events:none;
+    background:
+      radial-gradient(2.4px 2.4px at 50% 3px,var(--glass-brd),transparent 60%),
+      radial-gradient(2.4px 2.4px at 50% calc(100% - 3px),var(--glass-brd),transparent 60%),
+      radial-gradient(2.4px 2.4px at 3px 50%,var(--glass-brd),transparent 60%),
+      radial-gradient(2.4px 2.4px at calc(100% - 3px) 50%,var(--glass-brd),transparent 60%)}
+  .deck-side{flex:1;min-width:0;position:relative;z-index:1}
+  .deck-side .hero-status{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text)}
+  .deck-side .hero-status .pulse{width:9px;height:9px;border-radius:50%;background:var(--green);flex-shrink:0;
+    box-shadow:0 0 0 0 color-mix(in srgb,var(--green) 70%,transparent);animation:pulse 2.2s infinite}
+  .deck-side .hero-sub{font-size:10.5px;color:var(--text-dim);margin-top:5px;line-height:1.4}
+  .deck-side .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}
+  .deck-side .hero-stats>div{background:color-mix(in srgb,var(--inset) 60%,transparent);border:1px solid var(--line);
+    border-radius:var(--radius-sm);padding:9px 5px;text-align:center}
+  .deck-side .hs-v{display:block;font-size:18px;font-weight:600;color:var(--accent);line-height:1}
+  .deck-side .hs-l{display:block;font-size:7.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--text-dim);margin-top:5px;white-space:nowrap}
+
+  /* ============== SLIDE TRANSITIONS ============== */
+  @keyframes slideIn{from{opacity:0;transform:translateX(22px)}to{opacity:1;transform:none}}
+  .slidein{animation:slideIn .42s cubic-bezier(.4,0,.2,1) both}
+  #page-checklist .hero-sea{animation:surface .7s ease both}
+  @keyframes surface{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+
+  @media (prefers-reduced-motion:reduce){
+    .rays,.caustic,.bubbles span,.hero-ship,.hero-waves .wv,.hero-stars{animation:none!important}
+  }
 </style>
 </head>
 <body>
 
-<div class="atmosphere" aria-hidden="true"></div>
+<div class="ocean" aria-hidden="true">
+  <div class="rays"></div>
+  <div class="caustic c-a"></div>
+  <div class="caustic c-b"></div>
+  <div class="bubbles">
+    <span style="left:8%"></span><span style="left:20%"></span><span style="left:33%"></span>
+    <span style="left:47%"></span><span style="left:61%"></span><span style="left:74%"></span>
+    <span style="left:86%"></span><span style="left:94%"></span>
+  </div>
+  <div class="depth-veil" id="depthVeil"></div>
+</div>
+<div class="depth-chip" id="depthChip" aria-hidden="true"><span class="dc-ar">▽</span> <span id="depthVal">0</span> m</div>
 
 <header class="appbar">
   <div class="appbar-row">
@@ -422,15 +598,34 @@
 
 <div class="wrap">
   <div id="page-checklist">
-    <section class="hero">
-      <div class="gauge">
+    <section class="hero-sea">
+      <div class="sky">
+        <span class="celestial"></span>
+        <span class="hero-stars"></span>
+        <svg class="hero-ship" viewBox="0 0 240 70" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+          <line class="ship-mast" x1="118" y1="40" x2="118" y2="12"/>
+          <path class="ship-body" d="M48 48h150l-16 14H64z"/>
+          <path class="ship-body" d="M86 48v-13h30v13M138 48v-20h12v20"/>
+          <circle class="lt-w" cx="118" cy="12" r="2"/>
+          <circle class="lt-g" cx="196" cy="50" r="2.4"/>
+          <circle class="lt-r" cx="50" cy="50" r="2.4"/>
+        </svg>
+      </div>
+      <svg class="hero-waves" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true">
+        <path class="wv wv1" d="M0,40 C160,10 320,70 480,40 C640,10 800,70 960,40 C1120,10 1280,70 1440,40 L1440,110 L0,110 Z"/>
+        <path class="wv wv2" d="M0,55 C180,82 360,26 540,55 C720,84 900,28 1080,55 C1260,82 1440,28 1440,55 L1440,110 L0,110 Z"/>
+      </svg>
+    </section>
+    <section class="deck-panel">
+      <div class="porthole">
         <svg viewBox="0 0 120 120" aria-hidden="true">
           <circle class="g-track" cx="60" cy="60" r="52"/>
           <circle class="g-fill" id="gaugeFill" cx="60" cy="60" r="52" stroke-dasharray="327" stroke-dashoffset="327"/>
         </svg>
-        <div class="gauge-c"><span class="gauge-pct mono" id="gaugePct">0%</span><span class="gauge-l">Listo</span></div>
+        <div class="porthole-c"><span class="gauge-pct mono" id="gaugePct">0%</span><span class="gauge-l">Guardia</span></div>
+        <span class="porthole-bolts"></span>
       </div>
-      <div class="hero-side">
+      <div class="deck-side">
         <div class="hero-status"><span class="pulse"></span> Guardia en curso</div>
         <p class="hero-sub">Lista de comprobación operativa · 11 fases</p>
         <div class="hero-stats">
@@ -1200,7 +1395,10 @@ function renderTabs() {
     el.addEventListener('click', () => {
       currentPage = el.dataset.page;
       render();
+      const pg = document.getElementById('page-' + currentPage);
+      if (pg) { pg.classList.remove('slidein'); void pg.offsetWidth; pg.classList.add('slidein'); }
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      onScrollDepth();
     });
   });
 }
@@ -1613,8 +1811,28 @@ document.getElementById('resetBtn').addEventListener('click', () => {
 
 document.getElementById('themeBtn').addEventListener('click', toggleTheme);
 
+// ============ INMERSIÓN: PROFUNDIDAD POR SCROLL ============
+let __depthTick = false;
+function onScrollDepth() {
+  const doc = document.documentElement;
+  const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+  const f = Math.min(1, Math.max(0, window.scrollY / max));
+  const veil = document.getElementById('depthVeil');
+  if (veil) veil.style.opacity = (f * 0.8).toFixed(3);
+  const dv = document.getElementById('depthVal');
+  if (dv) dv.textContent = Math.round(f * 200);
+  const chip = document.getElementById('depthChip');
+  if (chip) chip.classList.toggle('show', window.scrollY > 60);
+  doc.style.setProperty('--depth', f.toFixed(3));
+  __depthTick = false;
+}
+window.addEventListener('scroll', () => {
+  if (!__depthTick) { __depthTick = true; requestAnimationFrame(onScrollDepth); }
+}, { passive: true });
+
 // ============ INIT ============
 initTheme();
+onScrollDepth();
 updateClock();
 setInterval(updateClock, 1000);
 loadState();
