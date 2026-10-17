@@ -378,6 +378,9 @@
   .oc-res b.oc-big{display:inline-block;background:#F7E7B8;border:1px solid #C8A24B;padding:2px 10px;border-radius:5px;font:600 16px/1.4 'IBM Plex Mono',monospace}
   .oc-nota{margin:12px 0 0;font:400 13px/1.5 'Spectral',serif;color:#5A6B82}
   .oc-err{color:#b3261e;font:400 13.5px/1.4 'Spectral',serif;margin-top:8px;min-height:1.2em}
+  .oc-btn{margin-top:4px;padding:9px 16px;border:1px solid rgba(11,34,64,.3);border-radius:6px;background:#fff;color:#0B2240;font:600 13px/1 'Spectral',serif;letter-spacing:.03em;cursor:pointer}
+  .oc-btn:hover{border-color:#C8A24B}
+  .oc-btn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(200,162,75,.35)}
   @media(max-width:960px){#paso-a-paso{scroll-margin-top:104px}}
   @media(max-width:520px){.oc-head{padding:14px 18px}.oc-body{padding:16px 18px 18px}}
   /* reg badge */
@@ -506,7 +509,7 @@
 <div id="calculadoras" class="sec"><div class="wrap">
   <div class="kicker">CARTA DE CÁLCULO</div>
   <h2 class="h2">Calculadoras de navegación</h2>
-  <p class="sec-p">Calados y asiento, guinda, regla de los doce (mareas), cadena de fondeo, combustible, radio de borneo y escala de carta. Más abajo, <a href="#paso-a-paso" style="color:#8A6A22;">cálculo paso a paso en formato prueba</a>: rumbos, marea y corriente a una hora, tramos con ETA y orto/ocaso de la luna.</p>
+  <p class="sec-p">Calados y asiento, guinda, regla de los doce (mareas), cadena de fondeo, combustible, radio de borneo y escala de carta. Más abajo, <a href="#paso-a-paso" style="color:#8A6A22;">cálculo paso a paso en formato prueba</a>: rumbos, marea y corriente a una hora, tramos con ETA, orto/ocaso de la luna y orto, ocaso y crepúsculo del sol.</p>
   <div id="calcContainer" class="calc-grid-wrap"></div>
   <div class="calc-card" style="margin-top:20px;">
     <h4 class="calc-title">Estabilidad y estiba — KG / GM</h4>
@@ -707,6 +710,58 @@
       </div>
       <div class="oc-err" id="lu-err" role="status"></div>
       <p class="oc-nota">C / lat = diferencia entre las dos latitudes × (tu latitud − lat. inf.) ÷ (lat. sup. − lat. inf.). C / long = diferencia con el otro día × longitud ÷ 360: con longitud W se usa el día siguiente (suma), con E el día anterior (resta). G = longitud en tiempo (W suma, E resta).</p>
+    </div>
+  </section>
+
+  <!-- 6. ORTO, OCASO Y CREPÚSCULO DEL SOL -->
+  <section class="oc-wrap" id="pc-sol">
+    <div class="oc-head"><h3>Orto, ocaso y crepúsculo del sol</h3><p>Almanaque náutico 2025 · interpolación por latitud y corrección por longitud</p></div>
+    <div class="oc-body">
+      <div class="oc-datos">
+        <label>Fecha
+          <input type="date" id="so-fecha" value="2025-10-21">
+        </label>
+        <label>Latitud (° · ′)
+          <span class="oc-par"><input type="number" id="so-lat-g" min="0" max="89" value="41" inputmode="numeric" aria-label="Grados"><input type="number" id="so-lat-m" min="0" max="59" value="28" inputmode="numeric" aria-label="Minutos"></span>
+        </label>
+        <label>Longitud (° · ′ · E/W)
+          <span class="oc-par"><input type="number" id="so-lon-g" min="0" max="180" value="72" inputmode="numeric" aria-label="Grados"><input type="number" id="so-lon-m" min="0" max="59" value="56" inputmode="numeric" aria-label="Minutos"><select id="so-lon-h" aria-label="E o W"><option value="W" selected>W</option><option value="E">E</option></select></span>
+        </label>
+        <label>Huso (Z)
+          <select id="so-z"><option value="-3" selected>−3 (verano)</option><option value="-4">−4 (invierno)</option><option value="-5">−5</option><option value="0">0 (UTC)</option></select>
+        </label>
+        <label>Latitudes del almanaque (inf · sup)
+          <span class="oc-par"><input type="number" id="so-li" value="40" inputmode="numeric" aria-label="Inferior"><input type="number" id="so-ls" value="45" inputmode="numeric" aria-label="Superior"></span>
+        </label>
+      </div>
+      <div class="oc-scroll">
+        <table class="oc-tabla">
+          <thead><tr><th></th><th>Comienzo<br>aurora (náut.)</th><th>Orto<br>del sol</th><th>Ocaso<br>del sol</th><th>Fin crepúsculo<br>(náut.)</th></tr></thead>
+          <tbody>
+            <tr class="oc-in"><th id="so-l-inf">Almanaque lat. inf.</th>
+              <td><input class="so-t" data-c="0" data-f="inf" value="04:03" placeholder="hh:mm" inputmode="numeric" aria-label="Aurora lat inferior"></td>
+              <td><input class="so-t" data-c="1" data-f="inf" value="05:05" placeholder="hh:mm" inputmode="numeric" aria-label="Orto lat inferior"></td>
+              <td><input class="so-t" data-c="2" data-f="inf" value="18:25" placeholder="hh:mm" inputmode="numeric" aria-label="Ocaso lat inferior"></td>
+              <td><input class="so-t" data-c="3" data-f="inf" value="19:28" placeholder="hh:mm" inputmode="numeric" aria-label="Crepúsculo lat inferior"></td></tr>
+            <tr class="oc-in"><th id="so-l-sup">Almanaque lat. sup.</th>
+              <td><input class="so-t" data-c="0" data-f="sup" value="03:49" placeholder="hh:mm" inputmode="numeric" aria-label="Aurora lat superior"></td>
+              <td><input class="so-t" data-c="1" data-f="sup" value="04:58" placeholder="hh:mm" inputmode="numeric" aria-label="Orto lat superior"></td>
+              <td><input class="so-t" data-c="2" data-f="sup" value="18:33" placeholder="hh:mm" inputmode="numeric" aria-label="Ocaso lat superior"></td>
+              <td><input class="so-t" data-c="3" data-f="sup" value="19:41" placeholder="hh:mm" inputmode="numeric" aria-label="Crepúsculo lat superior"></td></tr>
+            <tr><th>Hml</th><td data-r="hml" data-c="0"></td><td data-r="hml" data-c="1"></td><td data-r="hml" data-c="2"></td><td data-r="hml" data-c="3"></td></tr>
+            <tr><th>C × l</th><td data-r="cxl" data-c="0"></td><td data-r="cxl" data-c="1"></td><td data-r="cxl" data-c="2"></td><td data-r="cxl" data-c="3"></td></tr>
+            <tr><th>Hml c</th><td data-r="hmlc" data-c="0"></td><td data-r="hmlc" data-c="1"></td><td data-r="hmlc" data-c="2"></td><td data-r="hmlc" data-c="3"></td></tr>
+            <tr><th>Ge</th><td data-r="ge" data-c="0"></td><td data-r="ge" data-c="1"></td><td data-r="ge" data-c="2"></td><td data-r="ge" data-c="3"></td></tr>
+            <tr><th>Hmgr</th><td data-r="hmgr" data-c="0"></td><td data-r="hmgr" data-c="1"></td><td data-r="hmgr" data-c="2"></td><td data-r="hmgr" data-c="3"></td></tr>
+            <tr><th>Z</th><td data-r="z" data-c="0"></td><td data-r="z" data-c="1"></td><td data-r="z" data-c="2"></td><td data-r="z" data-c="3"></td></tr>
+            <tr class="oc-final"><th>HZ</th><td data-r="hz" data-c="0"></td><td data-r="hz" data-c="1"></td><td data-r="hz" data-c="2"></td><td data-r="hz" data-c="3"></td></tr>
+            <tr><th>Fecha</th><td data-r="fecha" data-c="0"></td><td data-r="fecha" data-c="1"></td><td data-r="fecha" data-c="2"></td><td data-r="fecha" data-c="3"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="oc-err" id="so-err" role="status"></div>
+      <button type="button" class="oc-btn" id="so-limpiar">Limpiar horas del almanaque</button>
+      <p class="oc-nota">Ingresa las horas del almanaque (hh:mm) para las dos latitudes que rodean tu posición. C × l = diferencia entre las dos latitudes × (tu latitud − lat. inf.) ÷ (lat. sup. − lat. inf.), truncada al segundo: si la hora aumenta hacia la latitud mayor se suma, si disminuye se resta (se decide sola). Ge = longitud en tiempo (W suma, E resta). Hmgr = Hml c + Ge. HZ = Hmgr + Z.</p>
     </div>
   </section>
 
@@ -1948,6 +2003,21 @@ function lunaCalc(p){
     return {hml:c.ti,clat:clat,clon:clon,hmlc:hmlc,g:G,hmgr:hmgr,z:p.z,hz:tot-dias*86400,fecha:fmtDate(base+dias*86400000)};
   });
 }
+
+function solCalc(p){
+  var frac=(p.lat-p.latInf)/(p.latSup-p.latInf);
+  var ge=(p.lonG*240+p.lonM*4)*(p.west?1:-1);
+  var base=Date.UTC(p.y,p.m-1,p.d);
+  return p.cols.map(function(c){
+    if(c.ti==null||c.ts==null) return null;
+    var dif=c.ts-c.ti;
+    var cxl=Math.floor(Math.abs(dif)*frac+1e-9)*(dif<0?-1:1);
+    var hmlc=c.ti+cxl;
+    var hmgr=hmlc+ge;
+    var tot=hmgr+p.z*3600,dias=Math.floor(tot/86400);
+    return {hml:c.ti,cxl:cxl,hmlc:hmlc,ge:ge,hmgr:hmgr,z:p.z,hz:tot-dias*86400,fecha:fmtDate(base+dias*86400000)};
+  });
+}
 /*CALC-END*/
 
 /* conexión con la página */
@@ -2071,7 +2141,44 @@ function luna(){
   if(falta)err.textContent='Completa las tres horas del almanaque (hh:mm) en las columnas vacías.';
 }
 
-[['pc-rumbos',rumbos],['pc-marea',marea],['pc-corriente',corriente],['pc-tramos',tramos],['pc-luna',luna]].forEach(function(s){
+/* 6. Sol */
+var scel=document.querySelectorAll('#pc-sol [data-r]');
+function sol(){
+  var err=$('so-err');err.textContent='';
+  var li=num('so-li'),ls=num('so-ls'),lat=(num('so-lat-g')||0)+(num('so-lat-m')||0)/60;
+  $('so-l-inf').textContent='Almanaque '+li+'°';$('so-l-sup').textContent='Almanaque '+ls+'°';
+  var clear=function(){scel.forEach(function(c){c.textContent='';c.className=''})};
+  var f=$('so-fecha').value;
+  if(!f){err.textContent='Falta la fecha.';clear();return}
+  if(!(ls>li)){err.textContent='La latitud superior debe ser mayor que la inferior.';clear();return}
+  if(lat<li||lat>ls){err.textContent='Tu latitud debe estar entre '+li+'° y '+ls+'°.';clear();return}
+  var pf=f.split('-').map(Number),cols=[0,1,2,3].map(function(c){
+    var g=function(k){return parseHora(document.querySelector('.so-t[data-c="'+c+'"][data-f="'+k+'"]').value)};
+    return {ti:g('inf'),ts:g('sup')};
+  });
+  var res=solCalc({lat:lat,lonG:num('so-lon-g')||0,lonM:num('so-lon-m')||0,west:$('so-lon-h').value==='W',z:parseFloat($('so-z').value),latInf:li,latSup:ls,y:pf[0],m:pf[1],d:pf[2],cols:cols});
+  var falta=false;
+  res.forEach(function(r,c){
+    var set=function(k,t,cls){var el=document.querySelector('#pc-sol [data-r="'+k+'"][data-c="'+c+'"]');el.textContent=t;el.className=cls||''};
+    if(!r){falta=true;['hml','cxl','hmlc','ge','hmgr','z','hz','fecha'].forEach(function(k){set(k,'')});return}
+    var sgn=function(x){return (x<0?'− ':'+ ')+hms(Math.abs(x))};
+    set('hml',hms(r.hml));
+    set('cxl',sgn(r.cxl),r.cxl<0?'oc-neg':'oc-pos');
+    set('hmlc',hms(r.hmlc));
+    set('ge',sgn(r.ge),r.ge<0?'oc-neg':'oc-pos');
+    set('hmgr',hms(r.hmgr));
+    set('z',(r.z<0?'− ':'+ ')+Math.abs(r.z),r.z<0?'oc-neg':'oc-pos');
+    set('hz',hms(r.hz));
+    set('fecha',r.fecha);
+  });
+  if(falta)err.textContent='Completa las horas del almanaque (hh:mm) en las columnas vacías.';
+}
+$('so-limpiar').addEventListener('click',function(){
+  document.querySelectorAll('#pc-sol .so-t').forEach(function(i){i.value=''});
+  sol();
+});
+
+[['pc-rumbos',rumbos],['pc-marea',marea],['pc-corriente',corriente],['pc-tramos',tramos],['pc-luna',luna],['pc-sol',sol]].forEach(function(s){
   var root=$(s[0]);
   root.addEventListener('input',s[1]);root.addEventListener('change',s[1]);
   s[1]();
