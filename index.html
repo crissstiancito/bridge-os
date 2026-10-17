@@ -347,6 +347,39 @@
   .estib-table th{background:#0B2240;color:#F4ECDD;padding:8px 8px;text-align:left;font-weight:600;font-size:12px}
   .estib-table td{padding:5px 6px;border-bottom:1px solid rgba(11,34,64,.15)}
   .estib-table input{width:100%;padding:6px 8px;border:1px solid rgba(11,34,64,.2);border-radius:6px;font:400 13px/1 'IBM Plex Mono',monospace;background:#fff;color:#0B2240}
+  /* paso a paso (formato prueba) */
+  #paso-a-paso{scroll-margin-top:84px}
+  .oc-stack{margin-top:22px;display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+  .oc-wrap{min-width:0;background:#F6EFDD;border:1px solid rgba(11,34,64,.12);border-radius:10px;overflow:hidden;color:#0B2240}
+  .oc-head{background:#0B2240;color:#F4ECDD;padding:16px 24px;border-bottom:2px solid #C8A24B}
+  .oc-head h3{margin:0;font:500 19px/1.25 'Spectral',serif}
+  .oc-head p{margin:5px 0 0;font:400 13.5px/1.45 'Spectral',serif;color:#9FB1C8}
+  .oc-body{padding:20px 24px 22px}
+  .oc-datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+  .oc-datos label{display:flex;flex-direction:column;gap:5px;font:500 10.5px/1.25 'IBM Plex Mono',monospace;letter-spacing:.04em;text-transform:uppercase;color:#8A6A22}
+  .oc-par{display:flex;gap:4px}
+  .oc-wrap input,.oc-wrap select{font:500 16px/1.2 'IBM Plex Mono',monospace;letter-spacing:normal;text-transform:none;padding:8px 9px;border:1px solid rgba(11,34,64,.22);border-radius:6px;background:#fff;color:#0B2240;min-width:0;width:100%;box-sizing:border-box;outline:none}
+  .oc-wrap input:focus,.oc-wrap select:focus{border-color:#C8A24B;box-shadow:0 0 0 3px rgba(200,162,75,.2)}
+  .oc-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:6px}
+  table.oc-tabla{border-collapse:collapse;width:100%;min-width:560px;background:#fff;font:400 14px/1.4 'Spectral',serif}
+  .oc-tabla th,.oc-tabla td{border:1px solid rgba(11,34,64,.25);padding:7px 8px;text-align:center;font-variant-numeric:tabular-nums}
+  .oc-tabla td{font-family:'IBM Plex Mono',monospace;font-size:13px}
+  .oc-tabla thead th{background:#0B2240;color:#F4ECDD;font-size:12.5px;font-weight:600;line-height:1.25}
+  .oc-tabla tbody th{background:#EDE3CE;text-align:left;font-size:13px;font-weight:600;white-space:nowrap;width:1%}
+  .oc-tabla td input,.oc-tabla td select{text-align:center;padding:6px 4px}
+  table.oc-tabla.oc-fit{min-width:0}
+  @media(max-width:520px){.oc-fit tbody th{white-space:normal;width:auto}.oc-fit td{padding:6px 4px;font-size:12px;white-space:nowrap}.oc-fit td input,.oc-fit td select{padding:6px 2px;font-size:15px}}
+  .oc-tabla tr.oc-in td{background:#fffdf6}
+  .oc-tabla tr.oc-final td{background:#F7E7B8;font-weight:700;font-size:14.5px}
+  .oc-tabla tr.oc-final th{background:#C8A24B;color:#0B2240}
+  .oc-neg{color:#b3261e}.oc-pos{color:#1b6a3a}
+  .oc-res{margin-top:14px;background:#fff;border:1px solid rgba(11,34,64,.12);border-left:3px solid #C8A24B;border-radius:6px;padding:12px 16px;font:400 14.5px/1.75 'Spectral',serif;color:#0B2240;font-variant-numeric:tabular-nums}
+  .oc-res:empty{display:none}
+  .oc-res b.oc-big{display:inline-block;background:#F7E7B8;border:1px solid #C8A24B;padding:2px 10px;border-radius:5px;font:600 16px/1.4 'IBM Plex Mono',monospace}
+  .oc-nota{margin:12px 0 0;font:400 13px/1.5 'Spectral',serif;color:#5A6B82}
+  .oc-err{color:#b3261e;font:400 13.5px/1.4 'Spectral',serif;margin-top:8px;min-height:1.2em}
+  @media(max-width:960px){#paso-a-paso{scroll-margin-top:104px}}
+  @media(max-width:520px){.oc-head{padding:14px 18px}.oc-body{padding:16px 18px 18px}}
   /* reg badge */
   .reg-badge{background:#0B2240;color:#C8A24B;border:1px solid rgba(200,162,75,.4);border-radius:7px;padding:4px 8px;font:700 11px/1 'IBM Plex Mono',monospace;flex:none}
   .ref-body p, .ref-body{font-family:'Spectral',serif}
@@ -473,7 +506,7 @@
 <div id="calculadoras" class="sec"><div class="wrap">
   <div class="kicker">CARTA DE CÁLCULO</div>
   <h2 class="h2">Calculadoras de navegación</h2>
-  <p class="sec-p">Calados y asiento, guinda, conversión de rumbos, velocidad·distancia·tiempo, regla de los doce (mareas), cadena de fondeo y escala de carta. Ingresa los datos y calcula.</p>
+  <p class="sec-p">Calados y asiento, guinda, regla de los doce (mareas), cadena de fondeo, combustible, radio de borneo y escala de carta. Más abajo, <a href="#paso-a-paso" style="color:#8A6A22;">cálculo paso a paso en formato prueba</a>: rumbos, marea y corriente a una hora, tramos con ETA y orto/ocaso de la luna.</p>
   <div id="calcContainer" class="calc-grid-wrap"></div>
   <div class="calc-card" style="margin-top:20px;">
     <h4 class="calc-title">Estabilidad y estiba — KG / GM</h4>
@@ -487,6 +520,196 @@
       <button class="calc-btn" type="button" onclick="calcEstib()">Calcular KG</button>
     </div>
     <div class="calc-result" id="estib-result"></div>
+  </div>
+
+  <div id="paso-a-paso" class="kicker" style="margin-top:44px;">PASO A PASO · FORMATO PRUEBA</div>
+  <p class="sec-p" style="margin:0;">Se calcula mientras escribes y muestra cada paso como en los apuntes. Los valores de ejemplo se reemplazan por los tuyos.</p>
+  <div class="oc-stack">
+
+  <!-- 1. RUMBOS: Rv · Vm · Rm · Δ · Rc -->
+  <section class="oc-wrap" id="pc-rumbos">
+    <div class="oc-head"><h3>Rumbos: verdadero, magnético y de compás</h3><p>Variación magnética actualizada por años + desvío (Δ)</p></div>
+    <div class="oc-body">
+      <div class="oc-datos">
+        <label>Qué quieres calcular
+          <select id="rb-modo"><option value="rv2rc" selected>Rv → Rc (de verdadero a compás)</option><option value="rc2rv">Rc → Rv (de compás a verdadero)</option></select>
+        </label>
+        <label>Rumbo que ingresas (°)
+          <input type="number" id="rb-r" step="0.1" value="138" inputmode="decimal">
+        </label>
+        <label>Vm de la carta (° · ′ · E/W)
+          <span class="oc-par">
+            <input type="number" id="rb-vg" value="15" inputmode="numeric" aria-label="Grados">
+            <input type="number" id="rb-vm" value="21" inputmode="numeric" aria-label="Minutos">
+            <select id="rb-vdir" aria-label="E o W"><option>E</option><option>W</option></select>
+          </span>
+        </label>
+        <label>Año de la carta
+          <input type="number" id="rb-a0" value="2012" inputmode="numeric">
+        </label>
+        <label>Variación anual (′ · E/W)
+          <span class="oc-par">
+            <input type="number" id="rb-an" value="4" step="0.1" inputmode="decimal">
+            <select id="rb-adir" aria-label="E o W"><option>E</option><option selected>W</option></select>
+          </span>
+        </label>
+        <label>Año actual
+          <input type="number" id="rb-a1" value="2026" inputmode="numeric">
+        </label>
+        <label>Desvío Δ (° · E/W)
+          <span class="oc-par">
+            <input type="number" id="rb-d" step="0.1" value="2.5" inputmode="decimal">
+            <select id="rb-ddir" aria-label="E o W"><option selected>E</option><option>W</option></select>
+          </span>
+        </label>
+      </div>
+      <div class="oc-scroll"><table class="oc-tabla oc-fit"><thead><tr><th>Dato</th><th>Valor</th><th>Operación</th></tr></thead><tbody id="rb-tabla"></tbody></table></div>
+      <div class="oc-res" id="rb-vmtxt"></div>
+      <div class="oc-err" id="rb-err" role="status"></div>
+      <p class="oc-nota">De verdadero a compás: Vm y Δ al <b>Este se restan</b>, al <b>Oeste se suman</b>. De compás a verdadero es al revés. La Vm actual se redondea a 0,1° como en los apuntes.</p>
+    </div>
+  </section>
+
+  <!-- 2. MAREA A UNA HORA -->
+  <section class="oc-wrap" id="pc-marea">
+    <div class="oc-head"><h3>Altura de marea a una hora</h3><p>Correcciones de puerto + interpolación proporcional entre bajamar y pleamar</p></div>
+    <div class="oc-body">
+      <div class="oc-datos">
+        <label>Corrección horaria del puerto (± hh:mm)
+          <input id="mr-cp" value="00:20" placeholder="−00:20">
+        </label>
+        <label>Hora de verano (+ horas)
+          <input type="number" id="mr-ver" value="1" step="1" inputmode="numeric">
+        </label>
+        <label>Corrección de altura en pleamar (m)
+          <input type="number" id="mr-hp" value="0.10" step="0.01">
+        </label>
+        <label>Corrección de altura en bajamar (m)
+          <input type="number" id="mr-hb" value="0.05" step="0.01">
+        </label>
+        <label>Hora considerada (hh:mm)
+          <input id="mr-t" value="12:00" inputmode="numeric">
+        </label>
+      </div>
+      <div class="oc-scroll">
+        <table class="oc-tabla">
+          <thead><tr><th>Tipo</th><th>Hora almanaque</th><th>Altura almanaque (m)</th><th>Hora corregida</th><th>Altura corregida (m)</th></tr></thead>
+          <tbody>
+            <tr class="oc-in"><td><select id="mr-tipo0"><option value="P" selected>Pleamar</option><option value="B">Bajamar</option></select></td><td><input id="mr-h0" value="01:13" inputmode="numeric"></td><td><input id="mr-a0" type="number" step="0.01" value="1.50" inputmode="decimal"></td><td id="mr-hc0"></td><td id="mr-ac0"></td></tr>
+            <tr class="oc-in"><td><select id="mr-tipo1"><option value="P">Pleamar</option><option value="B" selected>Bajamar</option></select></td><td><input id="mr-h1" value="08:15" inputmode="numeric"></td><td><input id="mr-a1" type="number" step="0.01" value="0.61" inputmode="decimal"></td><td id="mr-hc1"></td><td id="mr-ac1"></td></tr>
+            <tr class="oc-in"><td><select id="mr-tipo2"><option value="P" selected>Pleamar</option><option value="B">Bajamar</option></select></td><td><input id="mr-h2" value="13:43" inputmode="numeric"></td><td><input id="mr-a2" type="number" step="0.01" value="0.97" inputmode="decimal"></td><td id="mr-hc2"></td><td id="mr-ac2"></td></tr>
+            <tr class="oc-in"><td><select id="mr-tipo3"><option value="P">Pleamar</option><option value="B" selected>Bajamar</option></select></td><td><input id="mr-h3" value="19:02" inputmode="numeric"></td><td><input id="mr-a3" type="number" step="0.01" value="0.70" inputmode="decimal"></td><td id="mr-hc3"></td><td id="mr-ac3"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="oc-res" id="mr-res"></div>
+      <p class="oc-nota">Pasos: (a) intervalo entre las dos mareas que encierran la hora; (b) tiempo desde la primera hasta la hora considerada; (c) diferencia de alturas. Corrección = c × b ÷ a. Se suma a la altura inicial si sube, se resta si baja.</p>
+    </div>
+  </section>
+
+  <!-- 3. CORRIENTE A UNA HORA -->
+  <section class="oc-wrap" id="pc-corriente">
+    <div class="oc-head"><h3>Velocidad de la corriente a una hora</h3><p>Estoa, corriente máxima y factor de la tabla</p></div>
+    <div class="oc-body">
+      <div class="oc-datos">
+        <label>Hora de la estoa (hh:mm)
+          <input id="co-est" value="10:52" inputmode="numeric">
+        </label>
+        <label>Hora de la corriente máxima (hh:mm)
+          <input id="co-max" value="14:12" inputmode="numeric">
+        </label>
+        <label>Corriente máxima (nudos)
+          <input type="number" id="co-v" step="0.1" value="1.5" inputmode="decimal">
+        </label>
+        <label>Sentido (opcional)
+          <input id="co-sent" value="" placeholder="ej. flujo, reflujo">
+        </label>
+        <label>Hora considerada (hh:mm)
+          <input id="co-t" value="12:00" inputmode="numeric">
+        </label>
+        <label>Factor de tu tabla (opcional)
+          <input type="number" id="co-f" step="0.1" min="0" max="1" placeholder="auto" inputmode="decimal">
+        </label>
+      </div>
+      <div class="oc-res" id="co-res"></div>
+      <p class="oc-nota">A = |hora máxima − estoa|. B = |hora considerada − estoa|. Velocidad = factor × corriente máxima. Si dejas vacío el factor, se calcula con la curva senoidal redondeada a 0,1; si tu tabla da otro valor, escríbelo y lo usa.</p>
+    </div>
+  </section>
+
+  <!-- 4. TRAMOS: V · D · t + ETA -->
+  <section class="oc-wrap" id="pc-tramos">
+    <div class="oc-head"><h3>Tramos de navegación y hora de arribo (ETA)</h3><p>Ingresa dos datos por tramo (V, t o D); calcula el tercero</p></div>
+    <div class="oc-body">
+      <div class="oc-datos">
+        <label>Hora de zarpe (hh:mm)
+          <input id="tr-z" value="06:00" inputmode="numeric">
+        </label>
+      </div>
+      <div class="oc-scroll">
+        <table class="oc-tabla">
+          <thead><tr><th>Tramo</th><th>V (nudos)</th><th>t (hh:mm)</th><th>D (mn)</th><th>Resultado</th></tr></thead>
+          <tbody id="tr-body"></tbody>
+        </table>
+      </div>
+      <div class="oc-res" id="tr-res"></div>
+      <p class="oc-nota">D = V × t · V = D ÷ t · t = D ÷ V. Las distancias calculadas se truncan al décimo de milla, como en los apuntes (9,375 → 9,3).</p>
+    </div>
+  </section>
+
+  <!-- 5. ORTO Y OCASO DE LA LUNA -->
+  <section class="oc-wrap" id="pc-luna">
+    <div class="oc-head"><h3>Orto y ocaso de la luna</h3><p>Corrección por latitud y por longitud (almanaque)</p></div>
+    <div class="oc-body">
+      <div class="oc-datos">
+        <label>Fecha
+          <input type="date" id="lu-fecha" value="2026-10-19">
+        </label>
+        <label>Latitud (° · ′)
+          <span class="oc-par"><input type="number" id="lu-lat-g" value="41" inputmode="numeric" aria-label="Grados"><input type="number" id="lu-lat-m" value="28" inputmode="numeric" aria-label="Minutos"></span>
+        </label>
+        <label>Longitud (° · ′ · E/W)
+          <span class="oc-par"><input type="number" id="lu-lon-g" value="72" inputmode="numeric" aria-label="Grados"><input type="number" id="lu-lon-m" value="56" inputmode="numeric" aria-label="Minutos"><select id="lu-lon-h" aria-label="E o W"><option value="W" selected>W</option><option value="E">E</option></select></span>
+        </label>
+        <label>Huso (Z)
+          <select id="lu-z"><option value="-3" selected>−3 (verano)</option><option value="-4">−4 (invierno)</option><option value="-5">−5</option><option value="0">0 (UTC)</option></select>
+        </label>
+        <label>Latitudes del almanaque (inf · sup)
+          <span class="oc-par"><input type="number" id="lu-li" value="40" inputmode="numeric" aria-label="Inferior"><input type="number" id="lu-ls" value="45" inputmode="numeric" aria-label="Superior"></span>
+        </label>
+      </div>
+      <div class="oc-scroll">
+        <table class="oc-tabla oc-fit">
+          <thead><tr><th></th><th>Orto de luna</th><th>Ocaso de luna</th></tr></thead>
+          <tbody>
+            <tr class="oc-in"><th id="lu-l-inf">Almanaque lat. inf.</th>
+              <td><input class="lu-t" data-c="0" data-f="inf" value="03:23" inputmode="numeric" aria-label="Orto lat inferior"></td>
+              <td><input class="lu-t" data-c="1" data-f="inf" value="14:36" inputmode="numeric" aria-label="Ocaso lat inferior"></td></tr>
+            <tr class="oc-in"><th id="lu-l-sup">Almanaque lat. sup.</th>
+              <td><input class="lu-t" data-c="0" data-f="sup" value="03:30" inputmode="numeric" aria-label="Orto lat superior"></td>
+              <td><input class="lu-t" data-c="1" data-f="sup" value="14:31" inputmode="numeric" aria-label="Ocaso lat superior"></td></tr>
+            <tr class="oc-in"><th id="lu-l-otro">Otro día, lat. inf.</th>
+              <td><input class="lu-t" data-c="0" data-f="otro" value="03:44" inputmode="numeric" aria-label="Orto otro día"></td>
+              <td><input class="lu-t" data-c="1" data-f="otro" value="15:39" inputmode="numeric" aria-label="Ocaso otro día"></td></tr>
+            <tr class="oc-in"><th>Corrección por latitud</th>
+              <td><select class="lu-sg" data-c="0"><option value="auto">Automática</option><option value="-" selected>Restar</option><option value="+">Sumar</option></select></td>
+              <td><select class="lu-sg" data-c="1"><option value="auto" selected>Automática</option><option value="-">Restar</option><option value="+">Sumar</option></select></td></tr>
+            <tr><th>Hml</th><td data-r="hml" data-c="0"></td><td data-r="hml" data-c="1"></td></tr>
+            <tr><th>C / lat</th><td data-r="clat" data-c="0"></td><td data-r="clat" data-c="1"></td></tr>
+            <tr><th>C / long</th><td data-r="clon" data-c="0"></td><td data-r="clon" data-c="1"></td></tr>
+            <tr><th>Hml c</th><td data-r="hmlc" data-c="0"></td><td data-r="hmlc" data-c="1"></td></tr>
+            <tr><th>G</th><td data-r="g" data-c="0"></td><td data-r="g" data-c="1"></td></tr>
+            <tr><th>Hmgr</th><td data-r="hmgr" data-c="0"></td><td data-r="hmgr" data-c="1"></td></tr>
+            <tr><th>Z</th><td data-r="z" data-c="0"></td><td data-r="z" data-c="1"></td></tr>
+            <tr class="oc-final"><th>HZ</th><td data-r="hz" data-c="0"></td><td data-r="hz" data-c="1"></td></tr>
+            <tr><th>Fecha</th><td data-r="fecha" data-c="0"></td><td data-r="fecha" data-c="1"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="oc-err" id="lu-err" role="status"></div>
+      <p class="oc-nota">C / lat = diferencia entre las dos latitudes × (tu latitud − lat. inf.) ÷ (lat. sup. − lat. inf.). C / long = diferencia con el otro día × longitud ÷ 360: con longitud W se usa el día siguiente (suma), con E el día anterior (resta). G = longitud en tiempo (W suma, E resta).</p>
+    </div>
+  </section>
+
   </div>
 </div></div>
 
@@ -1106,24 +1329,6 @@ const CALCULADORAS = [
     ]
   },
   {
-    id: "rumbo", icon: "🧭", titulo: "Conversión de rumbos",
-    desc: "Convierte entre rumbo verdadero, magnético y de compás",
-    fields: [
-      { id: "rv", label: "Rumbo verdadero (°)", placeholder: "ej: 045" },
-      { id: "varv", label: "Variación E(+)/W(−) (°)", placeholder: "ej: 3.5" },
-      { id: "desv", label: "Desvío E(+)/W(−) (°)", placeholder: "ej: -2" },
-    ]
-  },
-  {
-    id: "vdt", icon: "🚢", titulo: "Velocidad · distancia · tiempo",
-    desc: "Deja en blanco el campo que quieres calcular",
-    fields: [
-      { id: "v", label: "Velocidad (nudos)", placeholder: "nudos" },
-      { id: "d", label: "Distancia (mn)", placeholder: "millas náuticas" },
-      { id: "t", label: "Tiempo (horas)", placeholder: "horas decimales" },
-    ]
-  },
-  {
     id: "marea", icon: "🌊", titulo: "Regla de los doce (mareas)",
     desc: "Altura de la marea en cualquier momento del ciclo",
     fields: [
@@ -1139,15 +1344,6 @@ const CALCULADORAS = [
     fields: [
       { id: "prof", label: "Profundidad (m)", placeholder: "ej: 18" },
       { id: "tiempo", label: "Tiempo (1=bueno, 2=malo)", placeholder: "1 o 2" },
-    ]
-  },
-  {
-    id: "eta", icon: "⏱️", titulo: "ETA — Hora estimada de llegada",
-    desc: "Calcula la hora de arribo según zarpe, distancia y velocidad",
-    fields: [
-      { id: "hsalida", label: "Hora de zarpe", placeholder: "ej: 08:00", type: "text" },
-      { id: "dist", label: "Distancia (mn)", placeholder: "ej: 60" },
-      { id: "vel", label: "Velocidad (nudos)", placeholder: "ej: 10" },
     ]
   },
   {
@@ -1203,7 +1399,7 @@ function setTxt(id,v){const e=document.getElementById(id);if(e)e.textContent=v;}
 
 function renderStats(){
   const ti=totalItems(), di=doneItems(), pct=ti?Math.round(di/ti*100):0;
-  setTxt('statFases',FASES.length); setTxt('statItems',ti); setTxt('statCalc',CALCULADORAS.length);
+  setTxt('statFases',FASES.length); setTxt('statItems',ti); setTxt('statCalc',CALCULADORAS.length+document.querySelectorAll('.oc-wrap').length);
   setTxt('stripFases',FASES.length); setTxt('stripItems',ti); setTxt('stripPct',pct+'%');
   setTxt('navPct',pct+'%');
   const nb=document.getElementById('navPctBar'); if(nb) nb.style.width=pct+'%';
@@ -1311,12 +1507,9 @@ function showCalcResult(calcId, html, isErr) {
 function runCalc(calcId) {
   if (calcId === 'calado') return calcCalado();
   if (calcId === 'guinda') return calcGuinda();
-  if (calcId === 'rumbo') return calcRumbo();
-  if (calcId === 'vdt') return calcVDT();
   if (calcId === 'marea') return calcMarea();
   if (calcId === 'cadena') return calcCadena();
   if (calcId === 'escala') return calcEscala();
-  if (calcId === 'eta') return calcETA();
   if (calcId === 'comb') return calcComb();
   if (calcId === 'borneo') return calcBorneo();
 }
@@ -1356,38 +1549,6 @@ function calcGuinda() {
     `<strong>Margen disponible:</strong> ${margen.toFixed(2)} m<br><strong>Condición:</strong> ${seguro ? '✅ Paso seguro (margen positivo)' : '⚠️ RIESGO — guinda excede altura libre'}${extra}`,
     !seguro
   );
-}
-
-function calcRumbo() {
-  const rv = parseFloat(getVal('rumbo', 'rv'));
-  const vari = parseFloat(getVal('rumbo', 'varv')) || 0;
-  const desv = parseFloat(getVal('rumbo', 'desv')) || 0;
-  if (isNaN(rv)) {
-    return showCalcResult('rumbo', 'Ingresa el rumbo verdadero.', true);
-  }
-  const rm = ((rv - vari) + 360) % 360;
-  const rc = ((rm - desv) + 360) % 360;
-  showCalcResult('rumbo', `<strong>RV:</strong> ${rv.toFixed(1)}°  →  <strong>RM:</strong> ${rm.toFixed(1)}°  →  <strong>RC:</strong> ${rc.toFixed(1)}°<br><small>Gobernar rumbo de compás: <strong>${rc.toFixed(1)}°</strong></small>`);
-}
-
-function calcVDT() {
-  const v = parseFloat(getVal('vdt', 'v'));
-  const d = parseFloat(getVal('vdt', 'd'));
-  const t = parseFloat(getVal('vdt', 't'));
-  let result = '';
-  if (isNaN(v) && !isNaN(d) && !isNaN(t)) {
-    result = `Velocidad = ${(d / t).toFixed(2)} nudos`;
-  } else if (isNaN(d) && !isNaN(v) && !isNaN(t)) {
-    result = `Distancia = ${(v * t).toFixed(2)} millas náuticas`;
-  } else if (isNaN(t) && !isNaN(v) && !isNaN(d)) {
-    const tiempo = d / v;
-    const horas = Math.floor(tiempo);
-    const mins = Math.round((tiempo - horas) * 60);
-    result = `Tiempo = ${tiempo.toFixed(2)} horas (${horas}h ${mins}min)`;
-  } else {
-    return showCalcResult('vdt', 'Deja en blanco solo el campo que quieres calcular.', true);
-  }
-  showCalcResult('vdt', `<strong>${result}</strong>`);
 }
 
 function calcMarea() {
@@ -1599,13 +1760,6 @@ function addMet(){
 }
 
 /* ===== calculadoras extra ===== */
-function calcETA(){
-  var hs=getVal('eta','hsalida'), d=parseFloat(getVal('eta','dist')), v=parseFloat(getVal('eta','vel'));
-  if(!hs||isNaN(d)||isNaN(v)||v<=0){ return showCalcResult('eta','Ingresa hora de zarpe, distancia y velocidad.',true); }
-  var pr=hs.split(':'); var h=parseInt(pr[0],10)||0, m=parseInt(pr[1]||'0',10)||0, tot=Math.round(d/v*60);
-  var t=new Date(2000,0,1,h,m+tot), days=Math.floor(tot/1440);
-  showCalcResult('eta','<strong>ETA:</strong> '+String(t.getHours()).padStart(2,'0')+':'+String(t.getMinutes()).padStart(2,'0')+(days>0?' (+'+days+' día/s)':'')+'<br><strong>Travesía:</strong> '+Math.floor(tot/60)+' h '+(tot%60)+' min');
-}
 function calcComb(){
   var rate=parseFloat(getVal('comb','rate')), d=parseFloat(getVal('comb','dist')), v=parseFloat(getVal('comb','vel'));
   if(isNaN(rate)||isNaN(d)||isNaN(v)||v<=0){ return showCalcResult('comb','Ingresa consumo, distancia y velocidad.',true); }
@@ -1690,6 +1844,238 @@ function renderCaps(){ var c=document.getElementById('capContainer'); if(!c)retu
   renderBitacora(); renderMeteo(); buildEstib();
   renderPubs(); renderRegs(); renderCaps();
   var mt=document.getElementById('met-time'); if(mt && !mt.value){ try{mt.value=new Date().toISOString().slice(0,16);}catch(e){} }
+})();
+</script>
+
+<script>
+/* ===== paso a paso (formato prueba): rumbos, marea, corriente, tramos, luna ===== */
+(function(){
+/* funciones de cálculo (sin DOM) */
+/*CALC-START*/
+function pad(n){return (n<10?'0':'')+n}
+function parseHora(txt){
+  txt=String(txt==null?'':txt).trim().toLowerCase().replace(/[hm]/g,':').replace(/s/g,'').replace(/:+$/,'');
+  var neg=/^[-−]/.test(txt); if(neg) txt=txt.replace(/^[-−]\s*/,'');
+  if(!txt) return null;
+  if(/^\d{3,4}$/.test(txt)) txt=txt.slice(0,-2)+':'+txt.slice(-2);
+  var p=txt.split(':').map(Number);
+  if(p.some(isNaN)||p.length>3) return null;
+  var s=(p[0]||0)*3600+(p[1]||0)*60+(p[2]||0);
+  return neg?-s:s;
+}
+function hms(seg){var neg=seg<0;seg=Math.abs(Math.round(seg));return (neg?'−':'')+pad(Math.floor(seg/3600))+'h '+pad(Math.floor(seg%3600/60))+'m '+pad(seg%60)+'s'}
+function hmTxt(seg){seg=Math.abs(Math.round(seg/60));return pad(Math.floor(seg/60))+'h '+pad(seg%60)+'m'}
+function reloj(seg){seg=((Math.round(seg/60)*60)%86400+86400)%86400;return pad(Math.floor(seg/3600))+':'+pad(Math.floor(seg%3600/60))}
+function dec(x,n){return Number(x).toFixed(n).replace('.',',')}
+function norm360(x){return ((x%360)+360)%360}
+function normDif(d){if(d>43200)d-=86400;if(d<-43200)d+=86400;return d}
+function fmtDate(ms){var d=new Date(ms);return pad(d.getUTCDate())+'/'+pad(d.getUTCMonth()+1)+'/'+d.getUTCFullYear()}
+function sg(d){return d==='E'?1:-1}
+function degMin(x){x=Math.abs(x);var d=Math.floor(x+1e-9),m=Math.round((x-d)*60);if(m===60){d++;m=0}return d+'°'+pad(m)+"'"}
+
+function rumbosCalc(p){
+  var vm0=(p.vg+p.vm/60)*sg(p.vdir);
+  var anios=p.a1-p.a0;
+  var cambio=sg(p.adir)*(p.an/60)*anios;
+  var vmAct=vm0+cambio;
+  var vmR=Math.round(Math.abs(vmAct)*10)/10*(vmAct<0?-1:1);
+  var dl=p.d*sg(p.ddir), rm, res;
+  if(p.modo==='rv2rc'){rm=p.r-vmR;res=rm-dl}else{rm=p.r+dl;res=rm+vmR}
+  return {vmAct:vmAct,vmR:vmR,cambio:cambio,anios:anios,rm:norm360(rm),res:norm360(res),dl:dl};
+}
+
+function mareaCalc(p){
+  var filas=p.rows.map(function(r){
+    if(r.h==null||isNaN(r.a)) return null;
+    return {tipo:r.tipo,thc:r.h+p.cp+p.ver*3600,ac:r.a+(r.tipo==='P'?p.chP:p.chB)};
+  });
+  var res=null;
+  if(p.t!=null){
+    for(var i=0;i<filas.length-1;i++){
+      var a=filas[i],b=filas[i+1];
+      if(a&&b&&p.t>=a.thc&&p.t<=b.thc){
+        var A=b.thc-a.thc,B=p.t-a.thc,C=b.ac-a.ac;
+        var corr=Math.round(C*B/A*100)/100;
+        res={i:i,A:A,B:B,C:C,corr:corr,alt:Math.round((a.ac+corr)*100)/100,sube:C>0};
+        break;
+      }
+    }
+  }
+  return {filas:filas,res:res};
+}
+
+function corrCalc(p){
+  var A=Math.abs(p.max-p.est),B=Math.abs(p.t-p.est);
+  var ratio=A>0?B/A:0;
+  var fEx=Math.sin(Math.PI/2*Math.min(ratio,1));
+  var f=(p.f!=null&&!isNaN(p.f))?p.f:Math.round(fEx*10)/10;
+  return {A:A,B:B,ratio:ratio,fEx:fEx,f:f,v:Math.round(f*p.cmax*100)/100,pasado:B>A,opuesto:(p.t-p.est)*(p.max-p.est)<0};
+}
+
+function floor1(x){return Math.floor(x*10+1e-9)/10}
+function tramosCalc(p){
+  var sumD=0,sumT=0,usados=0;
+  var filas=p.rows.map(function(r){
+    var v=r.v,t=r.t,d=r.d,txt='';
+    var hv=!isNaN(v)&&v>0,ht=t!=null&&t>0,hd=!isNaN(d)&&d>=0;
+    if(hv&&ht&&!hd){d=floor1(v*t/3600);txt='D = '+dec(d,1)+' mn'}
+    else if(hv&&hd&&!ht){t=Math.round(d/v*60)*60;txt='t = '+reloj(t)}
+    else if(ht&&hd&&!hv){v=Math.round(d/(t/3600)*10)/10;txt='V = '+dec(v,1)+' nds'}
+    else if(hv&&ht&&hd){txt='completo'}
+    else return {txt:'',ok:false};
+    sumD+=d;sumT+=t;usados++;
+    return {txt:txt,ok:true,d:d,t:t,v:v};
+  });
+  var eta=null,dias=0;
+  if(p.zarpe!=null&&usados>0){var tot=p.zarpe+sumT;dias=Math.floor(tot/86400);eta=tot-dias*86400}
+  return {filas:filas,sumD:Math.round(sumD*10)/10,sumT:sumT,eta:eta,dias:dias,usados:usados};
+}
+
+function lunaCalc(p){
+  var frac=(p.lat-p.latInf)/(p.latSup-p.latInf);
+  var G=p.lon*240*(p.west?1:-1);
+  var base=Date.UTC(p.y,p.m-1,p.d);
+  return p.cols.map(function(c){
+    if(c.ti==null||c.ts==null||c.to==null) return null;
+    var dlat=normDif(c.ts-c.ti);
+    var sgn=c.signo==='auto'?(dlat<0?-1:1):(c.signo==='-'?-1:1);
+    var clat=sgn*Math.floor(Math.abs(dlat)*frac+1e-6);
+    var ddia=normDif(p.west?(c.to-c.ti):(c.ti-c.to));
+    var clon=(p.west?1:-1)*Math.sign(ddia)*Math.floor(Math.abs(ddia)*p.lon/360+1e-6);
+    var hmlc=c.ti+clat+clon;
+    var hmgr=hmlc+G;
+    var tot=hmgr+p.z*3600,dias=Math.floor(tot/86400);
+    return {hml:c.ti,clat:clat,clon:clon,hmlc:hmlc,g:G,hmgr:hmgr,z:p.z,hz:tot-dias*86400,fecha:fmtDate(base+dias*86400000)};
+  });
+}
+/*CALC-END*/
+
+/* conexión con la página */
+var $=function(id){return document.getElementById(id)};
+if(!$('pc-rumbos')) return;
+function num(id){var v=parseFloat(String($(id).value).replace(',','.'));return v}
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+
+/* 1. Rumbos */
+function rumbos(){
+  var err=$('rb-err');err.textContent='';
+  var p={modo:$('rb-modo').value,r:num('rb-r'),vg:num('rb-vg')||0,vm:num('rb-vm')||0,vdir:$('rb-vdir').value,
+    a0:num('rb-a0'),an:num('rb-an')||0,adir:$('rb-adir').value,a1:num('rb-a1'),d:num('rb-d'),ddir:$('rb-ddir').value};
+  if(isNaN(p.r)||isNaN(p.a0)||isNaN(p.a1)||isNaN(p.d)){err.textContent='Completa el rumbo, los años y el desvío.';$('rb-tabla').innerHTML='';$('rb-vmtxt').innerHTML='';return}
+  var c=rumbosCalc(p), v=c.vmR>=0?'E':'W';
+  var vmOp=(p.modo==='rv2rc')?(v==='E'?'−':'+'):(v==='E'?'+':'−');
+  var dOp=(p.modo==='rv2rc')?(p.ddir==='E'?'−':'+'):(p.ddir==='E'?'+':'−');
+  var f=function(a,b,c2,cls){return '<tr><th>'+a+'</th><td'+(cls?' class="'+cls+'"':'')+'>'+b+'</td><td>'+c2+'</td></tr>'};
+  var vmTxt=dec(Math.abs(c.vmR),1)+'° '+v, dTxt=dec(p.d,1)+'° '+p.ddir;
+  var rows;
+  if(p.modo==='rv2rc'){
+    rows=f('Rv',dec(p.r,1)+'°','')+f('Vm',vmTxt,v+' ('+vmOp+')')+f('Rm',dec(c.rm,1)+'°','')+f('Δ',dTxt,p.ddir+' ('+dOp+')')+
+      '<tr class="oc-final"><th>Rc</th><td>'+dec(c.res,1)+'°</td><td></td></tr>';
+  }else{
+    rows=f('Rc',dec(p.r,1)+'°','')+f('Δ',dTxt,p.ddir+' ('+dOp+')')+f('Rm',dec(c.rm,1)+'°','')+f('Vm',vmTxt,v+' ('+vmOp+')')+
+      '<tr class="oc-final"><th>Rv</th><td>'+dec(c.res,1)+'°</td><td></td></tr>';
+  }
+  $('rb-tabla').innerHTML=rows;
+  var cam=Math.abs(c.cambio);
+  $('rb-vmtxt').innerHTML='Vm de la carta: '+p.vg+'°'+pad(p.vm)+"' "+p.vdir+' ('+p.a0+')<br>'+
+    'Cambio: '+c.anios+' años × '+dec(p.an,0===p.an%1?0:1)+"' "+p.adir+' = '+degMin(cam)+' '+(c.cambio<0?'W':'E')+'<br>'+
+    '<b>Vm actual = '+degMin(c.vmAct)+' '+(c.vmAct<0?'W':'E')+' ≈ '+dec(Math.abs(c.vmR),1)+'° '+v+'</b>';
+}
+
+/* 2. Marea */
+function marea(){
+  var rows=[0,1,2,3].map(function(i){return {tipo:$('mr-tipo'+i).value,h:parseHora($('mr-h'+i).value),a:num('mr-a'+i)}});
+  var p={cp:parseHora($('mr-cp').value)||0,ver:num('mr-ver')||0,chP:num('mr-hp')||0,chB:num('mr-hb')||0,t:parseHora($('mr-t').value),rows:rows};
+  var c=mareaCalc(p);
+  c.filas.forEach(function(f,i){
+    $('mr-hc'+i).textContent=f?reloj(f.thc):'';
+    $('mr-ac'+i).textContent=f?dec(f.ac,2):'';
+  });
+  var out=$('mr-res');
+  if(p.t==null){out.textContent='Escribe la hora considerada.';return}
+  if(!c.res){out.textContent='La hora considerada no cae entre dos mareas de la tabla.';return}
+  var r=c.res,a=c.filas[r.i],b=c.filas[r.i+1];
+  out.innerHTML='a) Intervalo '+reloj(a.thc)+' → '+reloj(b.thc)+': <b>'+hmTxt(r.A)+'</b><br>'+
+    'b) Tiempo hasta las '+reloj(p.t)+': <b>'+hmTxt(r.B)+'</b><br>'+
+    'c) Diferencia de alturas '+dec(a.ac,2)+' → '+dec(b.ac,2)+': <b>'+dec(Math.abs(r.C),2)+' m</b> ('+(r.sube?'sube':'baja')+')<br>'+
+    'Corrección = '+dec(Math.abs(r.C),2)+' × '+hmTxt(r.B)+' ÷ '+hmTxt(r.A)+' = <b>'+(r.sube?'+':'−')+dec(Math.abs(r.corr),2)+' m</b><br>'+
+    'Altura a las '+reloj(p.t)+' = '+dec(a.ac,2)+' '+(r.sube?'+':'−')+' '+dec(Math.abs(r.corr),2)+' = <b class="oc-big">'+dec(r.alt,2)+' m</b>';
+}
+
+/* 3. Corriente */
+function corriente(){
+  var p={est:parseHora($('co-est').value),max:parseHora($('co-max').value),t:parseHora($('co-t').value),cmax:num('co-v'),f:num('co-f')};
+  var out=$('co-res');
+  if(p.est==null||p.max==null||p.t==null||isNaN(p.cmax)){out.textContent='Completa estoa, hora máxima, corriente máxima y hora considerada.';return}
+  if(p.max===p.est){out.textContent='La estoa y la hora máxima no pueden ser iguales.';return}
+  var c=corrCalc(p),s=$('co-sent').value.trim();
+  out.innerHTML='A = '+reloj(p.max)+' − '+reloj(p.est)+' = <b>'+hmTxt(c.A)+'</b><br>'+
+    'B = '+reloj(p.t)+' − '+reloj(p.est)+' = <b>'+hmTxt(c.B)+'</b><br>'+
+    'B ÷ A = '+dec(c.ratio,2)+' → factor '+((p.f!=null&&!isNaN(p.f))?'(tuyo) ':'(curva, exacto '+dec(c.fEx,2)+') ')+'<b>'+dec(c.f,1)+'</b><br>'+
+    'Velocidad = '+dec(c.f,1)+' × '+dec(p.cmax,1)+' = <b class="oc-big">'+dec(c.v,2)+' nudos'+(s?' '+esc(s):'')+'</b>'+
+    (c.opuesto?'<br><span class="oc-neg">La hora considerada está al otro lado de la estoa que la corriente máxima: ahí la corriente corre en sentido contrario. Usa la estoa y la máxima de ese lado.</span>'
+      :c.pasado?'<br><span class="oc-neg">La hora considerada está después de la corriente máxima: usa la estoa siguiente.</span>':'');
+}
+
+/* 4. Tramos */
+var tb=$('tr-body'),def=[['12.5','00:45',''],['14','00:32',''],['8','01:15',''],['','',''],['','','']];
+tb.innerHTML=def.map(function(r,i){
+  return '<tr class="oc-in"><th>'+(i+1)+'</th><td><input class="tr-v" type="number" step="0.1" value="'+r[0]+'" inputmode="decimal" aria-label="V tramo '+(i+1)+'"></td>'+
+    '<td><input class="tr-t" value="'+r[1]+'" placeholder="hh:mm" inputmode="numeric" aria-label="t tramo '+(i+1)+'"></td>'+
+    '<td><input class="tr-d" type="number" step="0.1" value="'+r[2]+'" inputmode="decimal" aria-label="D tramo '+(i+1)+'"></td><td class="tr-r"></td></tr>';
+}).join('');
+function tramos(){
+  var vs=tb.querySelectorAll('.tr-v'),ts=tb.querySelectorAll('.tr-t'),ds=tb.querySelectorAll('.tr-d'),rs=tb.querySelectorAll('.tr-r');
+  var rows=[];for(var i=0;i<vs.length;i++)rows.push({v:parseFloat(vs[i].value),t:parseHora(ts[i].value),d:parseFloat(ds[i].value)});
+  var c=tramosCalc({zarpe:parseHora($('tr-z').value),rows:rows});
+  c.filas.forEach(function(f,i){rs[i].textContent=f.txt});
+  var out=$('tr-res');
+  if(!c.usados){out.textContent='Ingresa al menos dos datos en un tramo.';return}
+  out.innerHTML='Distancia total: <b>'+dec(c.sumD,1)+' mn</b><br>Tiempo total: <b>'+hmTxt(c.sumT)+'</b><br>'+
+    (c.eta!=null?'Zarpe '+reloj(parseHora($('tr-z').value))+' → ETA <b class="oc-big">'+reloj(c.eta)+'</b>'+(c.dias>0?' (+'+c.dias+' día)':''):'Escribe la hora de zarpe para ver la ETA.');
+}
+
+/* 5. Luna */
+var lcel=document.querySelectorAll('#pc-luna [data-r]');
+function luna(){
+  var err=$('lu-err');err.textContent='';
+  var li=num('lu-li'),ls=num('lu-ls'),lat=(num('lu-lat-g')||0)+(num('lu-lat-m')||0)/60;
+  var lon=(num('lu-lon-g')||0)+(num('lu-lon-m')||0)/60,west=$('lu-lon-h').value==='W';
+  $('lu-l-inf').textContent='Almanaque '+li+'°';$('lu-l-sup').textContent='Almanaque '+ls+'°';
+  $('lu-l-otro').textContent=(west?'Día siguiente':'Día anterior')+', '+li+'°';
+  var clear=function(){lcel.forEach(function(c){c.textContent='';c.className=''})};
+  var f=$('lu-fecha').value;
+  if(!f){err.textContent='Falta la fecha.';clear();return}
+  if(!(ls>li)){err.textContent='La latitud superior debe ser mayor que la inferior.';clear();return}
+  if(lat<li||lat>ls){err.textContent='Tu latitud debe estar entre '+li+'° y '+ls+'°.';clear();return}
+  var pf=f.split('-').map(Number),cols=[0,1].map(function(c){
+    var g=function(k){return parseHora(document.querySelector('.lu-t[data-c="'+c+'"][data-f="'+k+'"]').value)};
+    return {ti:g('inf'),ts:g('sup'),to:g('otro'),signo:document.querySelector('.lu-sg[data-c="'+c+'"]').value};
+  });
+  var res=lunaCalc({lat:lat,lon:lon,west:west,z:parseFloat($('lu-z').value),latInf:li,latSup:ls,y:pf[0],m:pf[1],d:pf[2],cols:cols});
+  var falta=false;
+  res.forEach(function(r,c){
+    var set=function(k,t,cls){var el=document.querySelector('#pc-luna [data-r="'+k+'"][data-c="'+c+'"]');el.textContent=t;el.className=cls||''};
+    if(!r){falta=true;['hml','clat','clon','hmlc','g','hmgr','z','hz','fecha'].forEach(function(k){set(k,'')});return}
+    var sgn=function(x){return (x<0?'− ':'+ ')+hms(Math.abs(x))};
+    set('hml',hms(r.hml));
+    set('clat',sgn(r.clat),r.clat<0?'oc-neg':'oc-pos');
+    set('clon',sgn(r.clon),r.clon<0?'oc-neg':'oc-pos');
+    set('hmlc',hms(r.hmlc));
+    set('g',sgn(r.g),r.g<0?'oc-neg':'oc-pos');
+    set('hmgr',hms(r.hmgr));
+    set('z',(r.z<0?'− ':'+ ')+Math.abs(r.z),r.z<0?'oc-neg':'oc-pos');
+    set('hz',hms(r.hz));
+    set('fecha',r.fecha);
+  });
+  if(falta)err.textContent='Completa las tres horas del almanaque (hh:mm) en las columnas vacías.';
+}
+
+[['pc-rumbos',rumbos],['pc-marea',marea],['pc-corriente',corriente],['pc-tramos',tramos],['pc-luna',luna]].forEach(function(s){
+  var root=$(s[0]);
+  root.addEventListener('input',s[1]);root.addEventListener('change',s[1]);
+  s[1]();
+});
 })();
 </script>
 
