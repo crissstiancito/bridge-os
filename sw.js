@@ -1,11 +1,12 @@
 /* BRIDGE OS — Service Worker (offline-first PWA) */
-const CACHE = 'bridge-os-v7';
+const CACHE = 'bridge-os-v8';
 
 /* App shell precached on install. Everything else is cached at runtime. */
 const PRECACHE = [
   './',
   './index.html',
   './bridge_os.html',
+  './navcalc.html',
   './manifest.webmanifest',
   './icons/icon.svg',
   './icons/icon-192.png',

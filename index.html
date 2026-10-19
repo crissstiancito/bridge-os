@@ -381,7 +381,10 @@
   .oc-btn{margin-top:4px;padding:9px 16px;border:1px solid rgba(11,34,64,.3);border-radius:6px;background:#fff;color:#0B2240;font:600 13px/1 'Spectral',serif;letter-spacing:.03em;cursor:pointer}
   .oc-btn:hover{border-color:#C8A24B}
   .oc-btn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(200,162,75,.35)}
-  @media(max-width:960px){#paso-a-paso{scroll-margin-top:104px}}
+  /* cinemática, mareas y corrientes (navcalc.html en un marco) */
+  #mareas-corrientes{scroll-margin-top:84px}
+  .nc-frame{display:block;width:100%;height:1150px;border:0;margin-top:22px;background:transparent}
+  @media(max-width:960px){#paso-a-paso,#mareas-corrientes{scroll-margin-top:104px}}
   @media(max-width:520px){.oc-head{padding:14px 18px}.oc-body{padding:16px 18px 18px}}
   /* reg badge */
   .reg-badge{background:#0B2240;color:#C8A24B;border:1px solid rgba(200,162,75,.4);border-radius:7px;padding:4px 8px;font:700 11px/1 'IBM Plex Mono',monospace;flex:none}
@@ -509,7 +512,7 @@
 <div id="calculadoras" class="sec"><div class="wrap">
   <div class="kicker">CARTA DE CÁLCULO</div>
   <h2 class="h2">Calculadoras de navegación</h2>
-  <p class="sec-p">Calados y asiento, guinda, regla de los doce (mareas), cadena de fondeo, combustible, radio de borneo y escala de carta. Más abajo, <a href="#paso-a-paso" style="color:#8A6A22;">cálculo paso a paso en formato prueba</a>: rumbos, marea y corriente a una hora, tramos con ETA, orto/ocaso de la luna y orto, ocaso y crepúsculo del sol.</p>
+  <p class="sec-p">Calados y asiento, guinda, regla de los doce (mareas), cadena de fondeo, combustible, radio de borneo y escala de carta. Más abajo, <a href="#paso-a-paso" style="color:#8A6A22;">cálculo paso a paso en formato prueba</a>: rumbos, marea y corriente a una hora, tramos con ETA, orto/ocaso de la luna y orto, ocaso y crepúsculo del sol. Al final, <a href="#mareas-corrientes" style="color:#8A6A22;">cinemática, mareas y corrientes</a>: Tablas II y III SHOA y corriente de marea.</p>
   <div id="calcContainer" class="calc-grid-wrap"></div>
   <div class="calc-card" style="margin-top:20px;">
     <h4 class="calc-title">Estabilidad y estiba — KG / GM</h4>
@@ -676,7 +679,7 @@
         <label>Huso (Z)
           <select id="lu-z"><option value="-3" selected>−3 (verano)</option><option value="-4">−4 (invierno)</option><option value="-5">−5</option><option value="0">0 (UTC)</option></select>
         </label>
-        <label>Latitudes del almanaque (inf · sup)
+        <label>Latitudes del almanaque (inf · sup, se ajustan solas)
           <span class="oc-par"><input type="number" id="lu-li" value="40" inputmode="numeric" aria-label="Inferior"><input type="number" id="lu-ls" value="45" inputmode="numeric" aria-label="Superior"></span>
         </label>
       </div>
@@ -730,7 +733,7 @@
         <label>Huso (Z)
           <select id="so-z"><option value="-3" selected>−3 (verano)</option><option value="-4">−4 (invierno)</option><option value="-5">−5</option><option value="0">0 (UTC)</option></select>
         </label>
-        <label>Latitudes del almanaque (inf · sup)
+        <label>Latitudes del almanaque (inf · sup, se ajustan solas)
           <span class="oc-par"><input type="number" id="so-li" value="40" inputmode="numeric" aria-label="Inferior"><input type="number" id="so-ls" value="45" inputmode="numeric" aria-label="Superior"></span>
         </label>
       </div>
@@ -766,6 +769,10 @@
   </section>
 
   </div>
+
+  <div id="mareas-corrientes" class="kicker" style="margin-top:44px;">CINEMÁTICA · MAREAS · CORRIENTES</div>
+  <p class="sec-p" style="margin:0;">D/V/T individual y por tramos, ETA/ETD, consumo de combustible, Tabla II (puerto secundario), Tabla III (altura en el momento) y corriente de marea, con ajuste de huso horario SHOA. Verifica siempre con las publicaciones SHOA vigentes.</p>
+  <iframe class="nc-frame" src="navcalc.html" title="Cinemática, mareas y corrientes" loading="lazy" allow="clipboard-write" data-calcs="6"></iframe>
 </div></div>
 
 <!-- BITÁCORA -->
@@ -1454,7 +1461,7 @@ function setTxt(id,v){const e=document.getElementById(id);if(e)e.textContent=v;}
 
 function renderStats(){
   const ti=totalItems(), di=doneItems(), pct=ti?Math.round(di/ti*100):0;
-  setTxt('statFases',FASES.length); setTxt('statItems',ti); setTxt('statCalc',CALCULADORAS.length+document.querySelectorAll('.oc-wrap').length);
+  setTxt('statFases',FASES.length); setTxt('statItems',ti); setTxt('statCalc',CALCULADORAS.length+document.querySelectorAll('.oc-wrap').length+[].reduce.call(document.querySelectorAll('[data-calcs]'),function(s,el){return s+(+el.dataset.calcs||0)},0));
   setTxt('stripFases',FASES.length); setTxt('stripItems',ti); setTxt('stripPct',pct+'%');
   setTxt('navPct',pct+'%');
   const nb=document.getElementById('navPctBar'); if(nb) nb.style.width=pct+'%';
@@ -2105,6 +2112,23 @@ function tramos(){
     (c.eta!=null?'Zarpe '+reloj(parseHora($('tr-z').value))+' → ETA <b class="oc-big">'+reloj(c.eta)+'</b>'+(c.dias>0?' (+'+c.dias+' día)':''):'Escribe la hora de zarpe para ver la ETA.');
 }
 
+/* Luna y sol: al cambiar tu latitud, las latitudes del almanaque (inf · sup) pasan a las dos
+   tabuladas que la encierran (Almanaque Náutico: cada 10° hasta 30°, cada 5° hasta 50°, cada 2° desde 50°).
+   Se pueden seguir cambiando a mano. */
+var LAT_ALM=[0,10,20,30,35,40,45,50,52,54,56,58,60,62,64,66,68,70,72];
+function latAlmanaque(lat){
+  for(var i=1;i<LAT_ALM.length;i++){if(lat<LAT_ALM[i])return [LAT_ALM[i-1],LAT_ALM[i]]}
+  return [LAT_ALM[LAT_ALM.length-2],LAT_ALM[LAT_ALM.length-1]];
+}
+['lu','so'].forEach(function(p){
+  function auto(){
+    var r=latAlmanaque((num(p+'-lat-g')||0)+(num(p+'-lat-m')||0)/60);
+    $(p+'-li').value=r[0];$(p+'-ls').value=r[1];
+  }
+  /* escuchado en el propio campo: corre antes que el cálculo, que escucha en la sección */
+  $(p+'-lat-g').addEventListener('input',auto);$(p+'-lat-m').addEventListener('input',auto);
+});
+
 /* 5. Luna */
 var lcel=document.querySelectorAll('#pc-luna [data-r]');
 function luna(){
@@ -2182,6 +2206,16 @@ $('so-limpiar').addEventListener('click',function(){
   var root=$(s[0]);
   root.addEventListener('input',s[1]);root.addEventListener('change',s[1]);
   s[1]();
+});
+})();
+
+/* ===== cinemática, mareas y corrientes: el marco toma la altura que avisa navcalc.html ===== */
+(function(){
+var f=document.querySelector('.nc-frame');
+if(!f) return;
+window.addEventListener('message',function(e){
+  if(e.source!==f.contentWindow||!e.data||typeof e.data.navcalcAltura!=='number') return;
+  f.style.height=Math.max(300,e.data.navcalcAltura)+'px';
 });
 })();
 </script>
