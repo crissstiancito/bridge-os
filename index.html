@@ -385,51 +385,57 @@
   .oc-pasos{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px 22px;margin-top:10px}
   .oc-paso{font:400 13px/1.65 'IBM Plex Mono',monospace;white-space:nowrap}
   .oc-paso b{font-family:'Spectral',serif;font-size:14.5px}
-  /* NavCalc: cinemática, mareas y corrientes. Diseño original de NavCalc (oscuro), acotado a .nc */
+  /* Cinemática, mareas y corrientes: mismo diseño que "Paso a paso" (carta crema, banda azul y oro), acotado a .nc */
   #mareas-corrientes{scroll-margin-top:84px}
   .nc-saltos{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
-  .nc-saltos a{padding:9px 14px;border-radius:999px;background:#0A1622;border:1px solid #24405A;color:#E6EEF5;text-decoration:none;font:600 14px/1 "IBM Plex Sans","Segoe UI",system-ui,-apple-system,sans-serif}
-  .nc-saltos a:hover{border-color:#2F9E8F}
+  .nc-saltos a{padding:9px 16px;border-radius:999px;background:#0B2240;color:#F4ECDD;text-decoration:none;font:600 13.5px/1 'Spectral',serif;letter-spacing:.04em;border:1px solid #0B2240}
+  .nc-saltos a:hover{border-color:#C8A24B;color:#C8A24B}
   .nc-pila{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
-  .nc{--bg:#0A1622;--panel:#102233;--ink:#E6EEF5;--muted:#8FA6B8;--line:#24405A;
-    --accent:#2F9E8F;--accent-ink:#04201C;--warn:#FF8F7A;--result:#0D3A3A;--field:#0A1622;
-    color-scheme:dark;min-width:0;scroll-margin-top:84px;background:var(--bg);color:var(--ink);border-radius:12px;padding:14px 12px 0;
-    font-family:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.45}
+  .nc{min-width:0;scroll-margin-top:84px;color:#0B2240;font:400 15px/1.5 'Spectral',serif;color-scheme:light}
   .nc *{box-sizing:border-box}
-  .nc h2{font-size:1.08rem;font-weight:700;margin:0 0 6px}
-  .nc :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-  .nc .nc-panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
-  .nc .nc-info{color:var(--muted);font-size:.88rem;margin:0 0 10px}
-  .nc details.nc-det{margin:0 0 12px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.88rem;color:var(--muted)}
-  .nc details.nc-det summary{cursor:pointer;font-weight:600;color:var(--ink)}
+  .nc > div{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+  .nc :focus-visible{outline:2px solid #C8A24B;outline-offset:2px}
+  .nc .nc-panel{min-width:0;background:#F6EFDD;border:1px solid rgba(11,34,64,.12);border-radius:10px;overflow:hidden;padding:0 24px 22px}
+  .nc .nc-panel > h2{margin:0 -24px;padding:16px 24px 0;background:#0B2240;color:#F4ECDD;font:500 19px/1.25 'Spectral',serif}
+  .nc .nc-panel > h2 + .nc-info{margin:0 -24px 20px;padding:5px 24px 16px;background:#0B2240;color:#9FB1C8;border-bottom:2px solid #C8A24B;font:400 13.5px/1.45 'Spectral',serif}
+  .nc .nc-info{margin:0 0 12px;font:400 14px/1.5 'Spectral',serif;color:#5A6B82}
+  .nc details.nc-det{margin:0 0 14px;background:#fff;border:1px solid rgba(11,34,64,.12);border-radius:6px;padding:9px 14px;font:400 14px/1.5 'Spectral',serif;color:#41526A}
+  .nc details.nc-det summary{cursor:pointer;font-weight:600;color:#0B2240}
   .nc details.nc-det p{margin:8px 0 0}
-  .nc .nc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-bottom:10px}
-  .nc label{display:block;font-size:.84rem;color:var(--muted);margin-bottom:3px}
-  .nc input,.nc select{width:100%;padding:10px;font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:6px;min-height:44px}
-  .nc fieldset{border:1px solid var(--line);border-radius:8px;margin:0 0 10px;padding:8px 10px 2px}
-  .nc legend{padding:0 6px;font-weight:600;font-size:.9rem}
-  .nc .nc-seg{display:flex;gap:0;margin:0 0 12px}
-  .nc .nc-seg button{flex:1;padding:10px;font:inherit;font-weight:600;background:transparent;color:var(--muted);border:1px solid var(--line);cursor:pointer;min-height:44px}
+  .nc .nc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px}
+  .nc .nc-grid > *{min-width:0}
+  .nc label{display:block;margin-bottom:5px;font:500 10.5px/1.25 'IBM Plex Mono',monospace;letter-spacing:.04em;text-transform:uppercase;color:#8A6A22}
+  .nc input,.nc select{width:100%;min-width:0;min-height:40px;padding:8px 9px;font:500 16px/1.2 'IBM Plex Mono',monospace;color:#0B2240;background:#fff;border:1px solid rgba(11,34,64,.22);border-radius:6px;outline:none}
+  .nc input:focus,.nc select:focus{border-color:#C8A24B;box-shadow:0 0 0 3px rgba(200,162,75,.2)}
+  .nc fieldset{border:1px solid rgba(11,34,64,.18);border-radius:8px;margin:0 0 12px;padding:8px 14px 2px;background:rgba(255,255,255,.35)}
+  .nc legend{padding:0 6px;font:600 14px/1.3 'Spectral',serif;color:#0B2240}
+  .nc .nc-seg{display:flex;gap:0;margin:0 0 14px}
+  .nc .nc-seg button{flex:1;min-height:40px;padding:10px;font:600 14px/1 'Spectral',serif;letter-spacing:.04em;background:#fff;color:#41526A;border:1px solid rgba(11,34,64,.3);cursor:pointer}
   .nc .nc-seg button:first-child{border-radius:6px 0 0 6px}
   .nc .nc-seg button:last-child{border-radius:0 6px 6px 0;border-left:0}
-  .nc .nc-seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-  .nc .nc-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-  .nc button.nc-act{padding:11px 16px;font:inherit;font-weight:600;border-radius:6px;cursor:pointer;min-height:44px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink)}
-  .nc button.nc-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
-  .nc .nc-huso{border:1px dashed var(--line);border-radius:8px;padding:10px;margin:0 0 12px}
-  .nc .nc-h{font-weight:600;font-size:.9rem;margin-bottom:8px}
-  .nc .nc-adjtxt{font-size:.85rem;color:var(--accent);font-weight:600}
-  .nc .nc-result{margin-top:12px;padding:12px;background:var(--result);border-radius:8px;font-variant-numeric:tabular-nums}
-  .nc .nc-big{font-size:1.45rem;font-weight:700;font-family:ui-monospace,"IBM Plex Mono",Menlo,Consolas,monospace}
-  .nc .nc-result table{width:100%;border-collapse:collapse;margin-top:6px}
-  .nc .nc-result th,.nc .nc-result td{text-align:left;padding:6px 4px;border-bottom:1px solid var(--line);font-size:.93rem}
-  .nc .nc-result th{font-weight:600;color:var(--muted);font-size:.84rem}
-  .nc .nc-result td.n{font-family:ui-monospace,"IBM Plex Mono",Menlo,Consolas,monospace}
-  .nc .nc-err{margin-top:12px;padding:12px;border-left:4px solid var(--warn);background:var(--panel);color:var(--warn);border-radius:0 8px 8px 0}
-  .nc .nc-copy{margin-top:10px;font-size:.86rem;min-height:38px;padding:6px 12px}
-  .nc .nc-note{color:var(--muted);font-size:.84rem;margin-top:10px}
+  .nc .nc-seg button[aria-pressed="true"]{background:#0B2240;color:#F4ECDD;border-color:#0B2240}
+  .nc .nc-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+  .nc button.nc-act{padding:12px 22px;border:1px solid #0B2240;border-radius:6px;cursor:pointer;background:#0B2240;color:#F4ECDD;font:600 14px/1 'Spectral',serif;letter-spacing:.04em}
+  .nc button.nc-act:hover{background:#102a4d}
+  .nc button.nc-ghost{background:#fff;color:#0B2240;border-color:rgba(11,34,64,.3)}
+  .nc button.nc-ghost:hover{background:#fff;border-color:#C8A24B}
+  .nc .nc-huso{border:1px dashed rgba(11,34,64,.28);border-radius:8px;padding:12px 14px 2px;margin:0 0 14px}
+  .nc .nc-h{margin-bottom:10px;font:600 14px/1.3 'Spectral',serif}
+  .nc .nc-adjtxt{margin-bottom:10px;font:600 13px/1.4 'Spectral',serif;color:#8A6A22}
+  .nc .nc-result{margin-top:14px;background:#fff;border:1px solid rgba(11,34,64,.12);border-left:3px solid #C8A24B;border-radius:6px;padding:12px 16px;font:400 14.5px/1.75 'Spectral',serif;color:#0B2240;font-variant-numeric:tabular-nums}
+  .nc .nc-big{display:inline-block;margin-bottom:4px;background:#F7E7B8;border:1px solid #C8A24B;padding:2px 10px;border-radius:5px;font:600 16px/1.4 'IBM Plex Mono',monospace}
+  .nc .nc-result table{width:100%;border-collapse:collapse;margin-top:8px;background:#fff;font:400 14px/1.4 'Spectral',serif}
+  .nc .nc-result th,.nc .nc-result td{border:1px solid rgba(11,34,64,.25);padding:6px 8px;text-align:left;font-variant-numeric:tabular-nums}
+  .nc .nc-result thead th{background:#0B2240;color:#F4ECDD;font-size:12.5px;font-weight:600}
+  .nc .nc-result tbody th{background:#EDE3CE;font-size:13px;font-weight:600}
+  .nc .nc-result td.n{font-family:'IBM Plex Mono',monospace;font-size:13px}
+  .nc .nc-err{margin-top:12px;padding:10px 14px;background:#fff;border:1px solid rgba(179,38,30,.25);border-left:3px solid #b3261e;border-radius:6px;color:#b3261e;font:400 14px/1.45 'Spectral',serif}
+  .nc .nc-result > br{display:none}
+  .nc .nc-copy{margin-top:10px;padding:8px 14px;font-size:13px}
+  .nc .nc-note{margin:12px 0 0;font:400 13px/1.5 'Spectral',serif;color:#5A6B82}
   .nc [hidden]{display:none !important}
   @media(max-width:960px){#paso-a-paso,#mareas-corrientes,.nc{scroll-margin-top:104px}}
+  @media(max-width:520px){.nc .nc-panel{padding:0 18px 18px}.nc .nc-panel > h2{margin:0 -18px;padding:14px 18px 0}.nc .nc-panel > h2 + .nc-info{margin:0 -18px 18px;padding:5px 18px 14px}}
   @media(max-width:520px){.oc-head{padding:14px 18px}.oc-body{padding:16px 18px 18px}}
   /* reg badge */
   .reg-badge{background:#0B2240;color:#C8A24B;border:1px solid rgba(200,162,75,.4);border-radius:7px;padding:4px 8px;font:700 11px/1 'IBM Plex Mono',monospace;flex:none}
@@ -826,8 +832,8 @@
   </div>
 
   <div id="mareas-corrientes" class="kicker" style="margin-top:44px;">CINEMÁTICA · MAREAS · CORRIENTES</div>
-  <p class="sec-p" style="margin:0;">Calculadoras de NavCalc, cada una en su propio bloque: D/V/T con ETA y consumo, Tabla II (puerto secundario), Tabla III (altura en el momento) y corriente de marea, con ajuste de huso horario SHOA. Verifica siempre con las publicaciones SHOA vigentes.</p>
-  <nav class="nc-saltos" aria-label="Calculadoras NavCalc"><a href="#nc-dvt">🧭 D/V/T</a><a href="#nc-tabla2">🌊 Tabla II</a><a href="#nc-tabla3">🌊 Tabla III</a><a href="#nc-corrientes">🌊 Corrientes</a></nav>
+  <p class="sec-p" style="margin:0;">Cada calculadora en su propio bloque: D/V/T con ETA y consumo, Tabla II (puerto secundario), Tabla III (altura en el momento) y corriente de marea, con ajuste de huso horario SHOA. Verifica siempre con las publicaciones SHOA vigentes.</p>
+  <nav class="nc-saltos" aria-label="Ir a la calculadora"><a href="#nc-dvt">D/V/T</a><a href="#nc-tabla2">Tabla II</a><a href="#nc-tabla3">Tabla III</a><a href="#nc-corrientes">Corrientes</a></nav>
   <div class="nc-pila">
 
   <!-- NavCalc · D/V/T, ETA y consumo -->
