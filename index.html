@@ -381,10 +381,55 @@
   .oc-btn{margin-top:4px;padding:9px 16px;border:1px solid rgba(11,34,64,.3);border-radius:6px;background:#fff;color:#0B2240;font:600 13px/1 'Spectral',serif;letter-spacing:.03em;cursor:pointer}
   .oc-btn:hover{border-color:#C8A24B}
   .oc-btn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(200,162,75,.35)}
-  /* cinemática, mareas y corrientes (navcalc.html en un marco) */
+  .oc-tit{margin:16px 0 6px;font:500 10.5px/1.25 'IBM Plex Mono',monospace;letter-spacing:.04em;text-transform:uppercase;color:#8A6A22}
+  .oc-pasos{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px 22px;margin-top:10px}
+  .oc-paso{font:400 13px/1.65 'IBM Plex Mono',monospace;white-space:nowrap}
+  .oc-paso b{font-family:'Spectral',serif;font-size:14.5px}
+  /* NavCalc: cinemática, mareas y corrientes. Diseño original de NavCalc (oscuro), acotado a .nc */
   #mareas-corrientes{scroll-margin-top:84px}
-  .nc-frame{display:block;width:100%;height:1150px;border:0;margin-top:22px;background:transparent}
-  @media(max-width:960px){#paso-a-paso,#mareas-corrientes{scroll-margin-top:104px}}
+  .nc-saltos{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+  .nc-saltos a{padding:9px 14px;border-radius:999px;background:#0A1622;border:1px solid #24405A;color:#E6EEF5;text-decoration:none;font:600 14px/1 "IBM Plex Sans","Segoe UI",system-ui,-apple-system,sans-serif}
+  .nc-saltos a:hover{border-color:#2F9E8F}
+  .nc-pila{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+  .nc{--bg:#0A1622;--panel:#102233;--ink:#E6EEF5;--muted:#8FA6B8;--line:#24405A;
+    --accent:#2F9E8F;--accent-ink:#04201C;--warn:#FF8F7A;--result:#0D3A3A;--field:#0A1622;
+    color-scheme:dark;min-width:0;scroll-margin-top:84px;background:var(--bg);color:var(--ink);border-radius:12px;padding:14px 12px 0;
+    font-family:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.45}
+  .nc *{box-sizing:border-box}
+  .nc h2{font-size:1.08rem;font-weight:700;margin:0 0 6px}
+  .nc :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  .nc .nc-panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+  .nc .nc-info{color:var(--muted);font-size:.88rem;margin:0 0 10px}
+  .nc details.nc-det{margin:0 0 12px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.88rem;color:var(--muted)}
+  .nc details.nc-det summary{cursor:pointer;font-weight:600;color:var(--ink)}
+  .nc details.nc-det p{margin:8px 0 0}
+  .nc .nc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-bottom:10px}
+  .nc label{display:block;font-size:.84rem;color:var(--muted);margin-bottom:3px}
+  .nc input,.nc select{width:100%;padding:10px;font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:6px;min-height:44px}
+  .nc fieldset{border:1px solid var(--line);border-radius:8px;margin:0 0 10px;padding:8px 10px 2px}
+  .nc legend{padding:0 6px;font-weight:600;font-size:.9rem}
+  .nc .nc-seg{display:flex;gap:0;margin:0 0 12px}
+  .nc .nc-seg button{flex:1;padding:10px;font:inherit;font-weight:600;background:transparent;color:var(--muted);border:1px solid var(--line);cursor:pointer;min-height:44px}
+  .nc .nc-seg button:first-child{border-radius:6px 0 0 6px}
+  .nc .nc-seg button:last-child{border-radius:0 6px 6px 0;border-left:0}
+  .nc .nc-seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .nc .nc-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .nc button.nc-act{padding:11px 16px;font:inherit;font-weight:600;border-radius:6px;cursor:pointer;min-height:44px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink)}
+  .nc button.nc-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .nc .nc-huso{border:1px dashed var(--line);border-radius:8px;padding:10px;margin:0 0 12px}
+  .nc .nc-h{font-weight:600;font-size:.9rem;margin-bottom:8px}
+  .nc .nc-adjtxt{font-size:.85rem;color:var(--accent);font-weight:600}
+  .nc .nc-result{margin-top:12px;padding:12px;background:var(--result);border-radius:8px;font-variant-numeric:tabular-nums}
+  .nc .nc-big{font-size:1.45rem;font-weight:700;font-family:ui-monospace,"IBM Plex Mono",Menlo,Consolas,monospace}
+  .nc .nc-result table{width:100%;border-collapse:collapse;margin-top:6px}
+  .nc .nc-result th,.nc .nc-result td{text-align:left;padding:6px 4px;border-bottom:1px solid var(--line);font-size:.93rem}
+  .nc .nc-result th{font-weight:600;color:var(--muted);font-size:.84rem}
+  .nc .nc-result td.n{font-family:ui-monospace,"IBM Plex Mono",Menlo,Consolas,monospace}
+  .nc .nc-err{margin-top:12px;padding:12px;border-left:4px solid var(--warn);background:var(--panel);color:var(--warn);border-radius:0 8px 8px 0}
+  .nc .nc-copy{margin-top:10px;font-size:.86rem;min-height:38px;padding:6px 12px}
+  .nc .nc-note{color:var(--muted);font-size:.84rem;margin-top:10px}
+  .nc [hidden]{display:none !important}
+  @media(max-width:960px){#paso-a-paso,#mareas-corrientes,.nc{scroll-margin-top:104px}}
   @media(max-width:520px){.oc-head{padding:14px 18px}.oc-body{padding:16px 18px 18px}}
   /* reg badge */
   .reg-badge{background:#0B2240;color:#C8A24B;border:1px solid rgba(200,162,75,.4);border-radius:7px;padding:4px 8px;font:700 11px/1 'IBM Plex Mono',monospace;flex:none}
@@ -737,9 +782,10 @@
           <span class="oc-par"><input type="number" id="so-li" value="40" inputmode="numeric" aria-label="Inferior"><input type="number" id="so-ls" value="45" inputmode="numeric" aria-label="Superior"></span>
         </label>
       </div>
+      <div class="oc-tit">Datos del almanaque (hh:mm)</div>
       <div class="oc-scroll">
         <table class="oc-tabla">
-          <thead><tr><th></th><th>Comienzo<br>aurora (náut.)</th><th>Orto<br>del sol</th><th>Ocaso<br>del sol</th><th>Fin crepúsculo<br>(náut.)</th></tr></thead>
+          <thead><tr><th></th><th>Comienzo aurora<br>(náut.)</th><th>Orto sol<br>(sunrise)</th><th>Ocaso sol<br>(sunset)</th><th>Fin crepúsculo<br>(náut.)</th></tr></thead>
           <tbody>
             <tr class="oc-in"><th id="so-l-inf">Almanaque lat. inf.</th>
               <td><input class="so-t" data-c="0" data-f="inf" value="04:03" placeholder="hh:mm" inputmode="numeric" aria-label="Aurora lat inferior"></td>
@@ -751,6 +797,14 @@
               <td><input class="so-t" data-c="1" data-f="sup" value="04:58" placeholder="hh:mm" inputmode="numeric" aria-label="Orto lat superior"></td>
               <td><input class="so-t" data-c="2" data-f="sup" value="18:33" placeholder="hh:mm" inputmode="numeric" aria-label="Ocaso lat superior"></td>
               <td><input class="so-t" data-c="3" data-f="sup" value="19:41" placeholder="hh:mm" inputmode="numeric" aria-label="Crepúsculo lat superior"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="oc-tit">Cuadro de la prueba</div>
+      <div class="oc-scroll">
+        <table class="oc-tabla">
+          <thead><tr><th></th><th>Comienzo<br>aurora ☀</th><th>Orto<br>sol ☀</th><th>Ocaso<br>sol ☀</th><th>Fin<br>crepúsculo ☀</th></tr></thead>
+          <tbody>
             <tr><th>Hml</th><td data-r="hml" data-c="0"></td><td data-r="hml" data-c="1"></td><td data-r="hml" data-c="2"></td><td data-r="hml" data-c="3"></td></tr>
             <tr><th>C × l</th><td data-r="cxl" data-c="0"></td><td data-r="cxl" data-c="1"></td><td data-r="cxl" data-c="2"></td><td data-r="cxl" data-c="3"></td></tr>
             <tr><th>Hml c</th><td data-r="hmlc" data-c="0"></td><td data-r="hmlc" data-c="1"></td><td data-r="hmlc" data-c="2"></td><td data-r="hmlc" data-c="3"></td></tr>
@@ -763,7 +817,8 @@
         </table>
       </div>
       <div class="oc-err" id="so-err" role="status"></div>
-      <button type="button" class="oc-btn" id="so-limpiar">Limpiar horas del almanaque</button>
+      <div class="oc-res" id="so-des"></div>
+      <button type="button" class="oc-btn" id="so-limpiar" style="margin-top:14px;">Limpiar horas del almanaque</button>
       <p class="oc-nota">Ingresa las horas del almanaque (hh:mm) para las dos latitudes que rodean tu posición. C × l = diferencia entre las dos latitudes × (tu latitud − lat. inf.) ÷ (lat. sup. − lat. inf.), truncada al segundo: si la hora aumenta hacia la latitud mayor se suma, si disminuye se resta (se decide sola). Ge = longitud en tiempo (W suma, E resta). Hmgr = Hml c + Ge. HZ = Hmgr + Z.</p>
     </div>
   </section>
@@ -771,8 +826,198 @@
   </div>
 
   <div id="mareas-corrientes" class="kicker" style="margin-top:44px;">CINEMÁTICA · MAREAS · CORRIENTES</div>
-  <p class="sec-p" style="margin:0;">D/V/T individual y por tramos, ETA/ETD, consumo de combustible, Tabla II (puerto secundario), Tabla III (altura en el momento) y corriente de marea, con ajuste de huso horario SHOA. Verifica siempre con las publicaciones SHOA vigentes.</p>
-  <iframe class="nc-frame" src="navcalc.html" title="Cinemática, mareas y corrientes" loading="lazy" allow="clipboard-write" data-calcs="6"></iframe>
+  <p class="sec-p" style="margin:0;">Calculadoras de NavCalc, cada una en su propio bloque: D/V/T con ETA y consumo, Tabla II (puerto secundario), Tabla III (altura en el momento) y corriente de marea, con ajuste de huso horario SHOA. Verifica siempre con las publicaciones SHOA vigentes.</p>
+  <nav class="nc-saltos" aria-label="Calculadoras NavCalc"><a href="#nc-dvt">🧭 D/V/T</a><a href="#nc-tabla2">🌊 Tabla II</a><a href="#nc-tabla3">🌊 Tabla III</a><a href="#nc-corrientes">🌊 Corrientes</a></nav>
+  <div class="nc-pila">
+
+  <!-- NavCalc · D/V/T, ETA y consumo -->
+  <div class="nc" id="nc-dvt" data-calcs="3">
+    <div id="p-dvt">
+        <section class="nc-panel">
+          <h2>Cinemática: D / V / T</h2>
+          <p class="nc-info">Deja en blanco el valor que quieres obtener (D, V o T); los otros dos se usan para calcularlo.</p>
+          <div class="nc-seg" role="group" aria-label="Modo">
+            <button id="dvt-ind" aria-pressed="true">Individual</button>
+            <button id="dvt-leg" aria-pressed="false">Por tramos</button>
+          </div>
+          <div id="dvt-individual">
+            <div class="nc-grid">
+              <div><label for="d-d">Distancia (millas náuticas)</label><input id="d-d" inputmode="decimal"></div>
+              <div><label for="d-v">Velocidad (nudos)</label><input id="d-v" inputmode="decimal"></div>
+              <div><label for="d-t">Tiempo (HH:MM, HH:MM:SS o decimales)</label><input id="d-t" placeholder="01:30"></div>
+            </div>
+            <div class="nc-actions">
+              <button class="nc-act" id="d-go">▶ Calcular D / V / T</button>
+              <button class="nc-act nc-ghost" id="d-clear">✕ Limpiar</button>
+            </div>
+            <div id="d-out"></div>
+          </div>
+          <div id="dvt-legs" hidden>
+            <p class="nc-info">Navegación por tramos o patas consecutivas. Ingresa dos de los tres valores de cada tramo (distancia, velocidad o duración en HH:MM o decimal). Opcional: fecha y hora de zarpe inicial para calcular zarpe y ETA acumulados por pata.</p>
+            <div class="nc-grid">
+              <div><label for="l-fecha">Fecha de zarpe inicial (opcional)</label><input type="date" id="l-fecha"></div>
+              <div><label for="l-hora">Hora de zarpe inicial (opcional)</label><input type="time" id="l-hora"></div>
+              <div>
+                <label for="l-pol">Política de precisión</label>
+                <select id="l-pol">
+                  <option value="prof">🎓 Modo Profesor: trunca a 1 decimal por tramo</option>
+                  <option value="prec">📐 Modo Preciso: redondeo matemático</option>
+                </select>
+              </div>
+            </div>
+            <div id="l-rows"></div>
+            <div class="nc-actions">
+              <button class="nc-act nc-ghost" id="l-add">+ Agregar tramo</button>
+              <button class="nc-act nc-ghost" id="l-clear">✕ Limpiar tramos</button>
+              <button class="nc-act" id="l-go">▶ Calcular tramos</button>
+            </div>
+            <div id="l-out"></div>
+          </div>
+        </section>
+        <section class="nc-panel">
+          <h2>ETA: hora estimada de arribo</h2>
+          <p class="nc-info">Ingresa hora de zarpe, distancia y velocidad para conocer la hora estimada de llegada (ETA), o el camino inverso para el zarpe.</p>
+          <div class="nc-grid">
+            <div>
+              <label for="e-mode">Calcular</label>
+              <select id="e-mode"><option value="eta">ETA (hora de arribo)</option><option value="etd">Hora de zarpe (ETD)</option></select>
+            </div>
+            <div><label for="e-hora" id="e-hora-l">Hora de zarpe (ETD)</label><input type="time" id="e-hora"></div>
+            <div><label for="e-d">Distancia (MN)</label><input id="e-d" inputmode="decimal"></div>
+            <div><label for="e-v">Velocidad (nudos)</label><input id="e-v" inputmode="decimal"></div>
+          </div>
+          <div class="nc-actions">
+            <button class="nc-act" id="e-go">▶ Calcular</button>
+            <button class="nc-act nc-ghost" id="e-clear">✕ Limpiar</button>
+          </div>
+          <div id="e-out"></div>
+        </section>
+        <section class="nc-panel">
+          <h2>Consumo de combustible (estimado)</h2>
+          <p class="nc-info">Consumo por hora × tiempo de navegación. Solo necesitas el consumo horario que tienes en bitácora.</p>
+          <div class="nc-grid">
+            <div><label for="f-c">Consumo por hora (litros/hora)</label><input id="f-c" inputmode="decimal"></div>
+            <div><label for="f-d">Distancia a recorrer (MN)</label><input id="f-d" inputmode="decimal"></div>
+            <div><label for="f-v">Velocidad de servicio (nudos)</label><input id="f-v" inputmode="decimal"></div>
+          </div>
+          <div class="nc-actions">
+            <button class="nc-act" id="f-go">▶ Calcular consumo</button>
+            <button class="nc-act nc-ghost" id="f-clear">✕ Limpiar</button>
+          </div>
+          <div id="f-out"></div>
+        </section>
+      </div>
+  </div>
+
+  <!-- NavCalc · Tabla II -->
+  <div class="nc" id="nc-tabla2" data-calcs="1">
+    <div id="p-t2">
+        <section class="nc-panel" id="t2">
+          <h2>Tabla II: puerto secundario</h2>
+          <p class="nc-info">Aplica las correcciones SHOA del puerto patrón para obtener horas y alturas en el puerto secundario.</p>
+          <details class="nc-det"><summary>¿De dónde obtengo estos datos?</summary>
+            <p><b>Datos del puerto patrón (PP):</b> salen de la publicación oficial (Tablas de Marea). Ingresas a mano la hora y la altura.</p>
+            <p><b>Correcciones (Corr. H y Corr. A):</b> están en la Tabla II de la publicación, para el puerto secundario que necesitas. Son valores fijos que ingresas a mano.</p>
+            <p><b>Horas y alturas del puerto secundario:</b> las calcula esta herramienta; son solo resultado.</p>
+          </details>
+          <div class="nc-grid">
+            <div>
+              <label for="t2-mode">Tipo de corrección de altura</label>
+              <select id="t2-mode">
+                <option value="suma">Suma / resta (±m)</option>
+                <option value="factor">Factor multiplicador (× o * en SHOA)</option>
+                <option value="lineal">Relación lineal (y = m×x + b)</option>
+              </select>
+            </div>
+            <div>
+              <label for="t2-ord">Orden de las mareas</label>
+              <select id="t2-ord">
+                <option value="PM">PM, BM, PM, BM</option>
+                <option value="BM">BM, PM, BM, PM</option>
+              </select>
+            </div>
+          </div>
+          <p class="nc-info" id="t2-factor-help" hidden>Si la corrección SHOA lleva * o ×, escribe el factor sin el símbolo (por ejemplo, 0,56 → 0.56).</p>
+          <div class="nc-grid" id="t2-factor" hidden>
+            <div><label for="t2-fpm">Factor (×) para pleamar</label><input id="t2-fpm" inputmode="decimal"></div>
+            <div><label for="t2-fbm">Factor (×) para bajamar</label><input id="t2-fbm" inputmode="decimal"></div>
+          </div>
+          <div class="nc-grid" id="t2-lineal" hidden>
+            <div><label for="t2-m">Factor m (multiplicador)</label><input id="t2-m" inputmode="decimal"></div>
+            <div><label for="t2-b">Constante b (suma)</label><input id="t2-b" inputmode="decimal"></div>
+          </div>
+          <div id="t2-husohost"></div>
+          <div id="t2-rows"></div>
+          <div class="nc-actions">
+            <button class="nc-act" id="t2-go">▶ Calcular puerto secundario</button>
+            <button class="nc-act nc-ghost" id="t2-clear">✕ Limpiar</button>
+          </div>
+          <div id="t2-out"></div>
+        </section>
+      </div>
+  </div>
+
+  <!-- NavCalc · Tabla III -->
+  <div class="nc" id="nc-tabla3" data-calcs="1">
+    <div id="p-t3">
+        <section class="nc-panel" id="t3">
+          <h2>Tabla III: altura en el momento</h2>
+          <p class="nc-info">Entre una pleamar y una bajamar consecutivas, calcula la altura a la hora considerada.</p>
+          <div class="nc-grid">
+            <div style="grid-column:1/-1">
+              <label for="t3-sel">Tramo calculado en Tabla II (opcional)</label>
+              <select id="t3-sel"><option value="">Calcula primero la Tabla II o ingresa los datos a mano</option></select>
+            </div>
+          </div>
+          <div class="nc-actions" style="margin-bottom:12px"><button class="nc-act nc-ghost" id="t3-use">Usar este tramo en Tabla III</button></div>
+          <p class="nc-info">Elige un tramo consecutivo PM/BM para copiar sus horas y alturas; ingresa después la hora considerada.</p>
+          <div class="nc-grid">
+            <div><label for="t3-hpm">Hora pleamar</label><input type="time" id="t3-hpm"></div>
+            <div><label for="t3-apm">Altura PM (m)</label><input id="t3-apm" inputmode="decimal"></div>
+            <div><label for="t3-hbm">Hora bajamar</label><input type="time" id="t3-hbm"></div>
+            <div><label for="t3-abm">Altura BM (m)</label><input id="t3-abm" inputmode="decimal"></div>
+            <div><label for="t3-hc">Hora considerada</label><input type="time" id="t3-hc"></div>
+          </div>
+          <div class="nc-actions">
+            <button class="nc-act" id="t3-go">▶ Calcular altura en el momento</button>
+            <button class="nc-act nc-ghost" id="t3-clear">✕ Limpiar</button>
+          </div>
+          <div id="t3-out"></div>
+          <p class="nc-note">Método: curva de coseno entre pleamar y bajamar. La Tabla III impresa usa el valor más próximo de su tabla, por eso puede diferir unos centímetros. Confirma con la publicación para la prueba. La hora considerada debe estar dentro del intervalo PM–BM.</p>
+        </section>
+      </div>
+  </div>
+
+  <!-- NavCalc · Corrientes -->
+  <div class="nc" id="nc-corrientes" data-calcs="1">
+    <div id="p-corr">
+        <section class="nc-panel" id="c1">
+          <h2>Corriente de marea</h2>
+          <p class="nc-info">Estima la intensidad de la corriente en un instante dado entre la estoa y la corriente máxima.</p>
+          <details class="nc-det"><summary>¿Qué datos necesito y de dónde los saco?</summary>
+            <p>Los datos vienen de la tabla de corrientes SHOA del lugar que navegas (Pub. 3015 u otras del sector). Para cada ciclo la tabla entrega la <b>estoa</b> (hora en que la corriente llega a cero antes de invertir) y la <b>corriente máxima</b> (hora e intensidad en nudos del pico más cercano a tu hora de paso).</p>
+            <p>La hora considerada debe quedar <b>entre</b> la estoa y la corriente máxima. Si no cae dentro, usa el otro ciclo (flujo o reflujo).</p>
+            <p><b>Ejemplo, Canal Dalcahue 18:15:</b> estoa 15:00 → máxima 18:30 a 3.2 kn. 18:15 queda entre ambas, así que se ingresan esos valores.</p>
+          </details>
+          <div id="c-husohost"></div>
+          <div class="nc-grid">
+            <div><label for="c-est">Hora de la estoa o corriente débil (*)</label><input type="time" id="c-est"></div>
+            <div><label for="c-max">Hora de la corriente máxima</label><input type="time" id="c-max"></div>
+            <div><label for="c-im">Intensidad máxima, IM (nudos)</label><input id="c-im" inputmode="decimal"></div>
+            <div><label for="c-dir">Dirección publicada de la corriente máxima (si se conoce)</label><input id="c-dir"></div>
+            <div><label for="c-hc">Hora considerada</label><input type="time" id="c-hc"></div>
+          </div>
+          <div class="nc-actions">
+            <button class="nc-act" id="c-go">▶ Calcular intensidad</button>
+            <button class="nc-act nc-ghost" id="c-clear">✕ Limpiar</button>
+          </div>
+          <div id="c-out"></div>
+          <p class="nc-note">Método: aproximación armónica, intensidad = IM × sen(90° × tiempo desde la estoa ÷ intervalo estoa–máxima). Contrasta con la tabla de factores de la Pub. 3015 cuando el ejercicio lo pida. No incluye la ventana de corriente débil de las angosturas Inglesa y Kirke (tablas G y D).</p>
+        </section>
+      </div>
+  </div>
+
+  </div>
 </div></div>
 
 <!-- BITÁCORA -->
@@ -2171,7 +2416,8 @@ function sol(){
   var err=$('so-err');err.textContent='';
   var li=num('so-li'),ls=num('so-ls'),lat=(num('so-lat-g')||0)+(num('so-lat-m')||0)/60;
   $('so-l-inf').textContent='Almanaque '+li+'°';$('so-l-sup').textContent='Almanaque '+ls+'°';
-  var clear=function(){scel.forEach(function(c){c.textContent='';c.className=''})};
+  var des=$('so-des');
+  var clear=function(){scel.forEach(function(c){c.textContent='';c.className=''});des.innerHTML=''};
   var f=$('so-fecha').value;
   if(!f){err.textContent='Falta la fecha.';clear();return}
   if(!(ls>li)){err.textContent='La latitud superior debe ser mayor que la inferior.';clear();return}
@@ -2180,13 +2426,28 @@ function sol(){
     var g=function(k){return parseHora(document.querySelector('.so-t[data-c="'+c+'"][data-f="'+k+'"]').value)};
     return {ti:g('inf'),ts:g('sup')};
   });
-  var res=solCalc({lat:lat,lonG:num('so-lon-g')||0,lonM:num('so-lon-m')||0,west:$('so-lon-h').value==='W',z:parseFloat($('so-z').value),latInf:li,latSup:ls,y:pf[0],m:pf[1],d:pf[2],cols:cols});
+  var lonG=num('so-lon-g')||0,lonM=num('so-lon-m')||0,west=$('so-lon-h').value==='W';
+  var res=solCalc({lat:lat,lonG:lonG,lonM:lonM,west:west,z:parseFloat($('so-z').value),latInf:li,latSup:ls,y:pf[0],m:pf[1],d:pf[2],cols:cols});
   var falta=false;
+  /* desarrollo como en el cuaderno: diferencia del almanaque, regla de tres y Ge = longitud ÷ 15 */
+  var gm=function(x,w){x=Math.abs(x);var d=Math.floor(x+1e-9),m=Math.round((x-d)*60);if(m===60){d++;m=0}var s=String(d);while(s.length<w)s='0'+s;return s+'°'+pad(m)+'′'};
+  var NOM=['Comienzo aurora','Orto sol','Ocaso sol','Fin crepúsculo'],sp='&ensp;',pasos='';
+  res.forEach(function(r,c){
+    if(!r) return;
+    var dif=Math.abs(cols[c].ts-cols[c].ti);
+    pasos+='<div class="oc-paso"><b>'+NOM[c]+'</b> · '+(r.cxl<0?'se resta':r.cxl>0?'se suma':'sin corrección')+'<br>'+
+      pad(li)+'°'+sp+hmTxt(cols[c].ti)+'<br>'+pad(ls)+'°'+sp+hmTxt(cols[c].ts)+'<br>'+
+      pad(ls-li)+'°'+sp+hmTxt(dif)+'<br>'+
+      'x = '+hmTxt(dif)+' × '+gm(lat-li,2)+' ÷ '+pad(ls-li)+'°<br>x = <b>'+hms(Math.abs(r.cxl))+'</b></div>';
+  });
+  des.innerHTML=pasos?'Latitud: '+gm(lat,2)+' − '+gm(li,2)+' = <b>'+gm(lat-li,2)+'</b>'+sp+'·'+sp+
+    'Ge = '+gm(lonG+lonM/60,3)+' '+(west?'W':'E')+' ÷ 15 = <b>'+hms(lonG*240+lonM*4)+'</b> ('+(west?'W se suma':'E se resta')+')'+
+    '<div class="oc-pasos">'+pasos+'</div>':'';
   res.forEach(function(r,c){
     var set=function(k,t,cls){var el=document.querySelector('#pc-sol [data-r="'+k+'"][data-c="'+c+'"]');el.textContent=t;el.className=cls||''};
     if(!r){falta=true;['hml','cxl','hmlc','ge','hmgr','z','hz','fecha'].forEach(function(k){set(k,'')});return}
     var sgn=function(x){return (x<0?'− ':'+ ')+hms(Math.abs(x))};
-    set('hml',hms(r.hml));
+    set('hml',hmTxt(r.hml));
     set('cxl',sgn(r.cxl),r.cxl<0?'oc-neg':'oc-pos');
     set('hmlc',hms(r.hmlc));
     set('ge',sgn(r.ge),r.ge<0?'oc-neg':'oc-pos');
@@ -2209,14 +2470,478 @@ $('so-limpiar').addEventListener('click',function(){
 });
 })();
 
-/* ===== cinemática, mareas y corrientes: el marco toma la altura que avisa navcalc.html ===== */
+</script>
+
+<script>
+/* ===== NavCalc: cinemática, mareas y corrientes (lógica original del artifact; sin pestañas, cada calculadora en su bloque) ===== */
 (function(){
-var f=document.querySelector('.nc-frame');
-if(!f) return;
-window.addEventListener('message',function(e){
-  if(e.source!==f.contentWindow||!e.data||typeof e.data.navcalcAltura!=='number') return;
-  f.style.height=Math.max(300,e.data.navcalcAltura)+'px';
-});
+  const $ = id => document.getElementById(id);
+  const pad = n => String(n).padStart(2,'0');
+
+  /* ---------- utilidades ---------- */
+  function num(s){
+    if(s==null) return NaN;
+    s = String(s).trim().replace(',', '.').replace('−','-');
+    if(s==='') return NaN;
+    const n = Number(s);
+    return isFinite(n) ? n : NaN;
+  }
+  function hmToMin(v){ const m = /^(\d{1,2}):(\d{2})/.exec(v||''); return m ? (+m[1])*60 + (+m[2]) : null; }
+  function signedHM(s){
+    s = (s||'').trim().replace('−','-');
+    if(!s) return NaN;
+    const m = /^([+-]?)(\d{1,2}):(\d{2})$/.exec(s);
+    if(!m) return NaN;
+    const v = (+m[2])*60 + (+m[3]);
+    return m[1]==='-' ? -v : v;
+  }
+  function minToHM(min){
+    let d = 0;
+    while(min < 0){ min += 1440; d--; }
+    while(min >= 1440){ min -= 1440; d++; }
+    min = Math.round(min);
+
+    if(min === 1440){ min = 0; d++; }
+    return { txt: pad(Math.floor(min/60)) + ':' + pad(min%60), day: d };
+  }
+  function dayTag(d){ return d>0 ? ' (+'+d+' día'+(d>1?'s':'')+')' : d<0 ? ' (−'+(-d)+' día'+(d<-1?'s':'')+')' : ''; }
+  function show(id, html, isErr){
+    $(id).innerHTML = html ? '<div class="'+(isErr?'nc-err':'nc-result')+'"'+(isErr?' role="alert"':'')+'>'+html+'</div>' : '';
+  }
+  function copyBtn(text){
+    return '<br><button class="nc-act nc-ghost nc-copy" data-copy="'+text.replace(/"/g,'&quot;')+'">Copiar resultado</button>';
+  }
+  document.addEventListener('click', function(e){
+    const b = e.target.closest('[data-copy]');
+    if(!b) return;
+    const t = b.getAttribute('data-copy');
+    const done = () => { b.textContent = 'Copiado'; setTimeout(()=>b.textContent='Copiar resultado',1500); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(done, done); }
+    else { const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(_){} ta.remove(); done(); }
+  });
+  function todayStr(){ return new Date(Date.now() - new Date().getTimezoneOffset()*60000).toISOString().slice(0,10); }
+  function clearIn(sel){
+    document.querySelectorAll(sel+' input').forEach(i => { if(i.type!=='date') i.value=''; });
+  }
+
+  /* ---------- huso horario (AUTO / manual) ---------- */
+  const REG = {
+    lagos:{fixed:undefined}, continental:{fixed:undefined},
+
+    aysen:{fixed:-3}, magallanes:{fixed:-3}
+  };
+  function civilOffset(reg, date){
+    const r = REG[reg];
+    if(r && r.fixed !== undefined) return r.fixed;
+    try{
+      const d = new Date((date || todayStr()) + 'T12:00:00Z');
+      const part = new Intl.DateTimeFormat('en-US',{timeZone:'America/Santiago',timeZoneName:'shortOffset'})
+        .formatToParts(d).find(x => x.type==='timeZoneName').value;
+      const m = /GMT([+-]\d+)/.exec(part);
+      if(m) return +m[1];
+    }catch(e){}
+    return -4;
+  }
+  function husoHTML(p, o){
+    const opts = o.regions.map(r => '<option value="'+r[0]+'">'+r[1]+'</option>').join('');
+    return '<div class="nc-huso"><div class="nc-h">🕒 Huso horario '+o.title+'</div><div class="nc-grid">' +
+      '<div><label for="'+p+'-hmode">Modo</label><select id="'+p+'-hmode"><option value="auto">AUTO (región y fecha)</option><option value="manual">Manual / académico</option></select></div>' +
+      '<div class="'+p+'-auto"><label for="'+p+'-fecha">'+o.fecha+'</label><input type="date" id="'+p+'-fecha"></div>' +
+      '<div class="'+p+'-auto"><label for="'+p+'-reg">'+o.reg+'</label><select id="'+p+'-reg">'+opts+'</select></div>' +
+      '<div class="'+p+'-auto"><label for="'+p+'-src">'+o.src+'</label><select id="'+p+'-src"><option value="shoa">'+o.shoa+'</option><option value="civil">Hora oficial civil / ya corregida (UTC−3 o UTC−4 según fecha)</option></select></div>' +
+      '<div class="'+p+'-man" hidden><label for="'+p+'-madj">Declaración de ajuste horario manual</label><select id="'+p+'-madj"><option value="0">Sin ajuste (horas ya corregidas / hora civil)</option><option value="1">+01:00 (sumar 1 h: SHOA UTC−4 → hora oficial UTC−3)</option></select></div>' +
+      '</div><div class="nc-adjtxt" id="'+p+'-adjtxt"></div></div>';
+  }
+  function adjMinutes(p){
+    if($(p+'-hmode').value === 'manual') return $(p+'-madj').value==='1' ? 60 : 0;
+    if($(p+'-src').value === 'civil') return 0;
+    return (civilOffset($(p+'-reg').value, $(p+'-fecha').value) + 4) * 60;
+  }
+  function wireHuso(p){
+    const upd = () => {
+      const man = $(p+'-hmode').value === 'manual';
+
+      document.querySelectorAll('.'+p+'-auto').forEach(e => e.hidden = man);
+      document.querySelectorAll('.'+p+'-man').forEach(e => e.hidden = !man);
+      const a = adjMinutes(p);
+      $(p+'-adjtxt').textContent = 'Hora tabla SHOA: ' + (a ? '+0'+(a/60)+':00' : 'sin ajuste');
+    };
+    ['hmode','fecha','reg','src','madj'].forEach(k => $(p+'-'+k).addEventListener('change', upd));
+    $(p+'-fecha').value = todayStr();
+    upd();
+  }
+  $('t2-husohost').innerHTML = husoHTML('t2', {
+    title:'y ajuste de publicación', fecha:'Fecha del ejercicio / cálculo', reg:'Región / sector',
+    src:'Fuente de las horas del puerto patrón', shoa:'Publicación SHOA 3009 estándar (huso +4 / UTC−4)',
+    regions:[['lagos','Los Lagos (Puerto Montt / Castro / Chiloé)'],['aysen','Aysén (Chacabuco / Coyhaique) — UTC−3 permanente'],['magallanes','Magallanes (Punta Arenas) — UTC−3 permanente'],['continental','Chile continental general (Arica a Valdivia)']]
+  });
+  $('c-husohost').innerHTML = husoHTML('c', {
+    title:'(SHOA Pub. 3015)', fecha:'Fecha del ciclo de corriente', reg:'Región / canal',
+    src:'Fuente de las horas tabuladas', shoa:'Publicación SHOA 3015 estándar (huso +4 / UTC−4)',
+    regions:[['lagos','Los Lagos (Chacao / Dalcahue / Calbuco)'],['aysen','Aysén (Meninea / Costa / Chacabuco) — UTC−3 permanente'],['magallanes','Magallanes (Kirke / Inglesa / Smyth) — UTC−3 permanente'],['continental','Chile continental general']]
+  });
+  wireHuso('t2'); wireHuso('c');
+
+  /* ---------- D/V/T ---------- */
+  function parseTime(s){
+    s = (s||'').trim().replace(',', '.');
+    if(!s) return null;
+    if(s.indexOf(':') >= 0){
+      const p = s.split(':').map(Number);
+      if(p.length > 3 || p.some(isNaN)) return NaN;
+      return p[0] + (p[1]||0)/60 + (p[2]||0)/3600;
+    }
+    const n = Number(s);
+    return isNaN(n) ? NaN : n;
+
+  }
+  function fmtHours(h){
+    const s = Math.round(h*3600);
+    return pad(Math.floor(s/3600)) + ':' + pad(Math.floor((s%3600)/60)) + ':' + pad(s%60);
+  }
+  const f2 = x => (Math.round(x*100)/100).toFixed(2);
+  const tr1 = x => (Math.floor(x*10 + 1e-9)/10);
+
+  function solveDVT(dS, vS, tS){
+    const blanks = [dS,vS,tS].filter(x => x==='').length;
+    if(blanks !== 1) return {err:'Deja en blanco exactamente un dato (el que quieres calcular) y llena los otros dos.'};
+    const d = dS ? num(dS) : null, v = vS ? num(vS) : null, t = tS ? parseTime(tS) : null;
+    if((d!==null && isNaN(d)) || (v!==null && isNaN(v)) || (t!==null && isNaN(t)))
+      return {err:'Revisa los valores: usa números o, en el tiempo, HH:MM, HH:MM:SS o decimales.'};
+    if((d!==null && d<0) || (v!==null && v<0) || (t!==null && t<0)) return {err:'Los valores no pueden ser negativos.'};
+    if((v===0 && t===null) || (t===0 && v===null)) return {err:'No se puede dividir por cero: revisa la velocidad o el tiempo.'};
+    if(d===null) return {d:v*t, v:v, t:t, calc:'d'};
+    if(v===null) return {d:d, v:d/t, t:t, calc:'v'};
+    return {d:d, v:v, t:d/v, calc:'t'};
+  }
+
+  $('dvt-ind').addEventListener('click', () => setMode(true));
+  $('dvt-leg').addEventListener('click', () => setMode(false));
+  function setMode(ind){
+    $('dvt-ind').setAttribute('aria-pressed', ind); $('dvt-leg').setAttribute('aria-pressed', !ind);
+    $('dvt-individual').hidden = !ind; $('dvt-legs').hidden = ind;
+  }
+
+  $('d-go').addEventListener('click', function(){
+    const r = solveDVT($('d-d').value.trim(), $('d-v').value.trim(), $('d-t').value.trim());
+    if(r.err){ show('d-out', r.err, true); return; }
+    let html, txt;
+
+    if(r.calc==='d'){ html = '<div class="nc-big">D = '+f2(r.d)+' MN</div>'; txt = 'D = '+f2(r.d)+' MN'; }
+    else if(r.calc==='v'){ html = '<div class="nc-big">V = '+f2(r.v)+' kn</div>'; txt = 'V = '+f2(r.v)+' kn'; }
+    else { html = '<div class="nc-big">T = '+fmtHours(r.t)+'</div><div>'+f2(r.t)+' h en decimal</div>'; txt = 'T = '+fmtHours(r.t)+' ('+f2(r.t)+' h)'; }
+    show('d-out', html + copyBtn(txt));
+  });
+  $('d-clear').addEventListener('click', () => { clearIn('#dvt-individual'); $('d-out').innerHTML=''; });
+
+  /* por tramos */
+  let legN = 0;
+  function addLeg(vals){
+    legN++;
+    const fs = document.createElement('fieldset');
+    fs.className = 'leg';
+    fs.innerHTML = '<legend>Tramo <span class="legnum"></span></legend><div class="nc-grid">' +
+      '<div><label>Distancia (MN)</label><input class="ld" inputmode="decimal"></div>' +
+      '<div><label>Velocidad (nudos)</label><input class="lv" inputmode="decimal"></div>' +
+      '<div><label>Duración (HH:MM o decimal)</label><input class="lt"></div>' +
+      '</div><div class="nc-actions" style="margin-bottom:8px"><button class="nc-act nc-ghost lrm" type="button">Quitar tramo</button></div>';
+    if(vals){ fs.querySelector('.ld').value=vals[0]||''; fs.querySelector('.lv').value=vals[1]||''; fs.querySelector('.lt').value=vals[2]||''; }
+    fs.querySelector('.lrm').addEventListener('click', () => { fs.remove(); renumber(); });
+    $('l-rows').appendChild(fs); renumber();
+  }
+  function renumber(){ document.querySelectorAll('#l-rows .legnum').forEach((s,i) => s.textContent = i+1); }
+  addLeg(); addLeg();
+  $('l-add').addEventListener('click', () => addLeg());
+  $('l-clear').addEventListener('click', () => { $('l-rows').innerHTML=''; addLeg(); addLeg(); $('l-out').innerHTML=''; });
+
+  function fmtClock(ms, base, hasDate){
+    ms = Math.round(ms/60000)*60000;
+    const d = new Date(ms);
+    const hh = pad(d.getHours())+':'+pad(d.getMinutes());
+    if(hasDate) return pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear()+' '+hh;
+
+    const dd = Math.round((new Date(d.getFullYear(),d.getMonth(),d.getDate()) - new Date(base.getFullYear(),base.getMonth(),base.getDate()))/864e5);
+    return hh + dayTag(dd);
+  }
+  $('l-go').addEventListener('click', function(){
+    const prof = $('l-pol').value === 'prof';
+    const legs = document.querySelectorAll('#l-rows .leg');
+    const rows = []; const errs = [];
+    legs.forEach((fs, i) => {
+      const dS = fs.querySelector('.ld').value.trim(), vS = fs.querySelector('.lv').value.trim(), tS = fs.querySelector('.lt').value.trim();
+      if(!dS && !vS && !tS) return;
+      const filled = [dS,vS,tS].filter(x=>x!=='').length;
+      if(filled !== 2){ errs.push('Tramo '+(i+1)+': ingresa exactamente dos de los tres valores.'); return; }
+      const r = solveDVT(dS, vS, tS);
+      if(r.err){ errs.push('Tramo '+(i+1)+': '+r.err); return; }
+      if(prof){ r.d = tr1(r.d); r.v = tr1(r.v); r.t = tr1(r.t); }
+      rows.push({n:i+1, d:r.d, v:r.v, t:r.t});
+    });
+    if(errs.length){ show('l-out', errs.join('<br>'), true); return; }
+    if(!rows.length){ show('l-out', 'Llena al menos un tramo.', true); return; }
+
+    const fecha = $('l-fecha').value, hora = $('l-hora').value;
+    const hasStart = !!hora;
+    const hasDate = !!(hora && fecha);
+    let t0 = null, base = null;
+    if(hasStart){
+      t0 = new Date((fecha || '2000-01-01') + 'T' + hora + ':00').getTime();
+      base = new Date(t0);
+    }
+    let accD = 0, accT = 0;
+    let html = '<table><thead><tr><th>Tramo</th><th>D (MN)</th><th>V (kn)</th><th>T</th>'+(hasStart?'<th>Zarpe</th><th>ETA</th>':'')+'</tr></thead><tbody>';
+    rows.forEach(r => {
+      const z = hasStart ? t0 + accT*3600000 : null;
+
+      accD += r.d; accT += r.t;
+      const e = hasStart ? t0 + accT*3600000 : null;
+      html += '<tr><td>'+r.n+'</td><td class="n">'+(prof?r.d.toFixed(1):f2(r.d))+'</td><td class="n">'+(prof?r.v.toFixed(1):f2(r.v))+'</td><td class="n">'+fmtHours(r.t).slice(0,5)+'</td>' +
+        (hasStart ? '<td class="n">'+fmtClock(z,base,hasDate)+'</td><td class="n">'+fmtClock(e,base,hasDate)+'</td>' : '') + '</tr>';
+    });
+    const vm = accT>0 ? accD/accT : 0;
+    html += '</tbody></table><table><tbody>' +
+      '<tr><th>Distancia total</th><td class="n">'+(prof?accD.toFixed(1):f2(accD))+' MN</td></tr>' +
+      '<tr><th>Tiempo total</th><td class="n">'+fmtHours(accT).slice(0,5)+' h ('+(prof?accT.toFixed(1):f2(accT))+' h)</td></tr>' +
+      '<tr><th>Velocidad media</th><td class="n">'+(prof?tr1(vm).toFixed(1):f2(vm))+' kn</td></tr></tbody></table>';
+    const txt = 'Total: '+(prof?accD.toFixed(1):f2(accD))+' MN en '+fmtHours(accT).slice(0,5)+' h, vm '+(prof?tr1(vm).toFixed(1):f2(vm))+' kn';
+    show('l-out', html + copyBtn(txt));
+  });
+
+  /* ETA / ETD */
+  $('e-mode').addEventListener('change', () => {
+    $('e-hora-l').textContent = $('e-mode').value==='eta' ? 'Hora de zarpe (ETD)' : 'Hora de arribo (ETA)';
+  });
+  $('e-go').addEventListener('click', function(){
+    const t0 = hmToMin($('e-hora').value), d = num($('e-d').value), v = num($('e-v').value);
+    if(t0===null || isNaN(d) || isNaN(v)){ show('e-out','Ingresa la hora, la distancia y la velocidad.', true); return; }
+    if(v<=0 || d<0){ show('e-out','La velocidad debe ser mayor que cero y la distancia no puede ser negativa.', true); return; }
+    const T = d/v, min = T*60;
+    const eta = $('e-mode').value==='eta';
+    const r = minToHM(eta ? t0+min : t0-min);
+    const label = eta ? 'ETA' : 'Hora de zarpe';
+    show('e-out', '<div class="nc-big">'+label+' '+r.txt+dayTag(r.day)+'</div><div>Tiempo de navegación: '+fmtHours(T).slice(0,5)+' h ('+f2(T)+' h)</div>' +
+      copyBtn(label+' '+r.txt+dayTag(r.day)));
+  });
+  $('e-clear').addEventListener('click', () => { clearIn('#p-dvt .nc-panel:nth-of-type(2)'); $('e-out').innerHTML=''; });
+
+  /* combustible */
+
+  $('f-go').addEventListener('click', function(){
+    const c = num($('f-c').value), d = num($('f-d').value), v = num($('f-v').value);
+    if(isNaN(c)||isNaN(d)||isNaN(v)){ show('f-out','Completa consumo, distancia y velocidad.', true); return; }
+    if(v<=0 || c<0 || d<0){ show('f-out','Revisa los valores: la velocidad debe ser mayor que cero.', true); return; }
+    const T = d/v, L = c*T;
+    show('f-out', '<div class="nc-big">'+L.toFixed(1)+' L</div><div>Tiempo de navegación: '+fmtHours(T).slice(0,5)+' h</div>' + copyBtn('Consumo estimado: '+L.toFixed(1)+' L en '+fmtHours(T).slice(0,5)+' h'));
+  });
+  $('f-clear').addEventListener('click', () => { ['f-c','f-d','f-v'].forEach(i => $(i).value=''); $('f-out').innerHTML=''; });
+
+  /* ---------- TABLA II ---------- */
+  const rowsHost = $('t2-rows');
+  function buildT2Rows(){
+    const first = $('t2-ord').value;
+    const keep = {};
+    for(let i=1;i<=4;i++){ ['h','ch','a','ca'].forEach(k => { const el=$('t2-'+k+i); if(el) keep[k+i]=el.value; }); }
+    rowsHost.innerHTML = '';
+    for(let i=1;i<=4;i++){
+      const tipo = ((i%2===1) ? first : (first==='PM'?'BM':'PM'));
+      const fs = document.createElement('fieldset');
+      fs.dataset.tipo = tipo;
+      fs.innerHTML = '<legend>'+(tipo==='PM'?'Pleamar':'Bajamar')+' '+i+'</legend><div class="nc-grid">' +
+        '<div><label for="t2-h'+i+'">Hora PP</label><input type="time" id="t2-h'+i+'"></div>' +
+        '<div><label for="t2-ch'+i+'">Corr. H (±HH:MM)</label><input id="t2-ch'+i+'" placeholder="+00:15"></div>' +
+        '<div><label for="t2-a'+i+'">PP alt (m)</label><input id="t2-a'+i+'" inputmode="decimal"></div>' +
+        '<div class="t2-ca"><label for="t2-ca'+i+'">Corr. A (±m)</label><input id="t2-ca'+i+'" inputmode="decimal" placeholder="-0.20"></div></div>';
+      rowsHost.appendChild(fs);
+    }
+    for(let i=1;i<=4;i++){ ['h','ch','a','ca'].forEach(k => { if(keep[k+i]!==undefined) $('t2-'+k+i).value = keep[k+i]; }); }
+    t2Mode();
+  }
+  function t2Mode(){
+    const m = $('t2-mode').value;
+
+    $('t2-factor').hidden = m!=='factor'; $('t2-factor-help').hidden = m!=='factor';
+    $('t2-lineal').hidden = m!=='lineal';
+    document.querySelectorAll('.t2-ca').forEach(el => el.hidden = m!=='suma');
+  }
+  $('t2-mode').addEventListener('change', t2Mode);
+  $('t2-ord').addEventListener('change', buildT2Rows);
+  buildT2Rows();
+
+  let t2Results = [];
+  function refreshT3Select(){
+    const sel = $('t3-sel');
+    sel.innerHTML = '';
+    if(t2Results.length < 2){
+      sel.innerHTML = '<option value="">Calcula primero la Tabla II o ingresa los datos a mano</option>'; return;
+    }
+    for(let k=0;k<t2Results.length-1;k++){
+      const a = t2Results[k], b = t2Results[k+1];
+      if(a.tipo === b.tipo) continue;
+      const o = document.createElement('option'); o.value = k;
+      o.textContent = a.tipo+' '+a.hora+' ('+a.alt.toFixed(2)+' m) → '+b.tipo+' '+b.hora+' ('+b.alt.toFixed(2)+' m)';
+      sel.appendChild(o);
+    }
+    if(!sel.options.length) sel.innerHTML = '<option value="">No hay un par PM/BM consecutivo en el resultado</option>';
+  }
+  $('t2-go').addEventListener('click', function(){
+    const mode = $('t2-mode').value;
+    const adj = adjMinutes('t2');
+    const fPM = num($('t2-fpm').value), fBM = num($('t2-fbm').value);
+    const lm = num($('t2-m').value), lb = num($('t2-b').value);
+    const errs = [], res = [];
+    if(mode==='factor' && (isNaN(fPM) || isNaN(fBM))) errs.push('Ingresa el factor de pleamar y el de bajamar.');
+    if(mode==='lineal' && (isNaN(lm) || isNaN(lb))) errs.push('Ingresa m y b de la relación lineal (b = 0 si no hay constante).');
+
+    document.querySelectorAll('#t2-rows fieldset').forEach((fs, idx) => {
+      const i = idx+1, tipo = fs.dataset.tipo;
+      const h = $('t2-h'+i).value, aS = $('t2-a'+i).value, chS = $('t2-ch'+i).value, caS = $('t2-ca'+i).value;
+      if(!h && !aS.trim() && !chS.trim() && !caS.trim()) return;
+      const tm = hmToMin(h), a = num(aS), ch = signedHM(chS);
+      const nm = (tipo==='PM'?'Pleamar ':'Bajamar ')+i;
+      if(tm===null){ errs.push(nm+': falta la hora del puerto patrón.'); return; }
+      if(isNaN(a)){ errs.push(nm+': falta la altura del puerto patrón.'); return; }
+      if(isNaN(ch)){ errs.push(nm+': falta la corrección de hora con formato ±HH:MM (usa +00:00 si es cero).'); return; }
+      let alt;
+      if(mode==='suma'){
+        const ca = num(caS);
+        if(isNaN(ca)){ errs.push(nm+': falta la corrección de altura (usa 0 si es cero).'); return; }
+        alt = a + ca;
+      } else if(mode==='factor'){
+        if(isNaN(fPM) || isNaN(fBM)) return;
+        alt = a * (tipo==='PM' ? fPM : fBM);
+      } else {
+        if(isNaN(lm) || isNaN(lb)) return;
+        alt = lm*a + lb;
+      }
+      const hs = minToHM(tm + adj + ch);
+      res.push({ i, tipo, hora: hs.txt, day: hs.day, alt });
+    });
+    t2Results = errs.length ? [] : res;
+    refreshT3Select();
+    if(errs.length){ show('t2-out', errs.join('<br>'), true); return; }
+    if(!res.length){ show('t2-out', 'Llena al menos una fila completa (hora, altura y correcciones).', true); return; }
+    let html = '<table><thead><tr><th>Marea</th><th>Hora secundario</th><th>Altura secundario</th></tr></thead><tbody>';
+    const txt = [];
+    res.forEach(r => {
+      const nombre = r.tipo==='PM' ? 'Pleamar' : 'Bajamar';
+
+      html += '<tr><td>'+nombre+' '+r.i+'</td><td class="n">'+r.hora+dayTag(r.day)+'</td><td class="n">'+r.alt.toFixed(2)+' m</td></tr>';
+      txt.push(nombre+' '+r.hora+dayTag(r.day)+' / '+r.alt.toFixed(2)+' m');
+    });
+    html += '</tbody></table><div class="nc-adjtxt" style="margin-top:6px">'+$('t2-adjtxt').textContent+'</div>' +
+      '<div class="nc-note">En la pestaña Tabla III puedes usar un tramo PM/BM de este resultado.</div>' + copyBtn(txt.join(' | '));
+    show('t2-out', html);
+  });
+  $('t2-clear').addEventListener('click', function(){
+    clearIn('#t2'); t2Results = []; $('t2-out').innerHTML=''; refreshT3Select();
+  });
+
+  /* ---------- TABLA III ---------- */
+  $('t3-use').addEventListener('click', function(){
+    const k = $('t3-sel').value;
+    if(k===''){ show('t3-out','Calcula primero la Tabla II para elegir un tramo, o ingresa los datos a mano.', true); return; }
+    const a = t2Results[+k], b = t2Results[+k+1];
+    if(!a || !b) return;
+    const pm = a.tipo==='PM' ? a : b, bm = a.tipo==='PM' ? b : a;
+    $('t3-hpm').value = pm.hora; $('t3-apm').value = pm.alt.toFixed(2);
+    $('t3-hbm').value = bm.hora; $('t3-abm').value = bm.alt.toFixed(2);
+    $('t3-out').innerHTML = ''; $('t3-hc').focus();
+  });
+  $('t3-go').addEventListener('click', function(){
+    const tp = hmToMin($('t3-hpm').value), tb = hmToMin($('t3-hbm').value), tc0 = hmToMin($('t3-hc').value);
+    const hp = num($('t3-apm').value), hb = num($('t3-abm').value);
+    if(tp===null || tb===null || tc0===null || isNaN(hp) || isNaN(hb)){
+      show('t3-out','Completa hora y altura de la pleamar y la bajamar, y la hora considerada.', true); return;
+    }
+    if(hp <= hb){ show('t3-out','La altura de la pleamar debe ser mayor que la de la bajamar. Revisa los datos.', true); return; }
+    if(tp === tb){ show('t3-out','La pleamar y la bajamar tienen la misma hora.', true); return; }
+    // intervalo consecutivo: el más corto entre PM→BM y BM→PM
+    const gPB = ((tb - tp) % 1440 + 1440) % 1440, gBP = ((tp - tb) % 1440 + 1440) % 1440;
+
+    const pmFirst = gPB <= gBP;
+    const t1 = pmFirst ? tp : tb;
+    const T = pmFirst ? gPB : gBP;
+    const h1 = pmFirst ? hp : hb, h2 = pmFirst ? hb : hp;
+    let t = ((tc0 - t1) % 1440 + 1440) % 1440;
+    if(t > T){ show('t3-out','La hora considerada queda fuera del intervalo entre la pleamar y la bajamar. Usa el par de mareas consecutivas que la encierre.', true); return; }
+    const alt = (h1+h2)/2 + (h1-h2)/2 * Math.cos(Math.PI * t / T);
+    const nearFirst = t <= T - t;
+    const hN = nearFirst ? h1 : h2;
+    const nombreN = (nearFirst === pmFirst) ? 'pleamar' : 'bajamar';
+    const tN = nearFirst ? t : T - t;
+    const txt = 'Altura a las '+minToHM(tc0).txt+': '+alt.toFixed(2)+' m';
+    show('t3-out',
+      '<div class="nc-big">'+alt.toFixed(2)+' m</div><table><tbody>' +
+      '<tr><th>Tramo</th><td class="n">'+(pmFirst?'pleamar → bajamar':'bajamar → pleamar')+'</td></tr>' +
+      '<tr><th>Duración del tramo</th><td class="n">'+minToHM(T).txt+'</td></tr>' +
+      '<tr><th>Tiempo a la '+nombreN+' más próxima</th><td class="n">'+minToHM(tN).txt+'</td></tr>' +
+      '<tr><th>Corrección sobre esa marea</th><td class="n">'+Math.abs(alt-hN).toFixed(2)+' m</td></tr>' +
+      '</tbody></table>' + copyBtn(txt));
+  });
+  $('t3-clear').addEventListener('click', () => { clearIn('#t3'); $('t3-out').innerHTML=''; });
+
+  /* ---------- CORRIENTES ---------- */
+  $('c-go').addEventListener('click', function(){
+    const adj = adjMinutes('c');
+    const e0 = hmToMin($('c-est').value), m0 = hmToMin($('c-max').value), c0 = hmToMin($('c-hc').value);
+    const im = num($('c-im').value);
+    if(e0===null || m0===null || c0===null || isNaN(im)){
+      show('c-out','Completa la estoa, la corriente máxima, su intensidad y la hora considerada.', true); return;
+    }
+    if(im < 0){ show('c-out','La intensidad máxima no puede ser negativa.', true); return; }
+    const est = e0 + adj;
+
+    let diff = (m0 + adj) - est;
+    while(diff > 720) diff -= 1440;
+    while(diff < -720) diff += 1440;
+    const max = est + diff;
+    let dc = c0 - est;
+    while(dc > 720) dc -= 1440;
+    while(dc < -720) dc += 1440;
+    const hc = est + dc;
+    const lo = Math.min(est, max), hi = Math.max(est, max);
+    if(hi === lo){ show('c-out','La estoa y la corriente máxima tienen la misma hora.', true); return; }
+    if(hc < lo || hc > hi){
+      show('c-out','La hora considerada no queda entre la estoa y la corriente máxima. Usa los datos del otro ciclo (flujo o reflujo) que sí la contenga.', true); return;
+    }
+    const T = hi - lo, t = Math.abs(hc - est);
+    const factor = Math.sin(Math.PI/2 * t / T);
+    const v = im * factor;
+    const dir = $('c-dir').value.trim().replace(/[<>&"]/g,'');
+    const fase = (max > est) ? 'aumentando desde la estoa' : 'disminuyendo hacia la estoa';
+    const txt = 'Corriente a las '+minToHM(c0).txt+': '+v.toFixed(1)+' kn'+(dir?' ('+dir+')':'');
+    show('c-out',
+      '<div class="nc-big">'+v.toFixed(1)+' kn</div><table><tbody>' +
+      (dir ? '<tr><th>Dirección</th><td>'+dir+'</td></tr>' : '') +
+      '<tr><th>Intervalo estoa–máxima</th><td class="n">'+minToHM(T).txt+'</td></tr>' +
+      '<tr><th>Tiempo desde la estoa</th><td class="n">'+minToHM(t).txt+'</td></tr>' +
+      '<tr><th>Factor</th><td class="n">'+factor.toFixed(3)+'</td></tr>' +
+      '<tr><th>Tendencia</th><td>'+fase+'</td></tr></tbody></table>' + copyBtn(txt));
+  });
+  $('c-clear').addEventListener('click', () => { clearIn('#c1'); $('c-out').innerHTML=''; });
+})();
+</script>
+<script>
+/* NavCalc: valores de ejemplo */
+(function(){
+
+  var $=function(i){return document.getElementById(i)};
+  var set=function(i,v){$(i).value=v};
+  var ch=function(i,v){set(i,v);$(i).dispatchEvent(new Event('change'))};
+  // D/V/T
+  set('d-d','45'); set('d-v','10'); $('d-go').click();
+  // Tabla II (horas ya en hora civil, corrección por suma/resta)
+  ch('t2-hmode','manual'); ch('t2-madj','0');
+  set('t2-h1','08:20'); set('t2-ch1','+00:15'); set('t2-a1','4.2'); set('t2-ca1','-0.1');
+  set('t2-h2','14:45'); set('t2-ch2','+00:20'); set('t2-a2','0.8'); set('t2-ca2','0.0');
+  $('t2-go').click();
+  // Tabla III
+  set('t3-hpm','08:20'); set('t3-apm','4.2'); set('t3-hbm','14:45'); set('t3-abm','0.8'); set('t3-hc','11:00');
+  $('t3-go').click();
+  // Corrientes (ejemplo Canal Dalcahue 18:15)
+  ch('c-hmode','manual'); ch('c-madj','0');
+  set('c-est','15:00'); set('c-max','18:30'); set('c-im','3.2'); set('c-dir','Flujo'); set('c-hc','18:15');
+  $('c-go').click();
 })();
 </script>
 
